@@ -28,18 +28,17 @@ O número vem da ordem da peça na lista `KIT` (src/03-script.html). Se uma peç
 ## Gôndolas e pallets
 
 - 13-modelos-editaveis-de-cartaz
-- 14-cartaz-com-preco-em-branco
-- 15-faixa-de-gondola
-- 16-stopper
-- 17-wobbler
-- 18-splash-adesivo
+- 14-faixa-de-gondola
+- 15-stopper
+- 16-wobbler
+- 17-splash-adesivo
 
 ## Checkout e telas
 
-- 19-botton-da-equipe
-- 20-video-para-tvs
-- 21-display-de-balcao
-- 22-spot-de-radio-interna (peça de áudio: sem imagem, o card mostra o ícone de áudio)
-- 23-adesivo-de-piso-da-fila
-- 24-divisor-de-esteira
-- 25-camiseta-da-campanha
+- 18-botton-da-equipe
+- 19-video-para-tvs
+- 20-display-de-balcao
+- 21-spot-de-radio-interna (peça de áudio: sem imagem, o card mostra o ícone de áudio)
+- 22-adesivo-de-piso-da-fila
+- 23-divisor-de-esteira
+- 24-camiseta-da-campanha
