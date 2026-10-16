@@ -2,7 +2,7 @@
 
 Apresentação HTML da proposta 75 LAB de **materiais de ponto de venda para a Black Friday 2026** das lojas Copafer de **Santo André** e **Mauá** (comunicação institucional, entrega nas lojas até 30/10/2026).
 
-- **Proposta (13 telas):** https://agencia75lab.github.io/copafer-black-friday/
+- **Proposta (13 telas):** https://projetos.75lab.com.br/copafer-black-friday/
 
 ## Estrutura
 

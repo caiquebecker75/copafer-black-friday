@@ -1,5 +1,5 @@
 # Monta a apresentação a partir de /src (Pages servindo main / raiz)
-#  - index.html : proposta Black Friday Copafer (13 telas) -> agencia75lab.github.io/copafer-black-friday/
+#  - index.html : proposta Black Friday Copafer (13 telas) -> projetos.75lab.com.br/copafer-black-friday/
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $src  = Join-Path $root 'src'
