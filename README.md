@@ -10,7 +10,7 @@ Construído a partir do KV da campanha ("Tire seus planos do papel."): vermelho 
 
 1. **Capa** (vermelho): etiqueta Black Friday, tagline e o mascote recortado do KV.
 2. **O desafio**: duas lojas gigantes, dez dias úteis; 42 peças, 20 essenciais, 38 prontas em até 5 dias úteis.
-3. **O kit**: as 42 peças em 4 abas (lado de fora, entrada e teto, gôndolas e pallets, checkout e telas). Cada peça é um card com **espaço para a imagem do material**, prioridade, especificação, quantidade e prazo.
+3. **O kit**: as 42 peças em 4 abas (lado de fora, entrada e teto, gôndolas e pallets, checkout e telas). Filtros por prioridade (P1, P2, P3) e por área; abre em P1. Cada peça é um card com a imagem do material, área, prioridade, especificação, quantidade e prazo. Clicar na imagem amplia a peça (setas ou deslize passam pelas peças do filtro; Esc ou clique fora fecha).
 4. **Cronograma**: cinco marcos até a entrega em 30/10.
 5. **Investimento** (preto): kit essencial × kit completo, valores a preencher.
 6. **Próximos passos** (vermelho) e contato.

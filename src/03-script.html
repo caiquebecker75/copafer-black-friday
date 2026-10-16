@@ -175,13 +175,15 @@ var KIT = [
   // toque (tablet em modo apresentação): deslizar para os lados troca de tela, menos no carrossel do kit
   var tx = null, ty = 0;
   doc.addEventListener('touchstart', function (e) {
-    if (!isDeck || e.touches.length !== 1 || e.target.closest('.rail')) { tx = null; return; }
+    if (e.touches.length !== 1 || (!lbOpen && (!isDeck || e.target.closest('.rail')))) { tx = null; return; }
     tx = e.touches[0].clientX; ty = e.touches[0].clientY;
   }, { passive: true });
   doc.addEventListener('touchend', function (e) {
     if (tx === null) return;
     var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (lbOpen) lbShow(lbI + (dx < 0 ? 1 : -1)); else go(cur + (dx < 0 ? 1 : -1));
+    }
     tx = null;
   }, { passive: true });
 
@@ -206,17 +208,21 @@ var KIT = [
     ph.appendChild(im);
   }
   function card(k) {
-    var p = PR[k.pr];
+    var p = PR[k.pr], has = !!PDV[k.file];
     var el = doc.createElement('article');
     el.className = 'card';
     var empty = k.au
       ? '<div class="ph-empty"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></svg>Peça de áudio · 30 s</div>'
       : '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div>';
     el.innerHTML =
-      '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>' +
+      (has
+        ? '<button type="button" class="ph zoom" aria-label="Ampliar imagem: ' + esc(k.n) + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty +
+          '<span class="zoom-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4M11 8v6M8 11h6"/></svg></span></button>'
+        : '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>') +
       '<div class="bd"><p class="zn">' + esc(ZN[k.z]) + '</p><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
       '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
     loadImg(el.querySelector('.ph'), k.file, k.n);
+    if (has) el.querySelector('.ph').addEventListener('click', function () { openLb(k); });
     return el;
   }
   var railWrap = doc.getElementById('railWrap');
@@ -231,11 +237,59 @@ var KIT = [
     { f: 'p2', name: 'P2 · Recomendada', dot: 'd2', test: function (k) { return k.pr === 2; } },
     { f: 'p3', name: 'P3 · Opcional', dot: 'd3', test: function (k) { return k.pr === 3; } }
   ].concat(ZONES.map(function (z) { return { f: z.id, name: z.name, test: function (k) { return k.z === z.id; } }; }));
+  // ---------- imagem ampliada (navega pelas peças do filtro atual) ----------
+  var shown = [];
+  var lbx = doc.getElementById('lbx'), lbxImg = doc.getElementById('lbxImg'), lbxZn = doc.getElementById('lbxZn'),
+      lbxNm = doc.getElementById('lbxNm'), lbxQt = doc.getElementById('lbxQt'), lbxCount = doc.getElementById('lbxCount'),
+      lbxClose = doc.getElementById('lbxClose'), lbxPrev = doc.getElementById('lbxPrev'), lbxNext = doc.getElementById('lbxNext');
+  var lbList = [], lbI = 0, lbLast = null;
+  var lbOpen = false;
+  lbxImg.addEventListener('load', function () {
+    var narrow = innerWidth <= 700, w = lbxImg.naturalWidth, h = lbxImg.naturalHeight;
+    var s = Math.min((innerWidth - (narrow ? 24 : 200)) / w, (innerHeight - (narrow ? 260 : 220)) / h, 1.8);
+    lbxImg.style.width = Math.round(w * s) + 'px';
+    lbxImg.style.height = Math.round(h * s) + 'px';
+  });
+  function lbShow(i) {
+    lbI = (i + lbList.length) % lbList.length;
+    var k = lbList[lbI];
+    lbxImg.style.width = lbxImg.style.height = '';
+    lbxImg.src = 'assets/pdv/' + PDV[k.file];
+    lbxImg.alt = k.n;
+    lbxZn.textContent = ZN[k.z] + ' · ' + PR[k.pr][1];
+    lbxNm.textContent = k.n;
+    lbxQt.textContent = k.q + ' · ' + k.t;
+    lbxCount.textContent = (lbI + 1) + ' / ' + lbList.length;
+  }
+  function openLb(k) {
+    lbList = shown.filter(function (x) { return PDV[x.file]; });
+    lbLast = doc.activeElement;
+    lbx.classList.toggle('single', lbList.length < 2);
+    lbShow(Math.max(0, lbList.indexOf(k)));
+    lbOpen = true;
+    lbx.classList.add('open');
+    lbx.setAttribute('aria-hidden', 'false');
+    html.style.overflow = 'hidden';
+    lbxClose.focus();
+  }
+  function closeLb() {
+    lbOpen = false;
+    lbx.classList.remove('open');
+    lbx.setAttribute('aria-hidden', 'true');
+    html.style.overflow = '';
+    if (lbLast && lbLast.focus) lbLast.focus();
+  }
+  lbxClose.addEventListener('click', closeLb);
+  lbxPrev.addEventListener('click', function () { lbShow(lbI - 1); });
+  lbxNext.addEventListener('click', function () { lbShow(lbI + 1); });
+  lbx.addEventListener('click', function (e) { if (e.target === lbx || e.target.classList.contains('lbx-stage')) closeLb(); });
+
   function showFilter(f) {
     var flt = FILTERS.filter(function (x) { return x.f === f; })[0];
     [].forEach.call(tabs.querySelectorAll('button'), function (b) { b.setAttribute('aria-selected', b.dataset.f === f ? 'true' : 'false'); });
     rail.innerHTML = '';
-    KIT.filter(flt.test).forEach(function (k) { rail.appendChild(card(k)); });
+    shown = KIT.filter(flt.test);
+    shown.forEach(function (k) { rail.appendChild(card(k)); });
     rail.scrollLeft = 0;
     rail.setAttribute('aria-label', flt.name);
     arrows();
@@ -261,6 +315,13 @@ var KIT = [
   addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var k = e.key, onCtl = e.target && e.target.closest && e.target.closest('button, a');
+    if (lbOpen) {
+      if (k === 'Escape') { e.preventDefault(); closeLb(); }
+      else if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); lbShow(lbI + 1); }
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); lbShow(lbI - 1); }
+      else if (k === 'Tab') { e.preventDefault(); var f = [lbxClose, lbxPrev, lbxNext].filter(function (b) { return b.offsetParent; }); var j = f.indexOf(doc.activeElement); f[(j + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus(); }
+      return;
+    }
     if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey && !onCtl)) { e.preventDefault(); go(cur + 1); }
     else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey && !onCtl)) { e.preventDefault(); go(cur - 1); }
     else if (k === 'Home') { e.preventDefault(); go(0); }

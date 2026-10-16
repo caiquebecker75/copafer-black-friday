@@ -9,6 +9,16 @@
 </nav>
 <div class="wipe" id="wipe" aria-hidden="true"></div>
 <p class="sr" id="live" aria-live="polite"></p>
+<div class="lbx" id="lbx" role="dialog" aria-modal="true" aria-label="Imagem do material ampliada" aria-hidden="true">
+  <figure class="lbx-stage">
+    <img id="lbxImg" alt="">
+    <figcaption><span class="lbx-zn" id="lbxZn"></span><b id="lbxNm"></b><span class="lbx-qt" id="lbxQt"></span></figcaption>
+  </figure>
+  <p class="lbx-count" id="lbxCount"></p>
+  <button type="button" class="lbx-btn lbx-close" id="lbxClose" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button type="button" class="lbx-btn lbx-prev" id="lbxPrev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button type="button" class="lbx-btn lbx-next" id="lbxNext" aria-label="Próxima imagem"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
 
 <main>
 
