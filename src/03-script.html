@@ -189,6 +189,8 @@ var KIT = [
   var tabs = doc.getElementById('tabs'), rail = doc.getElementById('rail');
   var prevC = doc.getElementById('prevC'), nextC = doc.getElementById('nextC');
   var PR = { 1: ['p1', 'Essencial'], 2: ['p2', 'Recomendada'], 3: ['p3', 'Opcional'] };
+  var ZN = {};
+  ZONES.forEach(function (z) { ZN[z.id] = z.name; });
   // imagens presentes em assets/pdv/ (o build.ps1 preenche esta lista: nome sem extensão -> arquivo)
   var PDV = /*@@PDV@@*/{};
   KIT.forEach(function (k, i) { k.file = pad(i + 1) + '-' + k.f; });
@@ -212,30 +214,40 @@ var KIT = [
       : '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div>';
     el.innerHTML =
       '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>' +
-      '<div class="bd"><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
+      '<div class="bd"><p class="zn">' + esc(ZN[k.z]) + '</p><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
       '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
     loadImg(el.querySelector('.ph'), k.file, k.n);
     return el;
   }
+  var railWrap = doc.getElementById('railWrap');
   function arrows() {
     prevC.disabled = rail.scrollLeft <= 4;
     nextC.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    railWrap.classList.toggle('end', nextC.disabled);
   }
-  function showZone(id) {
-    [].forEach.call(tabs.children, function (b) { b.setAttribute('aria-selected', b.dataset.z === id ? 'true' : 'false'); });
+  // filtros: primeiro por prioridade (P1, P2, P3), depois por área da loja
+  var FILTERS = [
+    { f: 'p1', name: 'P1 · Essencial', dot: 'd1', test: function (k) { return k.pr === 1; } },
+    { f: 'p2', name: 'P2 · Recomendada', dot: 'd2', test: function (k) { return k.pr === 2; } },
+    { f: 'p3', name: 'P3 · Opcional', dot: 'd3', test: function (k) { return k.pr === 3; } }
+  ].concat(ZONES.map(function (z) { return { f: z.id, name: z.name, test: function (k) { return k.z === z.id; } }; }));
+  function showFilter(f) {
+    var flt = FILTERS.filter(function (x) { return x.f === f; })[0];
+    [].forEach.call(tabs.querySelectorAll('button'), function (b) { b.setAttribute('aria-selected', b.dataset.f === f ? 'true' : 'false'); });
     rail.innerHTML = '';
-    KIT.filter(function (k) { return k.z === id; }).forEach(function (k) { rail.appendChild(card(k)); });
+    KIT.filter(flt.test).forEach(function (k) { rail.appendChild(card(k)); });
     rail.scrollLeft = 0;
-    rail.setAttribute('aria-label', ZONES.filter(function (z) { return z.id === id; })[0].name);
+    rail.setAttribute('aria-label', flt.name);
     arrows();
   }
-  ZONES.forEach(function (z, i) {
+  FILTERS.forEach(function (x, i) {
+    if (i === 3) { var sep = doc.createElement('span'); sep.className = 'sep'; sep.setAttribute('aria-hidden', 'true'); tabs.appendChild(sep); }
     var b = doc.createElement('button');
     b.type = 'button';
     b.setAttribute('role', 'tab');
-    b.dataset.z = z.id;
-    b.innerHTML = esc(z.name) + '<span>' + KIT.filter(function (k) { return k.z === z.id; }).length + '</span>';
-    b.addEventListener('click', function () { showZone(z.id); });
+    b.dataset.f = x.f;
+    b.innerHTML = (x.dot ? '<i class="dot ' + x.dot + '" aria-hidden="true"></i>' : '') + esc(x.name) + '<span>' + KIT.filter(x.test).length + '</span>';
+    b.addEventListener('click', function () { showFilter(x.f); });
     tabs.appendChild(b);
   });
   var step = function () { var c = rail.querySelector('.card'); return c ? (c.offsetWidth + 20) * 2 : 600; };
@@ -243,7 +255,7 @@ var KIT = [
   nextC.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
   rail.addEventListener('scroll', arrows, { passive: true });
   addEventListener('resize', arrows);
-  showZone(ZONES[0].id);
+  showFilter('p1');
 
   // ---------- teclado: → ↓ PageDown espaço avançam · ← ↑ PageUp voltam · Home/End ----------
   addEventListener('keydown', function (e) {

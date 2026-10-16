@@ -47,7 +47,6 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 - Logo oficial da Copafer: a barra usa o nome em tipografia sobre o amarelo do KV.
 - Investimento: valores por frente nas duas opções, total, condições de pagamento e validade.
-- Apresentador: nome, cargo, e-mail e telefone.
 - Medidas e quantidades finais dependem da medição técnica nas duas lojas (até 20/10).
 
 ## Fontes
