@@ -1,0 +1,5 @@
+# arquivos de trabalho que não fazem parte do site
+copafer-deck/
+*.docx
+*.pptx
+.claude/
