@@ -2,6 +2,13 @@
   <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início"><span class="cop">COPAFER</span><span class="x" aria-hidden="true">×</span><img src="assets/images/75lab-black.png" alt="75 LAB"></a>
   <p class="count" aria-live="off"><span id="cNow">01</span> / <span id="cAll">06</span></p>
 </header>
+<nav class="nav" aria-label="Navegação da apresentação">
+  <button type="button" class="arw" id="prevS" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <ol class="segs" id="segs"></ol>
+  <button type="button" class="arw" id="nextS" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+<p class="sr" id="live" aria-live="polite"></p>
 
 <main>
 
@@ -42,16 +49,16 @@
       <p class="eyebrow" data-r>O kit · 42 peças por loja</p>
       <h2 class="h2" data-r style="--d:.1s">Da avenida <em>ao caixa</em></h2>
     </div>
-    <div class="tabs" role="tablist" aria-label="Áreas da loja" id="tabs" data-r style="--d:.2s"></div>
-  </div>
-  <div class="rail" id="rail" role="tabpanel" aria-live="polite" data-r style="--d:.25s"></div>
-  <div class="kit-bar" data-r style="--d:.3s">
-    <p class="legend"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
-    <div class="arrows">
+    <div class="arrows" data-r style="--d:.2s">
       <button type="button" id="prevC" aria-label="Peças anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button type="button" id="nextC" aria-label="Próximas peças"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
+  <div class="kit-bar" data-r style="--d:.2s">
+    <div class="tabs" role="tablist" aria-label="Áreas da loja" id="tabs"></div>
+    <p class="legend"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
+  </div>
+  <div class="rail" id="rail" role="tabpanel" aria-live="polite" data-r style="--d:.3s"></div>
 </section>
 
 <!-- 04 · CRONOGRAMA -->

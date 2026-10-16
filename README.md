@@ -15,7 +15,7 @@ Construído a partir do KV da campanha ("Tire seus planos do papel."): vermelho 
 5. **Investimento** (preto): kit essencial × kit completo, valores a preencher.
 6. **Próximos passos** (vermelho) e contato.
 
-Navegação: rolagem, setas ↑ ↓ (na tela do kit, ← → passam as peças), PageUp/PageDown, Home/End. Deep link: `#s3`.
+Navegação em modo apresentação (telas a partir de 900 px): uma tela por vez, com transição em cortina e a faixa amarela do KV; a roda do mouse não troca de tela. Avança com → ↓ PageDown espaço, volta com ← ↑ PageUp, Home/End vão ao início e ao fim; também pelas setas e pela barra de progresso no canto inferior direito, ou deslizando o dedo no tablet. No kit, as peças passam pelas setas da própria tela ou arrastando o carrossel. Deep link: `#s3`. No celular as telas viram rolagem vertical.
 
 ## Imagens das peças
 

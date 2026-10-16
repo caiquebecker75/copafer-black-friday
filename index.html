@@ -47,7 +47,7 @@ body[data-tone="light"] :focus-visible{outline-color:var(--red)}
 .s.t-light{--bg:var(--white);--fg:var(--ink);--mut:var(--gray);--line:rgba(20,20,20,.12);--acc:var(--red)}
 .s.t-paper{--bg:var(--paper);--fg:var(--ink);--mut:var(--gray);--line:rgba(20,20,20,.12);--acc:var(--red)}
 .s.t-dark{--bg:var(--ink);--fg:var(--white);--mut:rgba(255,255,255,.66);--line:rgba(255,255,255,.14);--acc:var(--yel)}
-@media (min-width:900px) and (min-height:640px){html{scroll-snap-type:y proximity}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- barra ---------- */
 .bar{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--bar);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);color:var(--ui);pointer-events:none;transition:color .4s}
@@ -184,6 +184,44 @@ body[data-tone="light"] .brand img{filter:none}
 .contact .lb{font:800 11px/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--yel);margin-bottom:6px}
 .contact p{font-size:14.5px;line-height:1.5}
 
+/* ---------- modo apresentação (telas ≥ 900 px): uma tela por vez, sem rolagem ---------- */
+.deck,.deck body{height:100%;overflow:hidden;overscroll-behavior:none}
+.deck main{position:fixed;inset:0}
+.deck .s{position:absolute;inset:0;min-height:0;height:100%;visibility:hidden;overflow-x:hidden;overflow-y:auto;padding-bottom:clamp(80px,11vh,104px)}
+.deck .s.on,.deck .s.leaving{visibility:visible}
+.deck .s.on{z-index:2}
+.deck .s.leaving{z-index:1}
+.deck .s.from-r{animation:inR .85s var(--ease) both}
+.deck .s.from-l{animation:inL .85s var(--ease) both}
+.deck .s.to-l{animation:outL .85s var(--ease) both}
+.deck .s.to-r{animation:outR .85s var(--ease) both}
+@keyframes inR{from{clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+@keyframes inL{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes outL{to{transform:translateX(-7%)}}
+@keyframes outR{to{transform:translateX(7%)}}
+/* faixa amarela que acompanha a borda da transição */
+.wipe{position:fixed;z-index:15;top:0;bottom:0;left:100%;width:10px;margin-left:-5px;background:var(--yel);pointer-events:none;display:none}
+.wipe.run-l{display:block;animation:bandL .85s var(--ease) both}
+.wipe.run-r{display:block;animation:bandR .85s var(--ease) both}
+@keyframes bandL{from{left:100%}to{left:0}}
+@keyframes bandR{from{left:0}to{left:100%}}
+/* controles */
+.nav{position:fixed;z-index:20;right:var(--px);bottom:clamp(18px,3vh,30px);display:none;align-items:center;gap:14px;color:var(--ui);transition:color .4s}
+.deck .nav{display:flex}
+.nav .arw{width:46px;height:46px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor;display:grid;place-items:center;transition:background .2s,opacity .2s}
+.nav .arw:hover{background:rgba(255,255,255,.16)}
+body[data-tone="light"] .nav .arw:hover{background:rgba(20,20,20,.07)}
+.nav .arw:disabled{opacity:.28;cursor:default;background:none}
+.nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2}
+.segs{display:flex;gap:4px}
+.segs button{width:26px;height:24px;display:grid;place-items:center}
+.segs i{display:block;width:100%;height:4px;border-radius:2px;background:currentColor;opacity:.3;transition:opacity .3s,background .3s}
+.segs button:hover i{opacity:.65}
+.segs button[aria-current="true"] i{opacity:1;background:var(--yel)}
+body[data-tone="light"] .segs button[aria-current="true"] i{background:var(--red)}
+.cover .band{z-index:3}
+@media (prefers-reduced-motion:reduce){.deck .s{animation:none!important}.wipe{display:none!important}}
+
 /* ---------- celular ---------- */
 @media (max-width:900px){
   .cover{justify-content:flex-start;padding-bottom:calc(clamp(56px,9vh,84px) + 24px)}
@@ -216,6 +254,13 @@ body[data-tone="light"] .brand img{filter:none}
   <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início"><span class="cop">COPAFER</span><span class="x" aria-hidden="true">×</span><img src="assets/images/75lab-black.png" alt="75 LAB"></a>
   <p class="count" aria-live="off"><span id="cNow">01</span> / <span id="cAll">06</span></p>
 </header>
+<nav class="nav" aria-label="Navegação da apresentação">
+  <button type="button" class="arw" id="prevS" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <ol class="segs" id="segs"></ol>
+  <button type="button" class="arw" id="nextS" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+<p class="sr" id="live" aria-live="polite"></p>
 
 <main>
 
@@ -256,16 +301,16 @@ body[data-tone="light"] .brand img{filter:none}
       <p class="eyebrow" data-r>O kit · 42 peças por loja</p>
       <h2 class="h2" data-r style="--d:.1s">Da avenida <em>ao caixa</em></h2>
     </div>
-    <div class="tabs" role="tablist" aria-label="Áreas da loja" id="tabs" data-r style="--d:.2s"></div>
-  </div>
-  <div class="rail" id="rail" role="tabpanel" aria-live="polite" data-r style="--d:.25s"></div>
-  <div class="kit-bar" data-r style="--d:.3s">
-    <p class="legend"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
-    <div class="arrows">
+    <div class="arrows" data-r style="--d:.2s">
       <button type="button" id="prevC" aria-label="Peças anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button type="button" id="nextC" aria-label="Próximas peças"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
+  <div class="kit-bar" data-r style="--d:.2s">
+    <div class="tabs" role="tablist" aria-label="Áreas da loja" id="tabs"></div>
+    <p class="legend"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
+  </div>
+  <div class="rail" id="rail" role="tabpanel" aria-live="polite" data-r style="--d:.3s"></div>
 </section>
 
 <!-- 04 · CRONOGRAMA -->
@@ -402,34 +447,132 @@ var KIT = [
 ];
 
 (function () {
-  var doc = document;
+  var doc = document, html = doc.documentElement;
   var S = [].slice.call(doc.querySelectorAll('.s'));
   var cNow = doc.getElementById('cNow'), cAll = doc.getElementById('cAll');
-  var cur = 0, KIT_I = S.indexOf(doc.getElementById('s3'));
+  var segs = doc.getElementById('segs'), prevS = doc.getElementById('prevS'), nextS = doc.getElementById('nextS');
+  var wipe = doc.getElementById('wipe'), live = doc.getElementById('live');
+  var cur = 0, busy = false, isDeck = false, DUR = 850;
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // modo apresentação (uma tela por vez) em telas largas; no celular, rolagem vertical
+  var deckMQ = matchMedia('(min-width: 900px) and (min-height: 560px)');
   cAll.textContent = pad(S.length);
+
+  // barra de progresso clicável
+  S.forEach(function (s, i) {
+    var li = doc.createElement('li'), b = doc.createElement('button');
+    b.type = 'button';
+    b.title = pad(i + 1) + ' · ' + s.dataset.title;
+    b.setAttribute('aria-label', b.title);
+    b.innerHTML = '<i></i>';
+    b.addEventListener('click', function () { go(i); });
+    li.appendChild(b);
+    segs.appendChild(li);
+  });
+  var segBtns = [].slice.call(segs.querySelectorAll('button'));
 
   function setActive(i) {
     cur = i;
     doc.body.dataset.tone = S[i].dataset.tone || 'red';
     cNow.textContent = pad(i + 1);
+    segBtns.forEach(function (b, j) { b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+    prevS.disabled = i === 0;
+    nextS.disabled = i === S.length - 1;
     if (history.replaceState) history.replaceState(null, '', '#s' + (i + 1));
+  }
+  function reveal(s, delay) {
+    s.classList.remove('in');
+    void s.offsetWidth;
+    setTimeout(function () { s.classList.add('in'); }, delay);
+  }
+  // troca de tela: a próxima entra num recorte que corre pela tela, com a faixa amarela na borda
+  function show(i) {
+    if (i === cur || busy) return;
+    var from = S[cur], to = S[i], fwd = i > cur;
+    to.scrollTop = 0;
+    if (!reduce) {
+      busy = true;
+      from.classList.add('leaving', fwd ? 'to-l' : 'to-r');
+      to.classList.add(fwd ? 'from-r' : 'from-l');
+      wipe.className = 'wipe';
+      void wipe.offsetWidth;
+      wipe.className = 'wipe ' + (fwd ? 'run-l' : 'run-r');
+      setTimeout(function () {
+        from.classList.remove('leaving', 'to-l', 'to-r');
+        to.classList.remove('from-r', 'from-l');
+        wipe.className = 'wipe';
+        busy = false;
+      }, DUR);
+    }
+    from.classList.remove('on');
+    to.classList.add('on');
+    reveal(to, reduce ? 0 : 280);
+    setActive(i);
+    live.textContent = 'Tela ' + (i + 1) + ' de ' + S.length + ': ' + to.dataset.title;
   }
   function go(i) {
     i = Math.max(0, Math.min(S.length - 1, i));
-    S[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    if (isDeck) show(i);
+    else S[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   }
+  function enterDeck() {
+    isDeck = true;
+    html.classList.add('deck');
+    S.forEach(function (s, j) {
+      s.classList.remove('leaving', 'to-l', 'to-r', 'from-r', 'from-l');
+      s.classList.toggle('on', j === cur);
+      s.classList.add('in');
+    });
+    window.scrollTo(0, 0);
+    setActive(cur);
+  }
+  function exitDeck() {
+    isDeck = false;
+    busy = false;
+    html.classList.remove('deck');
+    wipe.className = 'wipe';
+    S.forEach(function (s) { s.classList.remove('on', 'leaving', 'to-l', 'to-r', 'from-r', 'from-l'); s.classList.add('in'); });
+    S[cur].scrollIntoView();
+  }
+
+  // rolagem (celular): tela ativa = a que cruza o meio da janela
   if ('IntersectionObserver' in window) {
     var mid = new IntersectionObserver(function (es) {
+      if (isDeck) return;
       es.forEach(function (e) { if (e.isIntersecting) setActive(S.indexOf(e.target)); });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
     var rev = new IntersectionObserver(function (es) {
+      if (isDeck) return;
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } });
     }, { threshold: 0.12 });
     S.forEach(function (s) { mid.observe(s); rev.observe(s); });
-  } else { S.forEach(function (s) { s.classList.add('in'); }); }
-  setActive(0);
+  }
+
+  // início (aceita link direto #s3)
+  var m = location.hash.match(/^#s(\d+)$/);
+  if (m && S[+m[1] - 1]) cur = +m[1] - 1;
+  if (deckMQ.matches) { enterDeck(); reveal(S[cur], 120); }
+  else { setActive(cur); if (cur) setTimeout(function () { S[cur].scrollIntoView(); }, 60); }
+  var onMode = function () { if (deckMQ.matches && !isDeck) enterDeck(); else if (!deckMQ.matches && isDeck) exitDeck(); };
+  if (deckMQ.addEventListener) deckMQ.addEventListener('change', onMode); else deckMQ.addListener(onMode);
+
+  prevS.addEventListener('click', function () { go(cur - 1); });
+  nextS.addEventListener('click', function () { go(cur + 1); });
+  doc.querySelector('.brand').addEventListener('click', function (e) { e.preventDefault(); go(0); });
+
+  // toque (tablet em modo apresentação): deslizar para os lados troca de tela, menos no carrossel do kit
+  var tx = null, ty = 0;
+  doc.addEventListener('touchstart', function (e) {
+    if (!isDeck || e.touches.length !== 1 || e.target.closest('.rail')) { tx = null; return; }
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  doc.addEventListener('touchend', function (e) {
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1));
+    tx = null;
+  }, { passive: true });
 
   // ---------- kit ----------
   var tabs = doc.getElementById('tabs'), rail = doc.getElementById('rail');
@@ -489,23 +632,15 @@ var KIT = [
   addEventListener('resize', arrows);
   showZone(ZONES[0].id);
 
-  // ---------- teclado ----------
+  // ---------- teclado: → ↓ PageDown espaço avançam · ← ↑ PageUp voltam · Home/End ----------
   addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
-    var k = e.key;
-    if (k === 'ArrowDown' || k === 'PageDown') { e.preventDefault(); go(cur + 1); }
-    else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    var k = e.key, onCtl = e.target && e.target.closest && e.target.closest('button, a');
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey && !onCtl)) { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey && !onCtl)) { e.preventDefault(); go(cur - 1); }
     else if (k === 'Home') { e.preventDefault(); go(0); }
     else if (k === 'End') { e.preventDefault(); go(S.length - 1); }
-    else if (k === 'ArrowRight' || k === 'ArrowLeft') {
-      e.preventDefault();
-      if (cur === KIT_I) rail.scrollBy({ left: (k === 'ArrowRight' ? 1 : -1) * step() / 2, behavior: reduce ? 'auto' : 'smooth' });
-      else go(cur + (k === 'ArrowRight' ? 1 : -1));
-    }
   });
-
-  var m = location.hash.match(/^#s(\d+)$/);
-  if (m && S[+m[1] - 1]) setTimeout(function () { S[+m[1] - 1].scrollIntoView(); }, 60);
 })();
 </script>
 
