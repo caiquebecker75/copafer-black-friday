@@ -4,421 +4,296 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="author" content="75 LAB">
+<script>document.documentElement.classList.add('js')</script>
 <title>Black Friday Copafer · Copafer × 75 LAB</title>
 <meta name="description" content="Kit de materiais de PDV para a Black Friday das lojas Copafer de Santo André e Mauá · 75 LAB">
-<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap">
 <style>
-/* Black Friday Copafer · template "sinalização de obra"
-   Uma página de rolagem com 6 telas cheias. Linguagem de placa e etiqueta de preço:
-   preto, amarelo de sinalização, fita zebrada e tipografia condensada (Barlow, desenhada a partir de placas de estrada). */
+/* Black Friday Copafer · template a partir do KV da campanha
+   Vermelho Copafer, amarelo-limão, etiqueta preta e o mascote. Telas limpas, uma ideia por tela,
+   e um espaço de imagem para cada material de PDV (assets/pdv/). */
 :root{
-  --ink:#0F0F0E;
-  --ink2:#1B1A17;
-  --yel:#F5B800;
-  --paper:#F1EEE6;
-  --white:#FBFAF6;
-  --mut-d:#A9A499;
-  --mut-l:#5F5A50;
-  --f-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
-  --f-b:"Barlow",Arial,sans-serif;
+  --red:#D0040C;
+  --red-d:#A30309;
+  --yel:#FFF500;
+  --ink:#141414;
+  --paper:#F4F2EE;
+  --white:#FFFFFF;
+  --gray:#6B665E;
+  --f:"Montserrat",Arial,sans-serif;
   --px:clamp(20px,5.5vw,96px);
-  --bar:60px;
+  --bar:64px;
   --ease:cubic-bezier(.2,.8,.2,1);
   --ui:var(--white);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--ink);color:var(--white);font:400 16px/1.45 var(--f-b);-webkit-font-smoothing:antialiased}
-body[data-tone="yel"],body[data-tone="paper"]{--ui:var(--ink)}
+body{margin:0;background:var(--red);color:var(--white);font:500 16px/1.5 var(--f);-webkit-font-smoothing:antialiased}
+body[data-tone="light"]{--ui:var(--ink)}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-h1,h2,h3,p,ul,ol{margin:0}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
 ul,ol{padding:0;list-style:none}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--yel);outline-offset:3px}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--yel);outline-offset:3px}
+body[data-tone="light"] :focus-visible{outline-color:var(--red)}
 
-/* ---------- telas e tons ---------- */
-.s{--bg:var(--ink);--fg:var(--white);--mut:var(--mut-d);--line:rgba(255,255,255,.14);--acc:var(--yel);
-  position:relative;min-height:100vh;min-height:100svh;padding:calc(var(--bar) + clamp(14px,3.2vh,36px)) var(--px) clamp(28px,5vh,56px);
-  background:var(--bg);color:var(--fg);display:flex;flex-direction:column;gap:clamp(16px,3vh,32px);overflow:hidden;scroll-snap-align:start}
-.s.t-yel{--bg:var(--yel);--fg:var(--ink);--mut:#4A3B00;--line:rgba(15,15,14,.2);--acc:var(--ink)}
-.s.t-paper{--bg:var(--paper);--fg:var(--ink);--mut:var(--mut-l);--line:rgba(15,15,14,.14);--acc:#8A5E00}
+/* ---------- telas ---------- */
+.s{--bg:var(--red);--fg:var(--white);--mut:rgba(255,255,255,.78);--line:rgba(255,255,255,.22);--acc:var(--yel);
+  position:relative;min-height:100vh;min-height:100svh;padding:calc(var(--bar) + clamp(18px,4vh,48px)) var(--px) clamp(32px,6vh,64px);
+  background:var(--bg);color:var(--fg);display:flex;flex-direction:column;gap:clamp(20px,3.6vh,40px);overflow:hidden;scroll-snap-align:start}
+.s.t-light{--bg:var(--white);--fg:var(--ink);--mut:var(--gray);--line:rgba(20,20,20,.12);--acc:var(--red)}
+.s.t-paper{--bg:var(--paper);--fg:var(--ink);--mut:var(--gray);--line:rgba(20,20,20,.12);--acc:var(--red)}
+.s.t-dark{--bg:var(--ink);--fg:var(--white);--mut:rgba(255,255,255,.66);--line:rgba(255,255,255,.14);--acc:var(--yel)}
 @media (min-width:900px) and (min-height:640px){html{scroll-snap-type:y proximity}}
 
-/* ---------- barra fixa e índice ---------- */
+/* ---------- barra ---------- */
 .bar{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--bar);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);color:var(--ui);pointer-events:none;transition:color .4s}
 .bar>*{pointer-events:auto}
-.brand{display:flex;align-items:center;gap:12px;font:800 22px/1 var(--f-d);letter-spacing:.07em;text-transform:uppercase;text-decoration:none}
-.brand .x{font-weight:500;opacity:.45}
-.brand img{height:17px;width:auto}
-.brand .lab-b{display:none}
-body[data-tone="yel"] .brand .lab-w,body[data-tone="paper"] .brand .lab-w{display:none}
-body[data-tone="yel"] .brand .lab-b,body[data-tone="paper"] .brand .lab-b{display:block}
-.count{font:600 13px/1 var(--f-b);letter-spacing:.14em;font-variant-numeric:tabular-nums}
-.count b{font-weight:800}
-.dots{position:fixed;z-index:20;right:clamp(10px,1.4vw,24px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;color:var(--ui);transition:color .4s}
-.dots li{display:flex;justify-content:flex-end}
-.dots button{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-height:22px}
-.dots i{width:8px;height:8px;border-radius:4px;background:currentColor;opacity:.35;transition:height .3s var(--ease),opacity .3s}
-.dots span{font:700 11px/1 var(--f-b);letter-spacing:.14em;text-transform:uppercase;opacity:0;transform:translateX(6px);transition:opacity .25s,transform .25s;white-space:nowrap}
-.dots button:hover span,.dots button:focus-visible span{opacity:1;transform:none}
-.dots button[aria-current="true"] i{opacity:1;height:22px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.cop{display:inline-block;background:var(--yel);color:var(--red);font:900 17px/1 var(--f);letter-spacing:.01em;padding:7px 10px 6px}
+.brand .x{font-weight:600;opacity:.6}
+.brand img{height:16px;width:auto;filter:brightness(0) invert(1);transition:filter .4s}
+body[data-tone="light"] .brand img{filter:none}
+.count{font:700 13px/1 var(--f);letter-spacing:.12em;font-variant-numeric:tabular-nums}
 
-/* ---------- tipografia ---------- */
-.eyebrow{font:700 12px/1.2 var(--f-b);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:10px}
-.eyebrow::before{content:"";width:22px;height:3px;background:currentColor;flex:none}
-.h2{font:800 clamp(40px,5.2vw,86px)/.9 var(--f-d);text-transform:uppercase;letter-spacing:-.005em;max-width:21ch;text-wrap:balance}
+/* ---------- texto ---------- */
+.eyebrow{font:800 12px/1.2 var(--f);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.h2{font:900 clamp(36px,4.6vw,76px)/1 var(--f);letter-spacing:-.025em;max-width:18ch;text-wrap:balance}
 .h2 em{font-style:normal;color:var(--acc)}
-.t-yel .h2 em{display:inline-block;background:var(--ink);color:var(--yel);line-height:1;padding:.05em .12em 0;margin-top:.08em}
-.lead{font-size:clamp(17px,1.4vw,21px);line-height:1.4;color:var(--mut);max-width:60ch}
-.lead b{color:var(--fg);font-weight:600}
+.lead{font-size:clamp(16px,1.3vw,20px);line-height:1.5;color:var(--mut);max-width:56ch;font-weight:500}
+.lead b{color:var(--fg);font-weight:700}
 .head{display:flex;flex-direction:column;gap:clamp(10px,1.8vh,18px)}
-.note{font-size:13px;line-height:1.45;color:var(--mut)}
-.note b{color:var(--fg);font-weight:600}
-
-/* fita zebrada de sinalização */
-.tape{position:absolute;left:0;right:0;height:14px;background:repeating-linear-gradient(-45deg,var(--yel) 0 14px,var(--ink) 14px 28px)}
-.tape.top{top:0}.tape.bot{bottom:0}
-
-/* etiqueta de preço */
-.ptag{position:relative;background:var(--yel);color:var(--ink);clip-path:polygon(26px 0,100% 0,100% 100%,26px 100%,0 50%);padding:16px 26px 16px 48px}
-.ptag::before{content:"";position:absolute;left:19px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--bg,var(--ink))}
+.note{font-size:13.5px;line-height:1.5;color:var(--mut)}
+.note b{color:var(--fg)}
+.s.mid{justify-content:center;gap:clamp(32px,7vh,80px)}
+.s.mid .nums,.s.mid .tl,.s.mid .steps{margin-top:0}
 
 /* ---------- entrada animada ---------- */
-.js [data-r]{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
+.js [data-r]{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
 .js .s.in [data-r]{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}}
 
+/* ---------- etiqueta (do KV) ---------- */
+.tag{--cut:clamp(40px,5vw,84px);position:relative;display:inline-block;background:var(--yel);padding:5px;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% 38%,100% 62%,calc(100% - var(--cut)) 100%,0 100%)}
+.tag-in{position:relative;background:var(--ink);clip-path:polygon(0 0,calc(100% - var(--cut) + 2px) 0,100% 38%,100% 62%,calc(100% - var(--cut) + 2px) 100%,0 100%);padding:clamp(14px,2vh,24px) calc(var(--cut) + clamp(30px,3vw,56px)) clamp(14px,2vh,24px) clamp(20px,2.4vw,40px)}
+.tag-in::after{content:"";position:absolute;right:calc(var(--cut) * .55);top:50%;width:clamp(20px,2vw,34px);aspect-ratio:1;border-radius:50%;border:clamp(5px,.5vw,8px) solid var(--yel);transform:translateY(-50%)}
+
 /* ---------- 01 · capa ---------- */
-.cover{justify-content:flex-end;padding-bottom:calc(14px + clamp(28px,5vh,56px))}
-.cover .kicker{font:700 13px/1.3 var(--f-b);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-.cover h1{font:800 clamp(80px,16vw,270px)/.8 var(--f-d);text-transform:uppercase;letter-spacing:-.012em;margin-top:clamp(10px,2vh,20px)}
+.cover{justify-content:center;padding-bottom:calc(clamp(56px,9vh,84px) + clamp(24px,4vh,40px))}
+.cover .copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,2.4vh,24px);max-width:min(62vw,880px)}
+.cover .kicker{font:700 13px/1.3 var(--f);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.cover .cop-big{background:var(--yel);color:var(--red);font:900 clamp(34px,4.4vw,72px)/1 var(--f);letter-spacing:-.01em;padding:.12em .28em .08em}
+.cover h1{font:900 clamp(60px,9.2vw,160px)/.86 var(--f);letter-spacing:-.035em;color:var(--white)}
 .cover h1 span{display:block}
 .cover h1 .y{color:var(--yel)}
-.cover .sub{font:600 clamp(22px,2.5vw,40px)/1.05 var(--f-d);text-transform:uppercase;letter-spacing:.02em;max-width:30ch}
-.meta{display:flex;flex-wrap:wrap;gap:14px clamp(24px,4vw,64px);padding-top:18px;border-top:1px solid var(--line)}
-.meta small{display:block;font:700 11px/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
-.meta div{font-weight:600;font-size:16px}
-.cover .ptag{position:absolute;right:calc(var(--px) + 2vw);top:calc(var(--bar) + 6vh);transform:rotate(7deg);transform-origin:left center}
-.cover .ptag b{display:block;font:800 clamp(56px,6.4vw,104px)/.82 var(--f-d)}
-.cover .ptag span{display:block;font:700 13px/1.2 var(--f-b);letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
-.hint{position:absolute;right:var(--px);bottom:calc(14px + 22px);font:600 12px/1 var(--f-b);letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.cover h1 small{display:block;text-align:right;font:800 clamp(14px,1.3vw,22px)/1 var(--f);letter-spacing:.04em;color:var(--white);margin-top:.6em}
+.cover .tagline{font:800 clamp(22px,2.6vw,44px)/1.1 var(--f);letter-spacing:-.015em}
+.hero{position:absolute;z-index:1;top:0;right:0;height:100%;aspect-ratio:632/820;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}
+.hero img{position:absolute;top:0;right:0;height:114.8%;width:auto;max-width:none}
+.band{position:absolute;z-index:3;left:0;bottom:clamp(24px,4vh,40px);background:var(--ink);color:var(--white);font:800 clamp(16px,1.7vw,28px)/1 var(--f);letter-spacing:-.01em;padding:clamp(16px,2.2vh,22px) clamp(48px,6vw,96px) clamp(16px,2.2vh,22px) var(--px);clip-path:polygon(0 0,100% 0,calc(100% - 36px) 100%,0 100%)}
+.band span{color:var(--yel)}
 
 /* ---------- 02 · desafio ---------- */
-.ch{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4.5vw,80px);align-items:center;flex:1}
-.tags{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.tags .ptag{--bg:var(--yel);background:var(--ink);color:var(--yel);display:grid;grid-template-columns:auto auto;align-items:center;gap:18px;padding:12px 28px 12px 48px}
-.tags .ptag b{font:800 clamp(46px,4.8vw,78px)/.85 var(--f-d);min-width:1.4ch}
-.tags .ptag span{font:600 clamp(15px,1.25vw,19px)/1.2 var(--f-b);color:var(--white);max-width:16ch}
-.rules{border-top:3px solid var(--ink)}
-.rules li{display:grid;grid-template-columns:2.2ch minmax(0,1fr);gap:14px;padding:clamp(12px,2vh,18px) 0;border-bottom:1px solid var(--line)}
-.rules .n{font:800 30px/1 var(--f-d)}
-.rules b{display:block;font:800 clamp(20px,1.7vw,26px)/1 var(--f-d);text-transform:uppercase;letter-spacing:.02em;margin-bottom:5px}
-.rules p{font-size:clamp(15px,1.1vw,17px);line-height:1.4;color:#2E2608}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);margin-top:auto}
+.nums li{padding:clamp(18px,3vh,32px) clamp(16px,2vw,32px) 0 0;display:flex;flex-direction:column;gap:8px}
+.nums li+li{padding-left:clamp(16px,2vw,32px);border-left:1px solid var(--line)}
+.nums b{font:900 clamp(64px,8vw,136px)/.85 var(--f);letter-spacing:-.04em;color:var(--red)}
+.nums span{font:700 clamp(15px,1.25vw,19px)/1.3 var(--f);max-width:18ch}
+.crit{display:flex;flex-wrap:wrap;gap:10px 28px;font:600 14px/1.4 var(--f);color:var(--mut)}
+.crit li{display:flex;align-items:center;gap:10px}
+.crit li::before{content:"";width:10px;height:10px;background:var(--yel);box-shadow:0 0 0 2px var(--ink);flex:none}
 
 /* ---------- 03 · kit ---------- */
-.kit .head{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
-.kit .h2{font-size:clamp(38px,4.4vw,72px)}
-.legend{display:flex;gap:8px 18px;flex-wrap:wrap;font:600 12px/1 var(--f-b);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.kit-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font:700 14px/1 var(--f);padding:11px 16px;border-radius:99px;background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(20,20,20,.12);transition:background .25s,color .25s,box-shadow .25s}
+.tabs button span{opacity:.55;margin-left:6px;font-weight:600}
+.tabs button:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--red);color:var(--white);box-shadow:none}
+.tabs button[aria-selected="true"] span{opacity:.8}
+.kit-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.legend{display:flex;gap:6px 18px;flex-wrap:wrap;font:600 12.5px/1 var(--f);color:var(--mut)}
 .legend span{display:flex;align-items:center;gap:7px}
-.legend i{display:inline-block;width:22px;height:12px;border-radius:3px}
-.legend .l1{background:var(--yel)}.legend .l2{border:1.5px solid rgba(255,255,255,.5)}.legend .l3{border:1.5px dashed rgba(255,255,255,.4)}
-.zones{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,26px)}
-.zones::before{content:"";position:absolute;left:12px;right:0;top:11px;border-top:2px dashed rgba(245,184,0,.55)}
-.zone header{position:relative;margin-bottom:10px}
-.zone .pin{display:block;width:24px;height:24px;border-radius:50%;background:var(--yel);color:var(--ink);font:800 14px/24px var(--f-d);text-align:center;margin-bottom:10px}
-.zone h3{font:800 clamp(20px,1.6vw,26px)/1 var(--f-d);text-transform:uppercase;letter-spacing:.02em}
-.zone header p{font:600 12px/1.3 var(--f-b);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:5px}
-.zone ul{display:flex;flex-direction:column;gap:4px}
-.pc{display:block;width:100%;text-align:left;font:500 clamp(13px,.95vw,14.5px)/1.2 var(--f-b);padding:5px 10px;border-radius:5px;border:1.5px solid transparent;transition:background .2s,border-color .2s,transform .2s}
-.pc.p1{background:var(--yel);color:var(--ink);font-weight:600}
-.pc.p2{border-color:rgba(255,255,255,.4)}
-.pc.p3{border:1.5px dashed rgba(255,255,255,.32);color:var(--mut-d)}
-.pc:hover{transform:translateX(3px)}
-.pc.p2:hover,.pc.p3:hover{border-color:var(--white);color:var(--white)}
-.pc.on{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--white)}
-.det{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,2fr) minmax(0,1.3fr) minmax(0,.9fr);gap:clamp(14px,2vw,32px);align-items:start;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin-top:auto}
-.det .lb{font:700 11px/1 var(--f-b);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
-.det .v{font-size:15px;line-height:1.4}
-.det .nm{font:800 clamp(22px,1.8vw,28px)/1 var(--f-d);text-transform:uppercase;letter-spacing:.01em;margin-top:8px}
-.det .zn{font-size:13px;color:var(--mut);margin-top:4px}
-.prt{display:inline-block;font:700 11px/1 var(--f-b);letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:99px}
-.prt.p1{background:var(--yel);color:var(--ink)}
-.prt.p2{border:1.5px solid rgba(255,255,255,.5)}
-.prt.p3{border:1.5px dashed rgba(255,255,255,.45);color:var(--mut-d)}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.legend .l1{background:var(--yel);box-shadow:inset 0 0 0 1.5px var(--ink)}.legend .l2{box-shadow:inset 0 0 0 1.5px var(--ink)}.legend .l3{border:1.5px dashed var(--gray)}
+.arrows{display:flex;gap:8px}
+.arrows button{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--white);display:grid;place-items:center;transition:background .2s,opacity .2s}
+.arrows button:hover{background:var(--red)}
+.arrows button:disabled{opacity:.25;cursor:default;background:var(--ink)}
+.arrows svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2}
+.rail{display:flex;gap:clamp(12px,1.4vw,20px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--px);margin:0 calc(var(--px) * -1);padding:4px var(--px) 18px;scrollbar-width:thin;scrollbar-color:rgba(20,20,20,.25) transparent;overscroll-behavior-x:contain}
+.rail::-webkit-scrollbar{height:6px}.rail::-webkit-scrollbar-thumb{background:rgba(20,20,20,.22);border-radius:6px}
+.card{flex:0 0 clamp(236px,20.5vw,312px);scroll-snap-align:start;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 1px 0 rgba(20,20,20,.04),0 14px 34px -22px rgba(20,20,20,.35);display:flex;flex-direction:column}
+.ph{position:relative;aspect-ratio:4/3;background:#ECE8E1;overflow:hidden}
+.ph .ph-empty{position:absolute;inset:12px;border:1.5px dashed rgba(20,20,20,.18);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#9A948A;font:600 12px/1.2 var(--f);text-align:center}
+.ph .ph-empty svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pr{position:absolute;z-index:2;left:12px;top:12px;font:800 10.5px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:99px;background:var(--white);color:var(--ink)}
+.pr.p1{background:var(--yel)}
+.pr.p3{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--gray);color:var(--gray)}
+.card .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font:800 17px/1.2 var(--f);letter-spacing:-.01em}
+.card .m{font-size:13px;line-height:1.45;color:var(--gray);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.35}
+.card dt{font:700 10.5px/1.6 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.card dd{font-weight:600}
 
 /* ---------- 04 · cronograma ---------- */
-.cal-wrap{display:grid;grid-template-columns:minmax(0,1fr) clamp(220px,21vw,320px);gap:clamp(16px,2.4vw,36px);flex:1;align-content:center}
-.cal{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
-.cal .dw{font:700 11px/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);padding:0 2px 4px}
-.cal .d{min-height:clamp(70px,12.5vh,120px);border-radius:6px;padding:9px 11px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;background:#E5E0D4}
-.cal .d b{font:800 clamp(22px,2vw,30px)/1 var(--f-d)}
-.cal .d span{font:600 clamp(12px,.95vw,14px)/1.25 var(--f-b)}
-.cal .d.past{background:transparent;border:1px dashed rgba(15,15,14,.2);color:#9C968A}
-.cal .d.today{background:var(--white);box-shadow:inset 0 0 0 2px var(--ink)}
-.cal .d.cop{background:var(--yel)}
-.cal .d.gate{background:var(--yel);box-shadow:inset 0 0 0 3px var(--ink)}
-.cal .d.lab{background:var(--ink);color:var(--white)}
-.cal .d.prod{background:repeating-linear-gradient(135deg,#D6D0C2 0 8px,#E5E0D4 8px 16px)}
-.cal .d.del{background:repeating-linear-gradient(-45deg,var(--yel) 0 12px,var(--ink) 12px 24px)}
-.cal .d.del b,.cal .d.del span{align-self:flex-start;background:var(--white);color:var(--ink);padding:3px 6px;border-radius:4px}
-.flag{display:inline-block;font:700 10px/1 var(--f-b);letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--yel);padding:3px 6px;border-radius:3px;margin-left:6px;vertical-align:3px}
-.nov{background:var(--ink);color:var(--white);border-radius:8px;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
-.nov h3{font:800 22px/1 var(--f-d);text-transform:uppercase;letter-spacing:.03em;color:var(--yel)}
-.nov li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.14)}
-.nov li:last-child{border-bottom:0;padding-bottom:0}
-.nov li b{font:800 24px/1 var(--f-d);white-space:nowrap;min-width:3.2ch}
-.nov li span{font-size:14px;line-height:1.35;color:#D9D4C8}
-.nov li.bf b,.nov li.bf span{color:var(--yel)}
-.cal-legend{display:flex;flex-wrap:wrap;gap:8px 20px;font:600 12px/1 var(--f-b);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
-.cal-legend span{display:flex;align-items:center;gap:7px}
-.cal-legend i{width:22px;height:12px;border-radius:3px;display:inline-block}
-.cal-legend .k1{background:var(--yel)}.cal-legend .k2{background:var(--ink)}.cal-legend .k3{background:repeating-linear-gradient(135deg,#C9C2B2 0 4px,#E5E0D4 4px 8px)}.cal-legend .k4{background:repeating-linear-gradient(-45deg,var(--yel) 0 5px,var(--ink) 5px 10px)}
+.tl{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,2vw,28px);margin-top:auto}
+.tl::before{content:"";position:absolute;left:0;right:0;top:calc(clamp(40px,4.4vw,72px) + 22px);height:2px;background:var(--line)}
+.tl li{position:relative;display:flex;flex-direction:column;gap:10px}
+.tl b{font:900 clamp(40px,4.4vw,72px)/1 var(--f);letter-spacing:-.04em;white-space:nowrap}
+.tl i{position:relative;z-index:1;width:16px;height:16px;border-radius:50%;background:var(--white);box-shadow:inset 0 0 0 3px var(--ink);margin:6px 0}
+.tl h3{font:800 clamp(16px,1.3vw,20px)/1.2 var(--f)}
+.tl p{font-size:14px;line-height:1.45;color:var(--mut);max-width:24ch}
+.tl .hot b{color:var(--red)}
+.tl .hot i{background:var(--red);box-shadow:0 0 0 6px rgba(208,4,12,.15)}
+.tl .end i{background:var(--ink)}
+.pill{display:inline-block;font:800 10.5px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:99px;margin-left:8px;vertical-align:3px}
+.pill.r{background:var(--red);color:var(--white)}.pill.k{background:var(--ink);color:var(--yel)}
+.after{display:flex;flex-wrap:wrap;gap:10px 28px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--mut)}
+.after b{color:var(--fg)}
 
 /* ---------- 05 · investimento ---------- */
 .inv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,28px);flex:1;align-items:stretch}
-.opt{--ol:rgba(255,255,255,.14);border:1px solid var(--ol);border-radius:10px;padding:clamp(18px,2.2vw,30px);display:flex;flex-direction:column;gap:clamp(10px,1.6vh,16px);background:var(--ink2)}
-.opt.full{--ol:rgba(15,15,14,.2);background:var(--yel);color:var(--ink);border-color:var(--yel)}
-.opt .k{font:700 12px/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut-d)}
-.opt.full .k{color:#4A3B00}
-.opt h3{font:800 clamp(32px,3.2vw,52px)/.92 var(--f-d);text-transform:uppercase}
-.opt .d{font-size:clamp(14px,1.05vw,16px);line-height:1.4;color:var(--mut-d);max-width:52ch}
-.opt.full .d{color:#2E2608}
-.opt dl{display:grid;grid-template-columns:minmax(0,1fr) auto;margin:0}
-.opt dt,.opt dd{margin:0;padding:clamp(7px,1.1vh,10px) 0;border-bottom:1px solid var(--ol);font-size:15px}
-.opt dd{text-align:right;font:700 17px/1.2 var(--f-d);letter-spacing:.02em}
-.opt .tot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:auto;padding-top:12px;border-top:3px solid currentColor}
-.opt .tot span{font:700 12px/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase}
-.opt .tot b{font:800 clamp(30px,3vw,46px)/1 var(--f-d)}
+.opt{--ol:rgba(255,255,255,.14);border-radius:16px;padding:clamp(20px,2.4vw,34px);display:flex;flex-direction:column;gap:clamp(10px,1.6vh,16px);background:#1F1F1F}
+.opt.full{--ol:rgba(20,20,20,.16);background:var(--yel);color:var(--ink)}
+.opt .k{font:800 12px/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.opt.full .k{color:var(--red)}
+.opt h3{font:900 clamp(30px,3vw,48px)/1 var(--f);letter-spacing:-.03em}
+.opt .d{font-size:clamp(14px,1.05vw,16px);line-height:1.5;color:rgba(255,255,255,.7);max-width:50ch}
+.opt.full .d{color:#3B3700}
+.opt dl{display:grid;grid-template-columns:minmax(0,1fr) auto}
+.opt dt,.opt dd{padding:clamp(7px,1.1vh,10px) 0;border-bottom:1px solid var(--ol);font-size:15px}
+.opt dd{text-align:right;font-weight:800}
+.opt .tot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:auto;padding-top:14px}
+.opt .tot span{font:800 12px/1 var(--f);letter-spacing:.16em;text-transform:uppercase}
+.opt .tot b{font:900 clamp(26px,2.6vw,42px)/1 var(--f);letter-spacing:-.03em}
 
 /* ---------- 06 · próximos passos ---------- */
-.end{padding-bottom:calc(14px + clamp(28px,5vh,56px))}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,32px);flex:1;align-content:center}
-.steps li{border-top:3px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:10px}
-.steps b{font:800 clamp(56px,6vw,100px)/.8 var(--f-d)}
-.steps p{font-size:clamp(16px,1.3vw,20px);line-height:1.35;font-weight:500;max-width:22ch}
-.contact{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3vw,48px);align-items:center;padding-top:18px;border-top:1px solid var(--line)}
-.contact img{height:34px;width:auto}
-.contact .lb{font:700 11px/1 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.contact p{font-size:15px;line-height:1.45}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,32px);margin-top:auto}
+.steps li{display:flex;flex-direction:column;gap:12px;padding-top:16px;border-top:2px solid rgba(255,255,255,.35)}
+.steps b{font:900 clamp(48px,5vw,84px)/.85 var(--f);color:var(--yel);letter-spacing:-.04em}
+.steps p{font:700 clamp(16px,1.3vw,20px)/1.35 var(--f);max-width:22ch}
+.contact{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3vw,48px);align-items:center;padding-top:20px;border-top:1px solid var(--line)}
+.contact img{height:30px;width:auto;filter:brightness(0) invert(1)}
+.contact .lb{font:800 11px/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--yel);margin-bottom:6px}
+.contact p{font-size:14.5px;line-height:1.5}
 
-/* ---------- celular e telas baixas ---------- */
-@media (max-width:1100px){
-  .zones{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}
-  .zones::before{display:none}
-  .det{position:sticky;bottom:12px;z-index:3;grid-template-columns:minmax(0,1fr) minmax(0,1fr);box-shadow:0 16px 40px -12px rgba(0,0,0,.7)}
-  .det>div:first-child,.det>div:nth-child(2){grid-column:1/-1}
-}
+/* ---------- celular ---------- */
 @media (max-width:900px){
-  .dots{display:none}
-  .ch,.cal-wrap,.inv{grid-template-columns:minmax(0,1fr)}
+  .cover{justify-content:flex-start;padding-bottom:calc(clamp(56px,9vh,84px) + 24px)}
+  .cover .copy{max-width:none}
+  .hero{position:relative;order:3;align-self:center;height:min(68vw,420px);margin:0 calc(var(--px) * -1) -8px;width:auto;
+    -webkit-mask-image:linear-gradient(180deg,#000 75%,transparent);mask-image:linear-gradient(180deg,#000 75%,transparent)}
+  .nums,.inv{grid-template-columns:minmax(0,1fr)}
+  .nums li+li{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+  .nums li{padding:16px 0}
+  .tl{grid-template-columns:minmax(0,1fr);gap:18px}
+  .tl::before{display:none}
+  .tl li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;align-items:baseline}
+  .tl i{display:none}
+  .tl b{font-size:34px;grid-row:span 2;min-width:4.4ch}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .contact{grid-template-columns:minmax(0,1fr)}
-  .cover .ptag{position:relative;right:auto;top:auto;align-self:flex-start;margin-bottom:auto;transform:rotate(-4deg)}
-  .hint{display:none}
+  .card{flex-basis:78vw}
 }
-@media (max-width:600px){
-  :root{--bar:54px}
-  .brand{font-size:19px;gap:9px}
-  .zones{grid-template-columns:minmax(0,1fr)}
-  .cal{gap:4px}
-  .cal .d{padding:7px 6px;min-height:64px}
-  .cal .d span{font-size:11px}
-  .cal .dw{font-size:10px;letter-spacing:.08em}
+@media (max-width:560px){
+  :root{--bar:56px}
+  .cop{font-size:15px}
   .steps{grid-template-columns:minmax(0,1fr)}
-  .tags .ptag{padding:10px 20px 10px 44px}
-}
-@media (min-width:1101px) and (max-height:760px){
-  .pc{padding:4px 9px;font-size:12.5px}
-  .zone ul{gap:4px}
-  .det{padding:12px 16px}
+  .band{font-size:15px;padding-right:44px}
 }
 </style>
 
 </head>
-<body data-tone="dark">
+<body data-tone="red">
 <header class="bar">
-  <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início">Copafer <span class="x" aria-hidden="true">×</span><img class="lab-w" src="assets/images/75lab-lime.png" alt="75 LAB"><img class="lab-b" src="assets/images/75lab-black.png" alt="" aria-hidden="true"></a>
-  <p class="count" aria-live="off"><b id="cNow">01</b> / <span id="cAll">06</span></p>
+  <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início"><span class="cop">COPAFER</span><span class="x" aria-hidden="true">×</span><img src="assets/images/75lab-black.png" alt="75 LAB"></a>
+  <p class="count" aria-live="off"><span id="cNow">01</span> / <span id="cAll">06</span></p>
 </header>
-<nav aria-label="Telas da apresentação"><ol class="dots" id="dots"></ol></nav>
 
 <main>
 
 <!-- 01 · CAPA -->
-<section class="s cover" id="s1" data-title="Capa" data-tone="dark" aria-label="Capa">
-  <div class="ptag" data-r style="--d:.5s"><b>42</b><span>peças por loja</span></div>
-  <p class="kicker" data-r>Proposta 75 LAB · Kit de PDV institucional</p>
-  <h1 data-r style="--d:.1s"><span>Black</span><span class="y">Friday</span></h1>
-  <p class="sub" data-r style="--d:.2s">Copafer, da avenida ao caixa, nas lojas de Santo André e Mauá</p>
-  <div class="meta" data-r style="--d:.3s">
-    <div><small>Lojas</small>Santo André · Mauá</div>
-    <div><small>Entrega nas lojas</small>Até 30/10/2026</div>
-    <div><small>Black Friday</small>27/11/2026</div>
-    <div><small>Data</small>Outubro de 2026</div>
+<section class="s cover" id="s1" data-title="Capa" data-tone="red" aria-label="Capa">
+  <div class="hero" aria-hidden="true"><img src="assets/images/kv-copafer-black-friday.webp" alt=""></div>
+  <div class="copy">
+    <p class="kicker" data-r>Proposta de materiais de PDV · 75 LAB</p>
+    <div class="tag" data-r style="--d:.1s"><div class="tag-in"><h1><span>Black</span><span class="y">Friday</span><small>2026</small></h1></div></div>
+    <p class="tagline" data-r style="--d:.2s">Tire seus planos do papel.</p>
   </div>
-  <p class="hint" aria-hidden="true">Role ou use ↓</p>
-  <div class="tape bot" aria-hidden="true"></div>
+  <p class="band" data-r style="--d:.3s">Kit de PDV para Santo André e Mauá · <span>entrega até 30/10</span></p>
 </section>
 
-<!-- 02 · DESAFIO E RESPOSTA -->
-<section class="s t-yel" id="s2" data-title="O desafio" data-tone="yel" aria-label="O desafio">
+<!-- 02 · DESAFIO -->
+<section class="s t-light mid" id="s2" data-title="O desafio" data-tone="light" aria-label="O desafio">
   <div class="head">
     <p class="eyebrow" data-r>O desafio</p>
     <h2 class="h2" data-r style="--d:.1s">Duas lojas gigantes. <em>Dez dias úteis.</em></h2>
-    <p class="lead" data-r style="--d:.2s">A Copafer precisa comunicar a Black Friday nas lojas de <b>Santo André</b> e <b>Mauá</b>, de forma institucional, com tudo entregue até <b>30/10</b>.</p>
+    <p class="lead" data-r style="--d:.2s">Comunicar a Black Friday nas lojas de <b>Santo André</b> e <b>Mauá</b>, de forma institucional, com tudo entregue até <b>30/10</b>.</p>
   </div>
-  <div class="ch">
-    <div class="tags">
-      <div class="ptag" data-r style="--d:.25s"><b>42</b><span>peças por loja, o mesmo kit nas duas</span></div>
-      <div class="ptag" data-r style="--d:.35s"><b>20</b><span>essenciais, que já cobrem a loja inteira</span></div>
-      <div class="ptag" data-r style="--d:.45s"><b>38</b><span>prontas em até 5 dias úteis</span></div>
-    </div>
-    <ol class="rules">
-      <li data-r style="--d:.3s"><span class="n">1</span><div><b>Institucional</b><p>As peças levam o KV da campanha, sem preço. O preço entra nos cartazes que a própria loja imprime e preenche.</p></div></li>
-      <li data-r style="--d:.4s"><span class="n">2</span><div><b>Rápido</b><p>Impressão digital de 1 a 5 dias úteis e troca de arte nas estruturas que a loja já tem.</p></div></li>
-      <li data-r style="--d:.5s"><span class="n">3</span><div><b>Assertivo</b><p>Quantidade definida por critério (uma por ponta de gôndola, uma por checkout) e fechada na medição das lojas.</p></div></li>
-    </ol>
-  </div>
+  <ul class="nums">
+    <li data-r style="--d:.2s"><b>42</b><span>peças por loja, o mesmo kit nas duas</span></li>
+    <li data-r style="--d:.3s"><b>20</b><span>essenciais, que já cobrem a loja inteira</span></li>
+    <li data-r style="--d:.4s"><b>38</b><span>prontas em até 5 dias úteis</span></li>
+  </ul>
+  <ul class="crit" data-r style="--d:.5s">
+    <li>Sem preço nas peças fixas: o preço entra nos cartazes da loja</li>
+    <li>Impressão digital e estruturas que a loja já tem</li>
+    <li>Quantidades fechadas na medição das lojas</li>
+  </ul>
 </section>
 
 <!-- 03 · O KIT -->
-<section class="s kit" id="s3" data-title="O kit" data-tone="dark" aria-label="O kit">
-  <div class="head">
-    <div>
+<section class="s t-paper" id="s3" data-title="O kit" data-tone="light" aria-label="O kit">
+  <div class="kit-top">
+    <div class="head">
       <p class="eyebrow" data-r>O kit · 42 peças por loja</p>
-      <h2 class="h2" data-r style="--d:.1s;margin-top:12px">Da avenida <em>ao caixa</em></h2>
+      <h2 class="h2" data-r style="--d:.1s">Da avenida <em>ao caixa</em></h2>
     </div>
-    <p class="legend" data-r style="--d:.2s"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
+    <div class="tabs" role="tablist" aria-label="Áreas da loja" id="tabs" data-r style="--d:.2s"></div>
   </div>
-
-  <div class="zones">
-    <div class="zone" data-zone="Outdoor" data-r style="--d:.15s">
-      <header><span class="pin">1</span><h3>Lado de fora</h3><p>Fachada, avenida e estacionamento · 10</p></header>
-      <ul>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Lona front-light 440 g, ilhós a cada 50 cm; lona mesh se a fachada pega vento forte. Ref. 10 × 3 m, na estrutura existente." data-q="1 por fachada visível da avenida" data-t="2–3 dias úteis">Lona de fachada</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Vinil perfurado one-way vision, que mantém a visão de dentro para fora; recorte reto." data-q="Todos os vidros da entrada principal" data-t="2–3 dias úteis">Adesivo de portas e vidros</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m de altura." data-q="8 a 12" data-t="3–5 dias úteis">Wind banner</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m." data-q="1 a cada 10–15 m de gradil voltado para a avenida" data-t="2–3 dias úteis">Lona de gradil ou muro</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona dupla face blackout com bastão e braço metálico. Ref. 0,6 × 1,5 m." data-q="1 a cada 2 postes das vias internas" data-t="4–6 dias úteis (inclui ferragem)">Banner de poste</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Troca de adesivo ou lona nos cavaletes existentes, dentro do lote. Ref. 60 × 90 cm." data-q="2 a 4" data-t="2–3 dias úteis">Cavalete de calçada</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona 440 g, medida no local, na área de carga e retirada de mercadorias." data-q="1 por doca" data-t="2–3 dias úteis">Lona da doca de retirada</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Vinil com laminação UV. Ref. faixa de 3 m × 15 cm na cancela." data-q="1 kit por acesso de veículos" data-t="2 dias úteis">Adesivo de cancela e guarita</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Vinil removível nas laterais e na traseira, medido por modelo de caminhão." data-q="1 kit por caminhão de entrega" data-t="2–3 dias úteis + aplicação · só se aprovado até 20/10">Adesivo de frota</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Biruta (sky dancer) de estoque, sem personalização, ou inflável personalizado com o KV." data-q="1 a 2 por loja" data-t="Estoque: 1–3 dias úteis · personalizado: 10–15, só se aprovado até 20/10">Inflável</button></li>
-      </ul>
+  <div class="rail" id="rail" role="tabpanel" aria-live="polite" data-r style="--d:.25s"></div>
+  <div class="kit-bar" data-r style="--d:.3s">
+    <p class="legend"><span><i class="l1"></i>Essencial · 20</span><span><i class="l2"></i>Recomendada · 15</span><span><i class="l3"></i>Opcional · 7</span></p>
+    <div class="arrows">
+      <button type="button" id="prevC" aria-label="Peças anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" id="nextC" aria-label="Próximas peças"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
-    <div class="zone" data-zone="Entrada, teto e corredores" data-r style="--d:.25s">
-      <header><span class="pin">2</span><h3>Entrada e teto</h3><p>Hall, teto e corredores · 11</p></header>
-      <ul>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m (largura × altura)." data-q="1 por entrada de clientes" data-t="3–5 dias úteis">Pórtico de entrada</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Lona dupla face blackout 440 g, bastão e cabo de aço, com “Black Friday em [departamento]”. Ref. 3 × 1,5 m." data-q="1 por departamento (cerca de 15) + corredores centrais" data-t="2–3 dias úteis">Banner aéreo de departamento</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm." data-q="1 a cada 15–20 m de corredor + 1 a cada 2 checkouts" data-t="3–5 dias úteis">Móbile</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m." data-q="2 a 4" data-t="4–7 dias úteis">Totem de chão</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Vinil impresso na placa frontal ou faixa na grade. Ref. 30 × 20 cm." data-q="1 por carrinho de compra ou plataforma" data-t="2–3 dias úteis">Adesivo de carrinho</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona com velcro ou adesivo removível. Ref. 2,5 m de altura × perímetro do pilar." data-q="1 por pilar visível na circulação principal" data-t="2–4 dias úteis + instalação">Envelopamento de pilares</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Varal de bandeirolas em couché 150 g ou PS 0,5 mm. Ref. 20 × 30 cm." data-q="Metragem dos corredores principais" data-t="3–5 dias úteis">Bandeirolas</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m." data-q="4 a 6, nos balcões de atendimento, orçamento e retirada" data-t="1–3 dias úteis">Roll-up</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Adesivo removível ou testeira em PS 1 mm sobre a placa atual, mantendo o número do corredor." data-q="1 por placa de corredor" data-t="2–3 dias úteis">Capa de placa de corredor</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Vinil com laminação antiderrapante no hall. Ref. 1,5 × 1,5 m." data-q="1 por entrada de clientes" data-t="2–4 dias úteis">Adesivo de piso de boas-vindas</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Vinil com laminação antiderrapante, fora da rota de empilhadeira. Ref. 60 cm de diâmetro." data-q="1 a cada 10 m de corredor principal" data-t="2–4 dias úteis">Adesivo de piso direcional</button></li>
-      </ul>
-    </div>
-    <div class="zone" data-zone="Gôndolas, pontas e pallets" data-r style="--d:.35s">
-      <header><span class="pin">3</span><h3>Gôndolas e pallets</h3><p>Pontas, ilhas e prateleiras · 10</p></header>
-      <ul>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Arquivos para a impressora da própria loja, de A6 a A3, com campos de produto, preço e condição." data-q="1 kit de modelos (entrega digital)" data-t="2 dias úteis de criação, sem gráfica">Modelos editáveis de cartaz</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Couché 150 g com o KV impresso e campo de preço para preencher, em A4, A3 e A2." data-q="Produtos em oferta + 30% de reposição" data-t="2–3 dias úteis (digital) · 4–5 (offset)">Cartaz com preço em branco</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="PS 1–2 mm ou adesivo sobre a testeira existente. Ref. 1 × 0,3 m." data-q="1 por ponta de gôndola" data-t="2–4 dias úteis">Testeira de ponta de gôndola</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Polionda ou papelão, 4 faces para pallet PBR 1,0 × 1,2 m. Ref. 30 cm de altura." data-q="1 por pallet ou ilha promocional (cimento, argamassa, pisos, tintas)" data-t="3–5 dias úteis">Saia de pallet</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="PS 0,3 mm ou couché 250 g laminado, encaixado na canaleta de preço. Ref. 1 m × altura da canaleta." data-q="Metragem das gôndolas com oferta" data-t="2–4 dias úteis">Faixa de gôndola</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="PS 1 mm perpendicular à prateleira, com encaixe na canaleta. Ref. 20 × 15 cm." data-q="1 a cada 3–5 m de gôndola com oferta" data-t="3–5 dias úteis">Stopper</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="PS 0,5 mm com haste flexível de PET e adesivo. Ref. 10 cm de diâmetro." data-q="1 por produto em destaque" data-t="3–5 dias úteis">Wobbler</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Adesivo em rolo com recorte especial e o selo Black Friday. Ref. 5 cm." data-q="2 por produto em oferta" data-t="2–3 dias úteis">Splash adesivo</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Adesivo removível nas laterais das pontas. Ref. 0,4 × 1,8 m." data-q="2 por ponta de gôndola" data-t="2–3 dias úteis">Lateral de ponta de gôndola</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="PS 2 mm ou acrílico com base, A4, nas áreas de pisos, revestimentos, louças e metais." data-q="1 por ambiente montado ou mesa de amostras" data-t="2–4 dias úteis">Display de mesa (exposição)</button></li>
-      </ul>
-    </div>
-    <div class="zone" data-zone="Checkout, equipe e telas" data-r style="--d:.45s">
-      <header><span class="pin">4</span><h3>Checkout e telas</h3><p>Caixas, balcões, equipe e mídia · 11</p></header>
-      <ul>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Vinil impresso com laminação, no lado do cliente da bancada. Ref. 1 × 0,8 m." data-q="1 por checkout" data-t="2–3 dias úteis">Adesivo frontal do checkout</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Adesivo ou PS 1 mm sobre a placa atual, mantendo o número visível." data-q="1 por checkout" data-t="2–3 dias úteis">Capa do número de caixa</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Botton de 5,5 cm com alfinete, no uniforme de quem atende." data-q="1 por colaborador de loja + 10%" data-t="3–5 dias úteis">Botton da equipe</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Loops de 15 e 30 segundos, em 16:9 e 9:16. Não passa pela gráfica e pode entrar no ar antes das peças impressas." data-q="1 conjunto por loja" data-t="2–3 dias úteis de edição">Vídeo para TVs e monitores</button></li>
-        <li><button class="pc p1" data-pr="p1" aria-pressed="false" data-m="Vídeo ou estático na resolução do painel da fachada, se a loja tiver um." data-q="1 conjunto por loja" data-t="2–3 dias úteis">Painel de LED da fachada</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="PS 2 mm com base dobrável, A5 ou A4, com serviços da loja (cashback, compra faturada, retira, entrega) e QR code do grupo VIP de WhatsApp." data-q="1 por checkout + 1 por balcão de atendimento" data-t="2–4 dias úteis">Display de balcão</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Lona ou PS com o KV e a mensagem de retirada, medida no local." data-q="1 kit por balcão de retirada" data-t="2–3 dias úteis">Sinalização do balcão de retirada</button></li>
-        <li><button class="pc p2" data-pr="p2" aria-pressed="false" data-m="Locução institucional de 30 segundos, repetida a cada 15 minutos." data-q="1 a 2 versões" data-t="3–5 dias úteis (locução e mixagem)">Spot de rádio interna</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Vinil com laminação antiderrapante. Ref. 40 cm de diâmetro." data-q="1 por fila de checkout" data-t="2–4 dias úteis">Adesivo de piso da fila</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Adesivo sobre o divisor existente, ou divisor novo em PS impresso." data-q="2 por checkout com esteira" data-t="3–5 dias úteis">Divisor de esteira</button></li>
-        <li><button class="pc p3" data-pr="p3" aria-pressed="false" data-m="Malha com estampa DTF ou silk, ou patch sobre o colete atual." data-q="1 por colaborador de loja" data-t="5–10 dias úteis · só se aprovada até 20/10">Camiseta da campanha</button></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="det" id="det" aria-live="polite" data-r style="--d:.5s">
-    <div><span class="prt p1" id="dPr">Essencial · P1</span><p class="nm" id="dNm">Lona de fachada</p><p class="zn" id="dZn">Outdoor</p></div>
-    <div><p class="lb">Material e formato</p><p class="v" id="dM">Lona front-light 440 g, ilhós a cada 50 cm; lona mesh se a fachada pega vento forte. Ref. 10 × 3 m, na estrutura existente.</p></div>
-    <div><p class="lb">Quantidade por loja</p><p class="v" id="dQ">1 por fachada visível da avenida</p></div>
-    <div><p class="lb">Prazo de produção</p><p class="v" id="dT">2–3 dias úteis</p></div>
   </div>
 </section>
 
 <!-- 04 · CRONOGRAMA -->
-<section class="s t-paper" id="s4" data-title="Cronograma" data-tone="paper" aria-label="Cronograma">
+<section class="s t-light mid" id="s4" data-title="Cronograma" data-tone="light" aria-label="Cronograma">
   <div class="head">
     <p class="eyebrow" data-r>Cronograma</p>
     <h2 class="h2" data-r style="--d:.1s">Tudo depende da aprovação <em>até 20/10</em></h2>
   </div>
-  <div class="cal-wrap">
-    <div>
-      <div class="cal" role="table" aria-label="Calendário de outubro de 2026, dias úteis">
-        <span class="dw" role="columnheader">Seg</span><span class="dw" role="columnheader">Ter</span><span class="dw" role="columnheader">Qua</span><span class="dw" role="columnheader">Qui</span><span class="dw" role="columnheader">Sex</span>
-        <div class="d past" data-r><b>12</b><span>Feriado</span></div>
-        <div class="d past" data-r><b>13</b><span></span></div>
-        <div class="d past" data-r><b>14</b><span></span></div>
-        <div class="d past" data-r><b>15</b><span></span></div>
-        <div class="d today" data-r><b>16</b><span>Hoje · lista enviada</span></div>
-        <div class="d cop" data-r style="--d:.1s"><b>19</b><span>Copafer aprova lista e verba</span></div>
-        <div class="d gate" data-r style="--d:.15s"><b>20<span class="flag">Prazo</span></b><span>Medição técnica nas duas lojas</span></div>
-        <div class="d lab" data-r style="--d:.2s"><b>21</b><span>75 LAB cria as artes</span></div>
-        <div class="d lab" data-r style="--d:.25s"><b>22</b><span>Criação das artes</span></div>
-        <div class="d cop" data-r style="--d:.3s"><b>23</b><span>Copafer aprova as artes</span></div>
-        <div class="d prod" data-r style="--d:.35s"><b>26</b><span>Produção na gráfica</span></div>
-        <div class="d prod" data-r style="--d:.4s"><b>27</b><span>Produção</span></div>
-        <div class="d prod" data-r style="--d:.45s"><b>28</b><span>Produção</span></div>
-        <div class="d prod" data-r style="--d:.5s"><b>29</b><span>Produção</span></div>
-        <div class="d del" data-r style="--d:.55s"><b>30</b><span>Entrega nas 2 lojas</span></div>
-      </div>
-    </div>
-    <div class="nov" data-r style="--d:.4s">
-      <h3>Depois da entrega</h3>
-      <ul>
-        <li><b>31/10</b><span>Sábado: a entrega precisa sair na sexta</span></li>
-        <li><b>02/11</b><span>Feriado de Finados</span></li>
-        <li><b>03–06</b><span>Instalação nas lojas (data a confirmar)</span></li>
-        <li class="bf"><b>27/11</b><span>Black Friday no ar nas duas lojas</span></li>
-      </ul>
-    </div>
-  </div>
-  <p class="cal-legend" data-r style="--d:.5s"><span><i class="k1"></i>Copafer aprova</span><span><i class="k2"></i>75 LAB cria</span><span><i class="k3"></i>Gráfica produz</span><span><i class="k4"></i>Entrega</span></p>
+  <ol class="tl">
+    <li data-r style="--d:.15s"><b>16/10</b><i></i><h3>Lista enviada</h3><p>Proposta de peças entregue à Copafer</p></li>
+    <li class="hot" data-r style="--d:.25s"><b>20/10</b><i></i><h3>Aprovação<span class="pill r">Prazo</span></h3><p>Lista, verba e medição técnica nas duas lojas</p></li>
+    <li data-r style="--d:.35s"><b>23/10</b><i></i><h3>Artes aprovadas</h3><p>Criação de 20 a 22/10, com uma rodada de ajuste</p></li>
+    <li data-r style="--d:.45s"><b>26–29</b><i></i><h3>Produção</h3><p>Impressão digital na gráfica</p></li>
+    <li class="end" data-r style="--d:.55s"><b>30/10</b><i></i><h3>Entrega<span class="pill k">Lojas</span></h3><p>Peças em Santo André e Mauá</p></li>
+  </ol>
+  <p class="after" data-r style="--d:.6s"><span><b>31/10</b> é sábado e <b>02/11</b> é feriado</span><span>Instalação de <b>03 a 06/11</b> (a confirmar)</span><span>Black Friday em <b>27/11</b></span></p>
 </section>
 
 <!-- 05 · INVESTIMENTO -->
-<section class="s" id="s5" data-title="Investimento" data-tone="dark" aria-label="Investimento">
+<section class="s t-dark" id="s5" data-title="Investimento" data-tone="dark" aria-label="Investimento">
   <div class="head">
     <p class="eyebrow" data-r>Investimento · projeto e materiais</p>
     <h2 class="h2" data-r style="--d:.1s">Duas opções <em>de escopo</em></h2>
   </div>
   <div class="inv">
     <article class="opt" data-r style="--d:.2s">
-      <p class="k">Kit essencial · 20 peças por loja</p>
-      <h3>Essencial</h3>
+      <p class="k">20 peças por loja</p>
+      <h3>Kit essencial</h3>
       <p class="d">As peças P1: fachada, vidros, wind banners, pórtico, banners aéreos, móbiles, totens, cartazes, gôndolas, pallets, checkouts e telas.</p>
       <dl>
         <dt>Projeto: KV, artes e modelos de cartaz</dt><dd>R$ [__]</dd>
@@ -430,8 +305,8 @@ body[data-tone="yel"] .brand .lab-b,body[data-tone="paper"] .brand .lab-b{displa
       <p class="tot"><span>Total · 2 lojas</span><b>R$ [a preencher]</b></p>
     </article>
     <article class="opt full" data-r style="--d:.3s">
-      <p class="k">Kit completo · 42 peças por loja</p>
-      <h3>Completo</h3>
+      <p class="k">42 peças por loja</p>
+      <h3>Kit completo</h3>
       <p class="d">O essencial mais 15 recomendadas e 7 opcionais: gradil, postes, pilares, carrinhos, bandeirolas, piso, balcões, rádio e frota.</p>
       <dl>
         <dt>Projeto: KV, artes e modelos de cartaz</dt><dd>R$ [__]</dd>
@@ -443,11 +318,11 @@ body[data-tone="yel"] .brand .lab-b,body[data-tone="paper"] .brand .lab-b{displa
       <p class="tot"><span>Total · 2 lojas</span><b>R$ [a preencher]</b></p>
     </article>
   </div>
-  <p class="note" data-r style="--d:.4s"><b>Pagamento:</b> [a preencher] · <b>Validade:</b> [a preencher] · Prazos de produção são referências de mercado e serão confirmados no orçamento da gráfica.</p>
+  <p class="note" data-r style="--d:.4s"><b>Pagamento:</b> [a preencher] · <b>Validade:</b> [a preencher] · Prazos de produção confirmados no orçamento da gráfica.</p>
 </section>
 
 <!-- 06 · PRÓXIMOS PASSOS -->
-<section class="s t-yel end" id="s6" data-title="Próximos passos" data-tone="yel" aria-label="Próximos passos">
+<section class="s mid" id="s6" data-title="Próximos passos" data-tone="red" aria-label="Próximos passos">
   <div class="head">
     <p class="eyebrow" data-r>Próximos passos</p>
     <h2 class="h2" data-r style="--d:.1s">O que precisamos <em>até 20/10</em></h2>
@@ -455,105 +330,182 @@ body[data-tone="yel"] .brand .lab-b,body[data-tone="paper"] .brand .lab-b{displa
   <ol class="steps">
     <li data-r style="--d:.2s"><b>1</b><p>Aprovar a lista de peças, o kit e a verba</p></li>
     <li data-r style="--d:.3s"><b>2</b><p>Liberar a medição técnica nas duas lojas</p></li>
-    <li data-r style="--d:.4s"><b>3</b><p>Confirmar se já existe KV de Black Friday aprovado</p></li>
-    <li data-r style="--d:.5s"><b>4</b><p>Definir data de instalação e contato de recebimento em cada loja</p></li>
+    <li data-r style="--d:.4s"><b>3</b><p>Confirmar o KV final da campanha</p></li>
+    <li data-r style="--d:.5s"><b>4</b><p>Definir instalação e recebimento em cada loja</p></li>
   </ol>
   <div class="contact" data-r style="--d:.6s">
     <img src="assets/images/75lab-black.png" alt="75 LAB">
     <div><p class="lb">75 LAB</p><p><a href="https://75lab.com.br" target="_blank" rel="noopener">75lab.com.br</a> · contato@75lab.com.br · <a href="https://www.instagram.com/setecincolab/" target="_blank" rel="noopener">@setecincolab</a></p></div>
     <div><p class="lb">Apresentador</p><p>[nome] · [cargo] · [e-mail] · [telefone]</p></div>
   </div>
-  <div class="tape bot" aria-hidden="true"></div>
 </section>
 
 </main>
 
 <script>
+/* ---------- o kit: 42 peças por loja ----------
+   Cada peça tem um número (01–42) que é também o nome da imagem em assets/pdv/:
+   assets/pdv/01-lona-de-fachada.jpg (aceita .jpg, .png ou .webp).
+   pr: 1 essencial · 2 recomendada · 3 opcional */
+var ZONES = [
+  { id: 'fora', name: 'Lado de fora' },
+  { id: 'teto', name: 'Entrada e teto' },
+  { id: 'gondola', name: 'Gôndolas e pallets' },
+  { id: 'caixa', name: 'Checkout e telas' }
+];
+var KIT = [
+  { z: 'fora', pr: 1, f: 'lona-de-fachada', n: 'Lona de fachada', m: 'Lona front-light 440 g com ilhós, ou tela mesh se a fachada pega vento. Ref. 10 × 3 m, na estrutura existente.', q: '1 por fachada visível da avenida', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 1, f: 'adesivo-de-portas-e-vidros', n: 'Adesivo de portas e vidros', m: 'Vinil perfurado one-way vision, que mantém a visão de dentro para fora.', q: 'Todos os vidros da entrada', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 1, f: 'wind-banner', n: 'Wind banner', m: 'Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m.', q: '8 a 12', t: '3–5 dias úteis' },
+  { z: 'fora', pr: 2, f: 'lona-de-gradil', n: 'Lona de gradil ou muro', m: 'Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m.', q: '1 a cada 10–15 m de gradil', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 2, f: 'banner-de-poste', n: 'Banner de poste', m: 'Lona dupla face blackout com bastão e braço metálico. Ref. 0,6 × 1,5 m.', q: '1 a cada 2 postes do estacionamento', t: '4–6 dias úteis' },
+  { z: 'fora', pr: 2, f: 'cavalete-de-calcada', n: 'Cavalete de calçada', m: 'Troca de adesivo ou lona nos cavaletes existentes, dentro do lote. Ref. 60 × 90 cm.', q: '2 a 4', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 2, f: 'lona-da-doca-de-retirada', n: 'Lona da doca de retirada', m: 'Lona 440 g na área de carga e retirada de mercadorias, medida no local.', q: '1 por doca', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-cancela-e-guarita', n: 'Adesivo de cancela e guarita', m: 'Vinil com laminação UV. Ref. faixa de 3 m × 15 cm na cancela.', q: '1 kit por acesso de veículos', t: '2 dias úteis' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-frota', n: 'Adesivo de frota', m: 'Vinil removível nas laterais e na traseira dos caminhões de entrega.', q: '1 kit por caminhão', t: '2–3 dias úteis + aplicação' },
+  { z: 'fora', pr: 3, f: 'inflavel', n: 'Inflável', m: 'Biruta (sky dancer) de estoque, ou inflável personalizado com o KV.', q: '1 a 2', t: '1–3 dias úteis (estoque) · 10–15 (personalizado)' },
+
+  { z: 'teto', pr: 1, f: 'portico-de-entrada', n: 'Pórtico de entrada', m: 'Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m.', q: '1 por entrada de clientes', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 1, f: 'banner-aereo-de-departamento', n: 'Banner aéreo de departamento', m: 'Lona dupla face blackout com bastão e cabo de aço, “Black Friday em [departamento]”. Ref. 3 × 1,5 m.', q: '1 por departamento + corredores centrais', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 1, f: 'mobile', n: 'Móbile', m: 'PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm.', q: '1 a cada 15–20 m de corredor', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 1, f: 'totem-de-chao', n: 'Totem de chão', m: 'Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m.', q: '2 a 4', t: '4–7 dias úteis' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-carrinho', n: 'Adesivo de carrinho', m: 'Vinil na placa frontal ou faixa na grade. Ref. 30 × 20 cm.', q: '1 por carrinho', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'envelopamento-de-pilares', n: 'Envelopamento de pilares', m: 'Lona com velcro ou adesivo removível. Ref. 2,5 m de altura.', q: '1 por pilar da circulação principal', t: '2–4 dias úteis + instalação' },
+  { z: 'teto', pr: 2, f: 'bandeirolas', n: 'Bandeirolas', m: 'Varal em couché 150 g ou PS 0,5 mm. Ref. 20 × 30 cm.', q: 'Metragem dos corredores principais', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 2, f: 'roll-up', n: 'Roll-up', m: 'Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m.', q: '4 a 6', t: '1–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'capa-de-placa-de-corredor', n: 'Capa de placa de corredor', m: 'Adesivo removível ou testeira em PS sobre a placa atual, mantendo o número.', q: '1 por placa de corredor', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-piso-de-boas-vindas', n: 'Adesivo de piso de boas-vindas', m: 'Vinil com laminação antiderrapante no hall. Ref. 1,5 × 1,5 m.', q: '1 por entrada de clientes', t: '2–4 dias úteis' },
+  { z: 'teto', pr: 3, f: 'adesivo-de-piso-direcional', n: 'Adesivo de piso direcional', m: 'Vinil antiderrapante, fora da rota de empilhadeira. Ref. 60 cm.', q: '1 a cada 10 m de corredor', t: '2–4 dias úteis' },
+
+  { z: 'gondola', pr: 1, f: 'modelos-editaveis-de-cartaz', n: 'Modelos editáveis de cartaz', m: 'Arquivos de A6 a A3 para a impressora da loja, com campos de produto, preço e condição.', q: '1 kit (entrega digital)', t: '2 dias úteis, sem gráfica' },
+  { z: 'gondola', pr: 1, f: 'cartaz-com-preco-em-branco', n: 'Cartaz com preço em branco', m: 'Couché 150 g com o KV impresso e campo de preço para preencher. A4, A3 e A2.', q: 'Ofertas + 30% de reposição', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'testeira-de-ponta-de-gondola', n: 'Testeira de ponta de gôndola', m: 'PS 1–2 mm ou adesivo sobre a testeira existente. Ref. 1 × 0,3 m.', q: '1 por ponta de gôndola', t: '2–4 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'saia-de-pallet', n: 'Saia de pallet', m: 'Polionda ou papelão, 4 faces para pallet PBR. Ref. 30 cm de altura.', q: '1 por pallet ou ilha promocional', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'faixa-de-gondola', n: 'Faixa de gôndola', m: 'PS 0,3 mm ou couché laminado, encaixado na canaleta de preço.', q: 'Metragem das gôndolas com oferta', t: '2–4 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'stopper', n: 'Stopper', m: 'PS 1 mm perpendicular à prateleira. Ref. 20 × 15 cm.', q: '1 a cada 3–5 m de gôndola', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'wobbler', n: 'Wobbler', m: 'PS 0,5 mm com haste flexível e adesivo. Ref. 10 cm.', q: '1 por produto em destaque', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'splash-adesivo', n: 'Splash adesivo', m: 'Adesivo em rolo com o selo Black Friday, para etiquetas e embalagens. Ref. 5 cm.', q: '2 por produto em oferta', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 2, f: 'lateral-de-ponta-de-gondola', n: 'Lateral de ponta de gôndola', m: 'Adesivo removível nas laterais das pontas. Ref. 0,4 × 1,8 m.', q: '2 por ponta de gôndola', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 2, f: 'display-de-mesa', n: 'Display de mesa', m: 'PS 2 mm ou acrílico com base, A4, nas áreas de pisos, louças e metais.', q: '1 por ambiente ou mesa de amostras', t: '2–4 dias úteis' },
+
+  { z: 'caixa', pr: 1, f: 'adesivo-frontal-do-checkout', n: 'Adesivo frontal do checkout', m: 'Vinil laminado no lado do cliente da bancada. Ref. 1 × 0,8 m.', q: '1 por checkout', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'capa-do-numero-de-caixa', n: 'Capa do número de caixa', m: 'Adesivo ou PS sobre a placa atual, mantendo o número visível.', q: '1 por checkout', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'botton-da-equipe', n: 'Botton da equipe', m: 'Botton de 5,5 cm com alfinete, no uniforme de quem atende.', q: '1 por colaborador + 10%', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'video-para-tvs', n: 'Vídeo para TVs e monitores', m: 'Loops de 15 e 30 s, em 16:9 e 9:16. Entra no ar antes das peças impressas.', q: '1 conjunto por loja', t: '2–3 dias úteis de edição' },
+  { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão', t: '2–4 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila', t: '2–4 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk. Só entra se aprovada até 20/10.', q: '1 por colaborador', t: '5–10 dias úteis' }
+];
+
 (function () {
   var doc = document;
-  doc.documentElement.classList.add('js');
-
   var S = [].slice.call(doc.querySelectorAll('.s'));
-  var dots = doc.getElementById('dots');
-  var cNow = doc.getElementById('cNow');
-  var cAll = doc.getElementById('cAll');
-  var cur = 0;
+  var cNow = doc.getElementById('cNow'), cAll = doc.getElementById('cAll');
+  var cur = 0, KIT_I = S.indexOf(doc.getElementById('s3'));
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   cAll.textContent = pad(S.length);
-
-  // índice lateral
-  S.forEach(function (s, i) {
-    var li = doc.createElement('li');
-    var b = doc.createElement('button');
-    b.type = 'button';
-    b.setAttribute('aria-label', pad(i + 1) + ' · ' + s.dataset.title);
-    b.innerHTML = '<span>' + pad(i + 1) + ' ' + s.dataset.title + '</span><i></i>';
-    b.addEventListener('click', function () { go(i); });
-    li.appendChild(b);
-    dots.appendChild(li);
-  });
-  var dotBtns = [].slice.call(dots.querySelectorAll('button'));
 
   function setActive(i) {
     cur = i;
-    doc.body.dataset.tone = S[i].dataset.tone || 'dark';
+    doc.body.dataset.tone = S[i].dataset.tone || 'red';
     cNow.textContent = pad(i + 1);
-    dotBtns.forEach(function (b, j) { b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
     if (history.replaceState) history.replaceState(null, '', '#s' + (i + 1));
   }
   function go(i) {
     i = Math.max(0, Math.min(S.length - 1, i));
     S[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   }
-
   if ('IntersectionObserver' in window) {
-    // tela ativa = a que cruza o meio da janela
     var mid = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) setActive(S.indexOf(e.target)); });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-    // entrada animada
     var rev = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } });
     }, { threshold: 0.12 });
     S.forEach(function (s) { mid.observe(s); rev.observe(s); });
-  } else {
-    S.forEach(function (s) { s.classList.add('in'); });
-  }
+  } else { S.forEach(function (s) { s.classList.add('in'); }); }
   setActive(0);
 
-  // teclado: setas, PageUp/PageDown, Home/End
+  // ---------- kit ----------
+  var tabs = doc.getElementById('tabs'), rail = doc.getElementById('rail');
+  var prevC = doc.getElementById('prevC'), nextC = doc.getElementById('nextC');
+  var PR = { 1: ['p1', 'Essencial'], 2: ['p2', 'Recomendada'], 3: ['p3', 'Opcional'] };
+  // imagens presentes em assets/pdv/ (o build.ps1 preenche esta lista: nome sem extensão -> arquivo)
+  var PDV = {};
+  KIT.forEach(function (k, i) { k.file = pad(i + 1) + '-' + k.f; });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function loadImg(ph, base, n) {
+    if (!PDV[base]) return;
+    var im = new Image();
+    im.alt = n;
+    im.loading = 'lazy';
+    im.onload = function () { ph.classList.add('has-img'); };
+    im.src = 'assets/pdv/' + PDV[base];
+    ph.appendChild(im);
+  }
+  function card(k) {
+    var p = PR[k.pr];
+    var el = doc.createElement('article');
+    el.className = 'card';
+    el.innerHTML =
+      '<div class="ph"><span class="pr ' + p[0] + '">' + p[1] + '</span>' +
+      '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div></div>' +
+      '<div class="bd"><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
+      '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
+    loadImg(el.querySelector('.ph'), k.file, k.n);
+    return el;
+  }
+  function arrows() {
+    prevC.disabled = rail.scrollLeft <= 4;
+    nextC.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+  }
+  function showZone(id) {
+    [].forEach.call(tabs.children, function (b) { b.setAttribute('aria-selected', b.dataset.z === id ? 'true' : 'false'); });
+    rail.innerHTML = '';
+    KIT.filter(function (k) { return k.z === id; }).forEach(function (k) { rail.appendChild(card(k)); });
+    rail.scrollLeft = 0;
+    rail.setAttribute('aria-label', ZONES.filter(function (z) { return z.id === id; })[0].name);
+    arrows();
+  }
+  ZONES.forEach(function (z, i) {
+    var b = doc.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.dataset.z = z.id;
+    b.innerHTML = esc(z.name) + '<span>' + KIT.filter(function (k) { return k.z === z.id; }).length + '</span>';
+    b.addEventListener('click', function () { showZone(z.id); });
+    tabs.appendChild(b);
+  });
+  var step = function () { var c = rail.querySelector('.card'); return c ? (c.offsetWidth + 20) * 2 : 600; };
+  prevC.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  nextC.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  rail.addEventListener('scroll', arrows, { passive: true });
+  addEventListener('resize', arrows);
+  showZone(ZONES[0].id);
+
+  // ---------- teclado ----------
   addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var k = e.key;
-    if (k === 'ArrowDown' || k === 'PageDown' || k === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
-    else if (k === 'ArrowUp' || k === 'PageUp' || k === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+    if (k === 'ArrowDown' || k === 'PageDown') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(cur - 1); }
     else if (k === 'Home') { e.preventDefault(); go(0); }
     else if (k === 'End') { e.preventDefault(); go(S.length - 1); }
+    else if (k === 'ArrowRight' || k === 'ArrowLeft') {
+      e.preventDefault();
+      if (cur === KIT_I) rail.scrollBy({ left: (k === 'ArrowRight' ? 1 : -1) * step() / 2, behavior: reduce ? 'auto' : 'smooth' });
+      else go(cur + (k === 'ArrowRight' ? 1 : -1));
+    }
   });
 
-  // deep link #s3
   var m = location.hash.match(/^#s(\d+)$/);
   if (m && S[+m[1] - 1]) setTimeout(function () { S[+m[1] - 1].scrollIntoView(); }, 60);
-
-  // kit: detalhe da peça
-  var PR = { p1: 'Essencial · P1', p2: 'Recomendada · P2', p3: 'Opcional · P3' };
-  var chips = [].slice.call(doc.querySelectorAll('.pc'));
-  var dPr = doc.getElementById('dPr'), dNm = doc.getElementById('dNm'), dZn = doc.getElementById('dZn'),
-      dM = doc.getElementById('dM'), dQ = doc.getElementById('dQ'), dT = doc.getElementById('dT');
-  function show(b) {
-    chips.forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    dPr.className = 'prt ' + b.dataset.pr;
-    dPr.textContent = PR[b.dataset.pr];
-    dNm.textContent = b.textContent;
-    dZn.textContent = b.closest('.zone').dataset.zone;
-    dM.textContent = b.dataset.m;
-    dQ.textContent = b.dataset.q;
-    dT.textContent = b.dataset.t;
-  }
-  chips.forEach(function (b) { b.addEventListener('click', function () { show(b); }); });
-  if (chips[0]) show(chips[0]);
 })();
 </script>
 

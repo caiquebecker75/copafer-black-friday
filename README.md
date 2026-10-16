@@ -6,31 +6,36 @@ Apresentação HTML da proposta 75 LAB de **materiais de ponto de venda para a B
 
 ## Template
 
-Template próprio da Copafer, com a linguagem de sinalização de obra e de etiqueta de preço: preto, amarelo de sinalização, fita zebrada e tipografia Barlow (desenhada a partir de placas de estrada). É uma página de rolagem com **6 telas cheias**:
+Construído a partir do KV da campanha ("Tire seus planos do papel."): vermelho Copafer, amarelo-limão, a etiqueta preta de Black Friday e o mascote. Fonte Montserrat. Uma página de rolagem com **6 telas limpas**:
 
-1. **Capa**
-2. **O desafio** (amarelo): 42 peças por loja, 20 essenciais, 38 prontas em até 5 dias úteis, e os três critérios: institucional, rápido e assertivo.
-3. **O kit**: as 42 peças em quatro áreas, da avenida ao caixa. Essenciais em amarelo, recomendadas com contorno e opcionais com contorno tracejado. Clicar numa peça mostra material, quantidade por loja e prazo.
-4. **Cronograma** (calendário de outubro): quem aprova, quem cria, quando a gráfica produz e a entrega em 30/10.
-5. **Investimento**: kit essencial × kit completo, com valores a preencher.
-6. **Próximos passos** (amarelo) e contato.
+1. **Capa** (vermelho): etiqueta Black Friday, tagline e o mascote recortado do KV.
+2. **O desafio**: duas lojas gigantes, dez dias úteis; 42 peças, 20 essenciais, 38 prontas em até 5 dias úteis.
+3. **O kit**: as 42 peças em 4 abas (lado de fora, entrada e teto, gôndolas e pallets, checkout e telas). Cada peça é um card com **espaço para a imagem do material**, prioridade, especificação, quantidade e prazo.
+4. **Cronograma**: cinco marcos até a entrega em 30/10.
+5. **Investimento** (preto): kit essencial × kit completo, valores a preencher.
+6. **Próximos passos** (vermelho) e contato.
 
-Navegação: rolagem, setas ↑ ↓ ← →, PageUp/PageDown, Home/End e o índice lateral. Deep link: `#s3`. No celular as telas viram rolagem contínua e o detalhe da peça fica fixo no rodapé.
+Navegação: rolagem, setas ↑ ↓ (na tela do kit, ← → passam as peças), PageUp/PageDown, Home/End. Deep link: `#s3`.
+
+## Imagens das peças
+
+Coloque as imagens em `assets/pdv/` com o número e o nome da peça (lista completa em [assets/pdv/README.md](assets/pdv/README.md)), por exemplo `01-lona-de-fachada.jpg`, e rode o build. Formato do espaço: 4:3. Sem imagem, o card mostra o espaço reservado.
 
 ## Estrutura
 
 ```
 index.html            apresentação (gerado)
-assets/images/        logos 75 LAB (preto e lima)
+assets/images/        KV da campanha e logos 75 LAB
+assets/pdv/           imagens das peças (01-...42-)
 src/
-  01-head.html        título, fontes e todo o CSS
-  02-slides.html      barra, índice e as 6 telas
-  03-script.html      índice, tela ativa, teclado, animação de entrada e detalhe das peças
-build.ps1             gera index.html
+  01-head.html        título, fonte e todo o CSS
+  02-slides.html      barra e as 6 telas
+  03-script.html      lista das 42 peças, abas e carrossel do kit, tela ativa, teclado
+build.ps1             gera index.html (e lê as imagens de assets/pdv/)
 serve.ps1             servidor estático local opcional (http://localhost:8765)
 ```
 
-HTML, CSS e JavaScript puros, sem dependências. Fontes via Google Fonts (Barlow e Barlow Condensed).
+Para mudar uma peça (nome, especificação, quantidade, prazo, prioridade), edite a lista `KIT` no início de `src/03-script.html`.
 
 ## Rebuild
 
@@ -38,15 +43,13 @@ HTML, CSS e JavaScript puros, sem dependências. Fontes via Google Fonts (Barlow
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-Para editar as peças do kit, altere os botões `.pc` em `src/02-slides.html`: a classe `p1`/`p2`/`p3` define a prioridade e os atributos `data-m` (material e formato), `data-q` (quantidade por loja) e `data-t` (prazo) preenchem o detalhe.
-
 ## Pendências de conteúdo
 
-- Logo oficial da Copafer: a barra usa o nome em tipografia até recebermos o arquivo.
-- Investimento: valores por frente nas duas opções, total, condições de pagamento e validade (`R$ [__]`, `[a preencher]`).
+- Imagens das 42 peças em `assets/pdv/`.
+- Logo oficial da Copafer: a barra usa o nome em tipografia sobre o amarelo do KV.
+- Investimento: valores por frente nas duas opções, total, condições de pagamento e validade.
 - Apresentador: nome, cargo, e-mail e telefone.
 - Medidas e quantidades finais dependem da medição técnica nas duas lojas (até 20/10).
-- Prazos de produção são referências de mercado; confirmar no orçamento da gráfica.
 
 ## Fontes
 

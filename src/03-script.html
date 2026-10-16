@@ -1,88 +1,166 @@
 <script>
+/* ---------- o kit: 42 peças por loja ----------
+   Cada peça tem um número (01–42) que é também o nome da imagem em assets/pdv/:
+   assets/pdv/01-lona-de-fachada.jpg (aceita .jpg, .png ou .webp).
+   pr: 1 essencial · 2 recomendada · 3 opcional */
+var ZONES = [
+  { id: 'fora', name: 'Lado de fora' },
+  { id: 'teto', name: 'Entrada e teto' },
+  { id: 'gondola', name: 'Gôndolas e pallets' },
+  { id: 'caixa', name: 'Checkout e telas' }
+];
+var KIT = [
+  { z: 'fora', pr: 1, f: 'lona-de-fachada', n: 'Lona de fachada', m: 'Lona front-light 440 g com ilhós, ou tela mesh se a fachada pega vento. Ref. 10 × 3 m, na estrutura existente.', q: '1 por fachada visível da avenida', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 1, f: 'adesivo-de-portas-e-vidros', n: 'Adesivo de portas e vidros', m: 'Vinil perfurado one-way vision, que mantém a visão de dentro para fora.', q: 'Todos os vidros da entrada', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 1, f: 'wind-banner', n: 'Wind banner', m: 'Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m.', q: '8 a 12', t: '3–5 dias úteis' },
+  { z: 'fora', pr: 2, f: 'lona-de-gradil', n: 'Lona de gradil ou muro', m: 'Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m.', q: '1 a cada 10–15 m de gradil', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 2, f: 'banner-de-poste', n: 'Banner de poste', m: 'Lona dupla face blackout com bastão e braço metálico. Ref. 0,6 × 1,5 m.', q: '1 a cada 2 postes do estacionamento', t: '4–6 dias úteis' },
+  { z: 'fora', pr: 2, f: 'cavalete-de-calcada', n: 'Cavalete de calçada', m: 'Troca de adesivo ou lona nos cavaletes existentes, dentro do lote. Ref. 60 × 90 cm.', q: '2 a 4', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 2, f: 'lona-da-doca-de-retirada', n: 'Lona da doca de retirada', m: 'Lona 440 g na área de carga e retirada de mercadorias, medida no local.', q: '1 por doca', t: '2–3 dias úteis' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-cancela-e-guarita', n: 'Adesivo de cancela e guarita', m: 'Vinil com laminação UV. Ref. faixa de 3 m × 15 cm na cancela.', q: '1 kit por acesso de veículos', t: '2 dias úteis' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-frota', n: 'Adesivo de frota', m: 'Vinil removível nas laterais e na traseira dos caminhões de entrega.', q: '1 kit por caminhão', t: '2–3 dias úteis + aplicação' },
+  { z: 'fora', pr: 3, f: 'inflavel', n: 'Inflável', m: 'Biruta (sky dancer) de estoque, ou inflável personalizado com o KV.', q: '1 a 2', t: '1–3 dias úteis (estoque) · 10–15 (personalizado)' },
+
+  { z: 'teto', pr: 1, f: 'portico-de-entrada', n: 'Pórtico de entrada', m: 'Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m.', q: '1 por entrada de clientes', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 1, f: 'banner-aereo-de-departamento', n: 'Banner aéreo de departamento', m: 'Lona dupla face blackout com bastão e cabo de aço, “Black Friday em [departamento]”. Ref. 3 × 1,5 m.', q: '1 por departamento + corredores centrais', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 1, f: 'mobile', n: 'Móbile', m: 'PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm.', q: '1 a cada 15–20 m de corredor', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 1, f: 'totem-de-chao', n: 'Totem de chão', m: 'Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m.', q: '2 a 4', t: '4–7 dias úteis' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-carrinho', n: 'Adesivo de carrinho', m: 'Vinil na placa frontal ou faixa na grade. Ref. 30 × 20 cm.', q: '1 por carrinho', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'envelopamento-de-pilares', n: 'Envelopamento de pilares', m: 'Lona com velcro ou adesivo removível. Ref. 2,5 m de altura.', q: '1 por pilar da circulação principal', t: '2–4 dias úteis + instalação' },
+  { z: 'teto', pr: 2, f: 'bandeirolas', n: 'Bandeirolas', m: 'Varal em couché 150 g ou PS 0,5 mm. Ref. 20 × 30 cm.', q: 'Metragem dos corredores principais', t: '3–5 dias úteis' },
+  { z: 'teto', pr: 2, f: 'roll-up', n: 'Roll-up', m: 'Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m.', q: '4 a 6', t: '1–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'capa-de-placa-de-corredor', n: 'Capa de placa de corredor', m: 'Adesivo removível ou testeira em PS sobre a placa atual, mantendo o número.', q: '1 por placa de corredor', t: '2–3 dias úteis' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-piso-de-boas-vindas', n: 'Adesivo de piso de boas-vindas', m: 'Vinil com laminação antiderrapante no hall. Ref. 1,5 × 1,5 m.', q: '1 por entrada de clientes', t: '2–4 dias úteis' },
+  { z: 'teto', pr: 3, f: 'adesivo-de-piso-direcional', n: 'Adesivo de piso direcional', m: 'Vinil antiderrapante, fora da rota de empilhadeira. Ref. 60 cm.', q: '1 a cada 10 m de corredor', t: '2–4 dias úteis' },
+
+  { z: 'gondola', pr: 1, f: 'modelos-editaveis-de-cartaz', n: 'Modelos editáveis de cartaz', m: 'Arquivos de A6 a A3 para a impressora da loja, com campos de produto, preço e condição.', q: '1 kit (entrega digital)', t: '2 dias úteis, sem gráfica' },
+  { z: 'gondola', pr: 1, f: 'cartaz-com-preco-em-branco', n: 'Cartaz com preço em branco', m: 'Couché 150 g com o KV impresso e campo de preço para preencher. A4, A3 e A2.', q: 'Ofertas + 30% de reposição', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'testeira-de-ponta-de-gondola', n: 'Testeira de ponta de gôndola', m: 'PS 1–2 mm ou adesivo sobre a testeira existente. Ref. 1 × 0,3 m.', q: '1 por ponta de gôndola', t: '2–4 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'saia-de-pallet', n: 'Saia de pallet', m: 'Polionda ou papelão, 4 faces para pallet PBR. Ref. 30 cm de altura.', q: '1 por pallet ou ilha promocional', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'faixa-de-gondola', n: 'Faixa de gôndola', m: 'PS 0,3 mm ou couché laminado, encaixado na canaleta de preço.', q: 'Metragem das gôndolas com oferta', t: '2–4 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'stopper', n: 'Stopper', m: 'PS 1 mm perpendicular à prateleira. Ref. 20 × 15 cm.', q: '1 a cada 3–5 m de gôndola', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'wobbler', n: 'Wobbler', m: 'PS 0,5 mm com haste flexível e adesivo. Ref. 10 cm.', q: '1 por produto em destaque', t: '3–5 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'splash-adesivo', n: 'Splash adesivo', m: 'Adesivo em rolo com o selo Black Friday, para etiquetas e embalagens. Ref. 5 cm.', q: '2 por produto em oferta', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 2, f: 'lateral-de-ponta-de-gondola', n: 'Lateral de ponta de gôndola', m: 'Adesivo removível nas laterais das pontas. Ref. 0,4 × 1,8 m.', q: '2 por ponta de gôndola', t: '2–3 dias úteis' },
+  { z: 'gondola', pr: 2, f: 'display-de-mesa', n: 'Display de mesa', m: 'PS 2 mm ou acrílico com base, A4, nas áreas de pisos, louças e metais.', q: '1 por ambiente ou mesa de amostras', t: '2–4 dias úteis' },
+
+  { z: 'caixa', pr: 1, f: 'adesivo-frontal-do-checkout', n: 'Adesivo frontal do checkout', m: 'Vinil laminado no lado do cliente da bancada. Ref. 1 × 0,8 m.', q: '1 por checkout', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'capa-do-numero-de-caixa', n: 'Capa do número de caixa', m: 'Adesivo ou PS sobre a placa atual, mantendo o número visível.', q: '1 por checkout', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'botton-da-equipe', n: 'Botton da equipe', m: 'Botton de 5,5 cm com alfinete, no uniforme de quem atende.', q: '1 por colaborador + 10%', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 1, f: 'video-para-tvs', n: 'Vídeo para TVs e monitores', m: 'Loops de 15 e 30 s, em 16:9 e 9:16. Entra no ar antes das peças impressas.', q: '1 conjunto por loja', t: '2–3 dias úteis de edição' },
+  { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão', t: '2–4 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão', t: '2–3 dias úteis' },
+  { z: 'caixa', pr: 2, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila', t: '2–4 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk. Só entra se aprovada até 20/10.', q: '1 por colaborador', t: '5–10 dias úteis' }
+];
+
 (function () {
   var doc = document;
-  doc.documentElement.classList.add('js');
-
   var S = [].slice.call(doc.querySelectorAll('.s'));
-  var dots = doc.getElementById('dots');
-  var cNow = doc.getElementById('cNow');
-  var cAll = doc.getElementById('cAll');
-  var cur = 0;
+  var cNow = doc.getElementById('cNow'), cAll = doc.getElementById('cAll');
+  var cur = 0, KIT_I = S.indexOf(doc.getElementById('s3'));
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   cAll.textContent = pad(S.length);
-
-  // índice lateral
-  S.forEach(function (s, i) {
-    var li = doc.createElement('li');
-    var b = doc.createElement('button');
-    b.type = 'button';
-    b.setAttribute('aria-label', pad(i + 1) + ' · ' + s.dataset.title);
-    b.innerHTML = '<span>' + pad(i + 1) + ' ' + s.dataset.title + '</span><i></i>';
-    b.addEventListener('click', function () { go(i); });
-    li.appendChild(b);
-    dots.appendChild(li);
-  });
-  var dotBtns = [].slice.call(dots.querySelectorAll('button'));
 
   function setActive(i) {
     cur = i;
-    doc.body.dataset.tone = S[i].dataset.tone || 'dark';
+    doc.body.dataset.tone = S[i].dataset.tone || 'red';
     cNow.textContent = pad(i + 1);
-    dotBtns.forEach(function (b, j) { b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
     if (history.replaceState) history.replaceState(null, '', '#s' + (i + 1));
   }
   function go(i) {
     i = Math.max(0, Math.min(S.length - 1, i));
     S[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   }
-
   if ('IntersectionObserver' in window) {
-    // tela ativa = a que cruza o meio da janela
     var mid = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) setActive(S.indexOf(e.target)); });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-    // entrada animada
     var rev = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } });
     }, { threshold: 0.12 });
     S.forEach(function (s) { mid.observe(s); rev.observe(s); });
-  } else {
-    S.forEach(function (s) { s.classList.add('in'); });
-  }
+  } else { S.forEach(function (s) { s.classList.add('in'); }); }
   setActive(0);
 
-  // teclado: setas, PageUp/PageDown, Home/End
+  // ---------- kit ----------
+  var tabs = doc.getElementById('tabs'), rail = doc.getElementById('rail');
+  var prevC = doc.getElementById('prevC'), nextC = doc.getElementById('nextC');
+  var PR = { 1: ['p1', 'Essencial'], 2: ['p2', 'Recomendada'], 3: ['p3', 'Opcional'] };
+  // imagens presentes em assets/pdv/ (o build.ps1 preenche esta lista: nome sem extensão -> arquivo)
+  var PDV = /*@@PDV@@*/{};
+  KIT.forEach(function (k, i) { k.file = pad(i + 1) + '-' + k.f; });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function loadImg(ph, base, n) {
+    if (!PDV[base]) return;
+    var im = new Image();
+    im.alt = n;
+    im.loading = 'lazy';
+    im.onload = function () { ph.classList.add('has-img'); };
+    im.src = 'assets/pdv/' + PDV[base];
+    ph.appendChild(im);
+  }
+  function card(k) {
+    var p = PR[k.pr];
+    var el = doc.createElement('article');
+    el.className = 'card';
+    el.innerHTML =
+      '<div class="ph"><span class="pr ' + p[0] + '">' + p[1] + '</span>' +
+      '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div></div>' +
+      '<div class="bd"><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
+      '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
+    loadImg(el.querySelector('.ph'), k.file, k.n);
+    return el;
+  }
+  function arrows() {
+    prevC.disabled = rail.scrollLeft <= 4;
+    nextC.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+  }
+  function showZone(id) {
+    [].forEach.call(tabs.children, function (b) { b.setAttribute('aria-selected', b.dataset.z === id ? 'true' : 'false'); });
+    rail.innerHTML = '';
+    KIT.filter(function (k) { return k.z === id; }).forEach(function (k) { rail.appendChild(card(k)); });
+    rail.scrollLeft = 0;
+    rail.setAttribute('aria-label', ZONES.filter(function (z) { return z.id === id; })[0].name);
+    arrows();
+  }
+  ZONES.forEach(function (z, i) {
+    var b = doc.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.dataset.z = z.id;
+    b.innerHTML = esc(z.name) + '<span>' + KIT.filter(function (k) { return k.z === z.id; }).length + '</span>';
+    b.addEventListener('click', function () { showZone(z.id); });
+    tabs.appendChild(b);
+  });
+  var step = function () { var c = rail.querySelector('.card'); return c ? (c.offsetWidth + 20) * 2 : 600; };
+  prevC.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  nextC.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  rail.addEventListener('scroll', arrows, { passive: true });
+  addEventListener('resize', arrows);
+  showZone(ZONES[0].id);
+
+  // ---------- teclado ----------
   addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     var k = e.key;
-    if (k === 'ArrowDown' || k === 'PageDown' || k === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
-    else if (k === 'ArrowUp' || k === 'PageUp' || k === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+    if (k === 'ArrowDown' || k === 'PageDown') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(cur - 1); }
     else if (k === 'Home') { e.preventDefault(); go(0); }
     else if (k === 'End') { e.preventDefault(); go(S.length - 1); }
+    else if (k === 'ArrowRight' || k === 'ArrowLeft') {
+      e.preventDefault();
+      if (cur === KIT_I) rail.scrollBy({ left: (k === 'ArrowRight' ? 1 : -1) * step() / 2, behavior: reduce ? 'auto' : 'smooth' });
+      else go(cur + (k === 'ArrowRight' ? 1 : -1));
+    }
   });
 
-  // deep link #s3
   var m = location.hash.match(/^#s(\d+)$/);
   if (m && S[+m[1] - 1]) setTimeout(function () { S[+m[1] - 1].scrollIntoView(); }, 60);
-
-  // kit: detalhe da peça
-  var PR = { p1: 'Essencial · P1', p2: 'Recomendada · P2', p3: 'Opcional · P3' };
-  var chips = [].slice.call(doc.querySelectorAll('.pc'));
-  var dPr = doc.getElementById('dPr'), dNm = doc.getElementById('dNm'), dZn = doc.getElementById('dZn'),
-      dM = doc.getElementById('dM'), dQ = doc.getElementById('dQ'), dT = doc.getElementById('dT');
-  function show(b) {
-    chips.forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    dPr.className = 'prt ' + b.dataset.pr;
-    dPr.textContent = PR[b.dataset.pr];
-    dNm.textContent = b.textContent;
-    dZn.textContent = b.closest('.zone').dataset.zone;
-    dM.textContent = b.dataset.m;
-    dQ.textContent = b.dataset.q;
-    dT.textContent = b.dataset.t;
-  }
-  chips.forEach(function (b) { b.addEventListener('click', function () { show(b); }); });
-  if (chips[0]) show(chips[0]);
 })();
 </script>

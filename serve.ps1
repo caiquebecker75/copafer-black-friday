@@ -1,7 +1,7 @@
 # Servidor estático mínimo para pré-visualizar o site localmente (sem Node/Python)
 param([int]$Port = 8765)
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$types = @{ '.html'='text/html; charset=utf-8'; '.css'='text/css'; '.js'='text/javascript'; '.png'='image/png'; '.jpg'='image/jpeg'; '.svg'='image/svg+xml'; '.json'='application/json' }
+$types = @{ '.html'='text/html; charset=utf-8'; '.css'='text/css'; '.js'='text/javascript'; '.png'='image/png'; '.jpg'='image/jpeg'; '.jpeg'='image/jpeg'; '.webp'='image/webp';'.svg'='image/svg+xml'; '.json'='application/json' }
 $l = New-Object System.Net.HttpListener
 $l.Prefixes.Add("http://localhost:$Port/")
 $l.Start()
