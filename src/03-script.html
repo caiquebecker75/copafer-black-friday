@@ -51,7 +51,7 @@ var KIT = [
   { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja', t: '2–3 dias úteis' },
   { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão', t: '2–4 dias úteis' },
   { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 2, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 2, au: 1, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
   { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila', t: '2–4 dias úteis' },
   { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira', t: '3–5 dias úteis' },
   { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk. Só entra se aprovada até 20/10.', q: '1 por colaborador', t: '5–10 dias úteis' }
@@ -207,9 +207,11 @@ var KIT = [
     var p = PR[k.pr];
     var el = doc.createElement('article');
     el.className = 'card';
+    var empty = k.au
+      ? '<div class="ph-empty"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></svg>Peça de áudio · 30 s</div>'
+      : '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div>';
     el.innerHTML =
-      '<div class="ph"><span class="pr ' + p[0] + '">' + p[1] + '</span>' +
-      '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div></div>' +
+      '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>' +
       '<div class="bd"><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
       '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
     loadImg(el.querySelector('.ph'), k.file, k.n);

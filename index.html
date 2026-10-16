@@ -131,7 +131,9 @@ body[data-tone="light"] .brand img{filter:none}
 .ph{position:relative;aspect-ratio:4/3;background:#ECE8E1;overflow:hidden}
 .ph .ph-empty{position:absolute;inset:12px;border:1.5px dashed rgba(20,20,20,.18);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#9A948A;font:600 12px/1.2 var(--f);text-align:center}
 .ph .ph-empty svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:10px;background:var(--white)}
+.ph.audio{background:var(--ink)}
+.ph.audio .ph-empty{border-color:rgba(255,255,255,.2);color:var(--yel)}
 .pr{position:absolute;z-index:2;left:12px;top:12px;font:800 10.5px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:99px;background:var(--white);color:var(--ink)}
 .pr.p1{background:var(--yel)}
 .pr.p3{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--gray);color:var(--gray)}
@@ -440,7 +442,7 @@ var KIT = [
   { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja', t: '2–3 dias úteis' },
   { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão', t: '2–4 dias úteis' },
   { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 2, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
+  { z: 'caixa', pr: 2, au: 1, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
   { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila', t: '2–4 dias úteis' },
   { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira', t: '3–5 dias úteis' },
   { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk. Só entra se aprovada até 20/10.', q: '1 por colaborador', t: '5–10 dias úteis' }
@@ -579,7 +581,7 @@ var KIT = [
   var prevC = doc.getElementById('prevC'), nextC = doc.getElementById('nextC');
   var PR = { 1: ['p1', 'Essencial'], 2: ['p2', 'Recomendada'], 3: ['p3', 'Opcional'] };
   // imagens presentes em assets/pdv/ (o build.ps1 preenche esta lista: nome sem extensão -> arquivo)
-  var PDV = {};
+  var PDV = {"01-lona-de-fachada":"01-lona-de-fachada.jpg","02-adesivo-de-portas-e-vidros":"02-adesivo-de-portas-e-vidros.jpg","03-wind-banner":"03-wind-banner.jpg","04-lona-de-gradil":"04-lona-de-gradil.jpg","05-banner-de-poste":"05-banner-de-poste.jpg","06-cavalete-de-calcada":"06-cavalete-de-calcada.jpg","07-lona-da-doca-de-retirada":"07-lona-da-doca-de-retirada.jpg","08-adesivo-de-cancela-e-guarita":"08-adesivo-de-cancela-e-guarita.jpg","09-adesivo-de-frota":"09-adesivo-de-frota.jpg","10-inflavel":"10-inflavel.jpg","11-portico-de-entrada":"11-portico-de-entrada.jpg","12-banner-aereo-de-departamento":"12-banner-aereo-de-departamento.jpg","13-mobile":"13-mobile.jpg","14-totem-de-chao":"14-totem-de-chao.jpg","15-adesivo-de-carrinho":"15-adesivo-de-carrinho.jpg","16-envelopamento-de-pilares":"16-envelopamento-de-pilares.jpg","17-bandeirolas":"17-bandeirolas.jpg","18-roll-up":"18-roll-up.jpg","19-capa-de-placa-de-corredor":"19-capa-de-placa-de-corredor.jpg","20-adesivo-de-piso-de-boas-vindas":"20-adesivo-de-piso-de-boas-vindas.jpg","21-adesivo-de-piso-direcional":"21-adesivo-de-piso-direcional.jpg","22-modelos-editaveis-de-cartaz":"22-modelos-editaveis-de-cartaz.jpg","23-cartaz-com-preco-em-branco":"23-cartaz-com-preco-em-branco.jpg","24-testeira-de-ponta-de-gondola":"24-testeira-de-ponta-de-gondola.jpg","25-saia-de-pallet":"25-saia-de-pallet.jpg","26-faixa-de-gondola":"26-faixa-de-gondola.jpg","27-stopper":"27-stopper.jpg","28-wobbler":"28-wobbler.jpg","29-splash-adesivo":"29-splash-adesivo.jpg","30-lateral-de-ponta-de-gondola":"30-lateral-de-ponta-de-gondola.jpg","31-display-de-mesa":"31-display-de-mesa.jpg","32-adesivo-frontal-do-checkout":"32-adesivo-frontal-do-checkout.jpg","33-capa-do-numero-de-caixa":"33-capa-do-numero-de-caixa.jpg","34-botton-da-equipe":"34-botton-da-equipe.jpg","35-video-para-tvs":"35-video-para-tvs.jpg","36-painel-de-led":"36-painel-de-led.jpg","37-display-de-balcao":"37-display-de-balcao.jpg","38-sinalizacao-do-balcao-de-retirada":"38-sinalizacao-do-balcao-de-retirada.jpg","40-adesivo-de-piso-da-fila":"40-adesivo-de-piso-da-fila.jpg","41-divisor-de-esteira":"41-divisor-de-esteira.jpg","42-camiseta-da-campanha":"42-camiseta-da-campanha.jpg"};
   KIT.forEach(function (k, i) { k.file = pad(i + 1) + '-' + k.f; });
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -596,9 +598,11 @@ var KIT = [
     var p = PR[k.pr];
     var el = doc.createElement('article');
     el.className = 'card';
+    var empty = k.au
+      ? '<div class="ph-empty"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></svg>Peça de áudio · 30 s</div>'
+      : '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div>';
     el.innerHTML =
-      '<div class="ph"><span class="pr ' + p[0] + '">' + p[1] + '</span>' +
-      '<div class="ph-empty"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg>Imagem do material</div></div>' +
+      '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>' +
       '<div class="bd"><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
       '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
     loadImg(el.querySelector('.ph'), k.file, k.n);

@@ -54,7 +54,7 @@ Formato do espaço: **4:3** (ex.: 1200 × 900 px). Imagens em outra proporção 
 - 36-painel-de-led
 - 37-display-de-balcao
 - 38-sinalizacao-do-balcao-de-retirada
-- 39-spot-de-radio-interna
+- 39-spot-de-radio-interna (peça de áudio: sem imagem, o card mostra o ícone de áudio)
 - 40-adesivo-de-piso-da-fila
 - 41-divisor-de-esteira
 - 42-camiseta-da-campanha

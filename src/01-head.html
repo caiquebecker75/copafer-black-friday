@@ -125,7 +125,9 @@ body[data-tone="light"] .brand img{filter:none}
 .ph{position:relative;aspect-ratio:4/3;background:#ECE8E1;overflow:hidden}
 .ph .ph-empty{position:absolute;inset:12px;border:1.5px dashed rgba(20,20,20,.18);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#9A948A;font:600 12px/1.2 var(--f);text-align:center}
 .ph .ph-empty svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.6}
-.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:10px;background:var(--white)}
+.ph.audio{background:var(--ink)}
+.ph.audio .ph-empty{border-color:rgba(255,255,255,.2);color:var(--yel)}
 .pr{position:absolute;z-index:2;left:12px;top:12px;font:800 10.5px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:99px;background:var(--white);color:var(--ink)}
 .pr.p1{background:var(--yel)}
 .pr.p3{background:var(--white);box-shadow:inset 0 0 0 1.5px var(--gray);color:var(--gray)}

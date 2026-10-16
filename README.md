@@ -19,7 +19,7 @@ Navegação em modo apresentação (telas a partir de 900 px): uma tela por vez,
 
 ## Imagens das peças
 
-Coloque as imagens em `assets/pdv/` com o número e o nome da peça (lista completa em [assets/pdv/README.md](assets/pdv/README.md)), por exemplo `01-lona-de-fachada.jpg`, e rode o build. Formato do espaço: 4:3. Sem imagem, o card mostra o espaço reservado.
+As 41 peças visuais já têm imagem, recortadas das pranchas de mockups da campanha (o spot de rádio é áudio e mostra um card próprio). Para trocar ou incluir uma imagem, coloque o arquivo em `assets/pdv/` com o número e o nome da peça (lista completa em [assets/pdv/README.md](assets/pdv/README.md)), por exemplo `01-lona-de-fachada.jpg`, e rode o build. Formato do espaço: 4:3. Sem imagem, o card mostra o espaço reservado.
 
 ## Estrutura
 
@@ -45,7 +45,6 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 ## Pendências de conteúdo
 
-- Imagens das 42 peças em `assets/pdv/`.
 - Logo oficial da Copafer: a barra usa o nome em tipografia sobre o amarelo do KV.
 - Investimento: valores por frente nas duas opções, total, condições de pagamento e validade.
 - Apresentador: nome, cargo, e-mail e telefone.
