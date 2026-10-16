@@ -1,13 +1,3 @@
-<header class="bar">
-  <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início"><span class="cop">COPAFER</span><span class="x" aria-hidden="true">×</span><img src="assets/images/75lab-black.png" alt="75 LAB"></a>
-  <p class="count" aria-live="off"><span id="cNow">01</span> / <span id="cAll">06</span></p>
-</header>
-<nav class="nav" aria-label="Navegação da apresentação">
-  <button type="button" class="arw" id="prevS" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-  <ol class="segs" id="segs"></ol>
-  <button type="button" class="arw" id="nextS" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-</nav>
-<div class="wipe" id="wipe" aria-hidden="true"></div>
 <p class="sr" id="live" aria-live="polite"></p>
 <div class="lbx" id="lbx" role="dialog" aria-modal="true" aria-label="Imagem do material ampliada" aria-hidden="true">
   <figure class="lbx-stage">
@@ -19,6 +9,19 @@
   <button type="button" class="lbx-btn lbx-prev" id="lbxPrev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
   <button type="button" class="lbx-btn lbx-next" id="lbxNext" aria-label="Próxima imagem"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
 </div>
+
+<!-- palco 16:9: no modo apresentação ele tem 1440 x 810 e escala para caber na janela -->
+<div class="stage" id="stage">
+<header class="bar">
+  <a class="brand" href="#s1" aria-label="Copafer × 75 LAB, voltar ao início"><span class="cop">COPAFER</span><span class="x" aria-hidden="true">×</span><img src="assets/images/75lab-black.png" alt="75 LAB"></a>
+  <p class="count" aria-live="off"><span id="cNow">01</span> / <span id="cAll">06</span></p>
+</header>
+<nav class="nav" aria-label="Navegação da apresentação">
+  <button type="button" class="arw" id="prevS" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <ol class="segs" id="segs"></ol>
+  <button type="button" class="arw" id="nextS" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+</nav>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
 
 <main>
 
@@ -54,11 +57,14 @@
 
 <!-- 03 · O KIT -->
 <section class="s t-paper" id="s3" data-title="O kit" data-tone="light" aria-label="O kit">
-  <div class="head">
-    <p class="eyebrow" data-r>O kit · 42 peças por loja</p>
-    <h2 class="h2" data-r style="--d:.1s">Da avenida <em>ao caixa</em></h2>
+  <div class="kit-top">
+    <div class="head">
+      <p class="eyebrow" data-r>O kit · 42 peças por loja</p>
+      <h2 class="h2" data-r style="--d:.1s">Da avenida <em>ao caixa</em></h2>
+    </div>
+    <div class="tabs prio" role="group" aria-label="Filtrar por prioridade" id="prio" data-r style="--d:.15s"></div>
   </div>
-  <div class="tabs" role="tablist" aria-label="Filtrar peças por prioridade ou por área da loja" id="tabs" data-r style="--d:.2s"></div>
+  <div class="areas" role="group" aria-label="Filtrar por área da loja" id="areas" data-r style="--d:.2s"></div>
   <div class="rail-wrap" id="railWrap" data-r style="--d:.3s">
     <div class="rail" id="rail" role="tabpanel" aria-live="polite"></div>
     <button type="button" class="side prev" id="prevC" aria-label="Peças anteriores"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -139,3 +145,4 @@
 </section>
 
 </main>
+</div>

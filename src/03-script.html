@@ -67,7 +67,14 @@ var KIT = [
   var pad = function (n) { return (n < 10 ? '0' : '') + n; };
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   // modo apresentação (uma tela por vez) em telas largas; no celular, rolagem vertical
-  var deckMQ = matchMedia('(min-width: 900px) and (min-height: 560px)');
+  var deckMQ = matchMedia('(min-width: 900px) and (min-height: 420px)');
+  // palco 16:9: escala para caber inteiro na janela, sem rolagem
+  var stage = doc.getElementById('stage'), bar = doc.querySelector('.bar');
+  function fit() {
+    if (!isDeck) { stage.style.removeProperty('--k'); return; }
+    stage.style.setProperty('--k', Math.min(innerWidth / 1440, innerHeight / 810));
+  }
+  addEventListener('resize', fit);
   cAll.textContent = pad(S.length);
 
   // barra de progresso clicável
@@ -86,6 +93,10 @@ var KIT = [
   function setActive(i) {
     cur = i;
     doc.body.dataset.tone = S[i].dataset.tone || 'red';
+    // fora do palco (faixas laterais ou superiores), a página assume a cor da tela atual
+    doc.body.style.backgroundColor = isDeck ? getComputedStyle(S[i]).backgroundColor : '';
+    // no celular (rolagem), a barra ganha o fundo da tela atual para o texto não passar por baixo dela
+    bar.style.backgroundColor = isDeck ? '' : getComputedStyle(S[i]).backgroundColor;
     cNow.textContent = pad(i + 1);
     segBtns.forEach(function (b, j) { b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
     prevS.disabled = i === 0;
@@ -136,6 +147,7 @@ var KIT = [
       s.classList.add('in');
     });
     window.scrollTo(0, 0);
+    fit();
     setActive(cur);
   }
   function exitDeck() {
@@ -144,6 +156,8 @@ var KIT = [
     html.classList.remove('deck');
     wipe.className = 'wipe';
     S.forEach(function (s) { s.classList.remove('on', 'leaving', 'to-l', 'to-r', 'from-r', 'from-l'); s.classList.add('in'); });
+    fit();
+    doc.body.style.backgroundColor = '';
     S[cur].scrollIntoView();
   }
 
@@ -164,7 +178,12 @@ var KIT = [
   var m = location.hash.match(/^#s(\d+)$/);
   if (m && S[+m[1] - 1]) cur = +m[1] - 1;
   if (deckMQ.matches) { enterDeck(); reveal(S[cur], 120); }
-  else { setActive(cur); if (cur) setTimeout(function () { S[cur].scrollIntoView(); }, 60); }
+  else {
+    setActive(cur);
+    // celular: o link direto (#s3) rola até a tela depois que imagens e fontes carregam
+    var startI = cur;
+    if (startI) addEventListener('load', function () { if (!isDeck) S[startI].scrollIntoView(); });
+  }
   var onMode = function () { if (deckMQ.matches && !isDeck) enterDeck(); else if (!deckMQ.matches && isDeck) exitDeck(); };
   if (deckMQ.addEventListener) deckMQ.addEventListener('change', onMode); else deckMQ.addListener(onMode);
 
@@ -188,7 +207,7 @@ var KIT = [
   }, { passive: true });
 
   // ---------- kit ----------
-  var tabs = doc.getElementById('tabs'), rail = doc.getElementById('rail');
+  var prio = doc.getElementById('prio'), areas = doc.getElementById('areas'), rail = doc.getElementById('rail');
   var prevC = doc.getElementById('prevC'), nextC = doc.getElementById('nextC');
   var PR = { 1: ['p1', 'Essencial'], 2: ['p2', 'Recomendada'], 3: ['p3', 'Opcional'] };
   var ZN = {};
@@ -231,12 +250,14 @@ var KIT = [
     nextC.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
     railWrap.classList.toggle('end', nextC.disabled);
   }
-  // filtros: primeiro por prioridade (P1, P2, P3), depois por área da loja
-  var FILTERS = [
-    { f: 'p1', name: 'P1 · Essencial', dot: 'd1', test: function (k) { return k.pr === 1; } },
-    { f: 'p2', name: 'P2 · Recomendada', dot: 'd2', test: function (k) { return k.pr === 2; } },
-    { f: 'p3', name: 'P3 · Opcional', dot: 'd3', test: function (k) { return k.pr === 3; } }
-  ].concat(ZONES.map(function (z) { return { f: z.id, name: z.name, test: function (k) { return k.z === z.id; } }; }));
+  // filtros combinados: prioridade (P1, P2, P3 ou todas) + área da loja (todas ou uma das 4)
+  var PRIOS = [
+    { pr: 1, name: 'P1 · Essencial', dot: 'd1' },
+    { pr: 2, name: 'P2 · Recomendada', dot: 'd2' },
+    { pr: 3, name: 'P3 · Opcional', dot: 'd3' },
+    { pr: 0, name: 'Todas' }
+  ];
+  var sel = { pr: 1, z: '' };
   // ---------- imagem ampliada (navega pelas peças do filtro atual) ----------
   var shown = [];
   var lbx = doc.getElementById('lbx'), lbxImg = doc.getElementById('lbxImg'), lbxZn = doc.getElementById('lbxZn'),
@@ -284,32 +305,57 @@ var KIT = [
   lbxNext.addEventListener('click', function () { lbShow(lbI + 1); });
   lbx.addEventListener('click', function (e) { if (e.target === lbx || e.target.classList.contains('lbx-stage')) closeLb(); });
 
-  function showFilter(f) {
-    var flt = FILTERS.filter(function (x) { return x.f === f; })[0];
-    [].forEach.call(tabs.querySelectorAll('button'), function (b) { b.setAttribute('aria-selected', b.dataset.f === f ? 'true' : 'false'); });
+  var okPr = function (k, pr) { return !pr || k.pr === pr; };
+  var okZ = function (k, z) { return !z || k.z === z; };
+  function render() {
+    // prioridade (linha de cima)
+    [].forEach.call(prio.querySelectorAll('button'), function (b) { b.setAttribute('aria-pressed', +b.dataset.pr === sel.pr ? 'true' : 'false'); });
+    // áreas (linha de baixo): contagem conforme a prioridade escolhida
+    [].forEach.call(areas.querySelectorAll('button'), function (b) {
+      var n = KIT.filter(function (k) { return okPr(k, sel.pr) && okZ(k, b.dataset.z); }).length;
+      b.querySelector('.c').textContent = n;
+      b.disabled = n === 0;
+      b.setAttribute('aria-pressed', b.dataset.z === sel.z ? 'true' : 'false');
+    });
     rail.innerHTML = '';
-    shown = KIT.filter(flt.test);
+    shown = KIT.filter(function (k) { return okPr(k, sel.pr) && okZ(k, sel.z); });
     shown.forEach(function (k) { rail.appendChild(card(k)); });
     rail.scrollLeft = 0;
-    rail.setAttribute('aria-label', flt.name);
+    rail.setAttribute('aria-label', (sel.pr ? 'P' + sel.pr : 'Todas as prioridades') + ' · ' + (sel.z ? ZN[sel.z] : 'todas as áreas'));
     arrows();
   }
-  FILTERS.forEach(function (x, i) {
-    if (i === 3) { var sep = doc.createElement('span'); sep.className = 'sep'; sep.setAttribute('aria-hidden', 'true'); tabs.appendChild(sep); }
+  PRIOS.forEach(function (x) {
     var b = doc.createElement('button');
     b.type = 'button';
-    b.setAttribute('role', 'tab');
-    b.dataset.f = x.f;
-    b.innerHTML = (x.dot ? '<i class="dot ' + x.dot + '" aria-hidden="true"></i>' : '') + esc(x.name) + '<span>' + KIT.filter(x.test).length + '</span>';
-    b.addEventListener('click', function () { showFilter(x.f); });
-    tabs.appendChild(b);
+    b.dataset.pr = x.pr;
+    if (!x.pr) b.className = 'all';
+    b.innerHTML = (x.dot ? '<i class="dot ' + x.dot + '" aria-hidden="true"></i>' : '') + esc(x.name) + '<span>' + KIT.filter(function (k) { return okPr(k, x.pr); }).length + '</span>';
+    b.addEventListener('click', function () {
+      sel.pr = x.pr;
+      // se a área escolhida não tem peças nessa prioridade, volta para todas as áreas
+      if (sel.z && !KIT.some(function (k) { return okPr(k, sel.pr) && okZ(k, sel.z); })) sel.z = '';
+      render();
+    });
+    prio.appendChild(b);
+  });
+  var lbl = doc.createElement('span');
+  lbl.className = 'lbl';
+  lbl.textContent = 'Área da loja';
+  areas.appendChild(lbl);
+  [{ id: '', name: 'Todas' }].concat(ZONES).forEach(function (z, i) {
+    var b = doc.createElement('button');
+    b.type = 'button';
+    b.dataset.z = z.id;
+    b.innerHTML = (z.id ? '<i class="n" aria-hidden="true">' + i + '</i>' : '') + esc(z.name) + '<span class="c"></span>';
+    b.addEventListener('click', function () { sel.z = z.id; render(); });
+    areas.appendChild(b);
   });
   var step = function () { var c = rail.querySelector('.card'); return c ? (c.offsetWidth + 20) * 2 : 600; };
   prevC.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }); });
   nextC.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
   rail.addEventListener('scroll', arrows, { passive: true });
   addEventListener('resize', arrows);
-  showFilter('p1');
+  render();
 
   // ---------- teclado: → ↓ PageDown espaço avançam · ← ↑ PageUp voltam · Home/End ----------
   addEventListener('keydown', function (e) {
