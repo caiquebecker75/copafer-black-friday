@@ -1,5 +1,5 @@
 # Monta a apresentação a partir de /src (Pages servindo main / raiz)
-#  - index.html : Black Friday Copafer (6 telas) -> projetos.75lab.com.br/copafer-black-friday/
+#  - index.html : Black Friday Copafer (5 telas) -> projetos.75lab.com.br/copafer-black-friday/
 #  - lê as imagens de assets/pdv/ (01-lona-de-fachada.jpg ...) e passa a lista para o kit
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path

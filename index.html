@@ -69,7 +69,7 @@ body[data-tone="light"] .brand img{filter:none}
 .note{font-size:13.5px;line-height:1.5;color:var(--mut)}
 .note b{color:var(--fg)}
 .s.mid{justify-content:center;gap:clamp(32px,7cqh,80px)}
-.s.mid .nums,.s.mid .tl,.s.mid .steps{margin-top:0}
+.s.mid .nums{margin-top:0}
 
 /* ---------- entrada animada ---------- */
 .js [data-r]{opacity:0;transform:translateY(16px);transition:opacity .7s var(--ease) var(--d,0s),transform .9s var(--ease) var(--d,0s)}
@@ -180,23 +180,7 @@ body[data-tone="light"] .brand img{filter:none}
 .card dt{font:700 10.5px/1.6 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
 .card dd{font-weight:600}
 
-/* ---------- 04 · cronograma ---------- */
-.tl{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,2cqw,28px);margin-top:auto}
-.tl::before{content:"";position:absolute;left:0;right:0;top:calc(clamp(40px,4.4cqw,72px) + 22px);height:2px;background:var(--line)}
-.tl li{position:relative;display:flex;flex-direction:column;gap:10px}
-.tl b{font:900 clamp(40px,4.4cqw,72px)/1 var(--f);letter-spacing:-.04em;white-space:nowrap}
-.tl i{position:relative;z-index:1;width:16px;height:16px;border-radius:50%;background:var(--white);box-shadow:inset 0 0 0 3px var(--ink);margin:6px 0}
-.tl h3{font:800 clamp(16px,1.3cqw,20px)/1.2 var(--f)}
-.tl p{font-size:14px;line-height:1.45;color:var(--mut);max-width:24ch}
-.tl .hot b{color:var(--red)}
-.tl .hot i{background:var(--red);box-shadow:0 0 0 6px rgba(208,4,12,.15)}
-.tl .end i{background:var(--ink)}
-.pill{display:inline-block;font:800 10.5px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:99px;margin-left:8px;vertical-align:3px}
-.pill.r{background:var(--red);color:var(--white)}.pill.k{background:var(--ink);color:var(--yel)}
-.after{display:flex;flex-wrap:wrap;gap:10px 28px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--mut)}
-.after b{color:var(--fg)}
-
-/* ---------- 05 · investimento ---------- */
+/* ---------- 04 · investimento ---------- */
 .inv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2cqw,28px);flex:1;align-items:stretch}
 .opt{--ol:rgba(255,255,255,.14);border-radius:16px;padding:clamp(20px,2.4cqw,34px);display:flex;flex-direction:column;gap:clamp(10px,1.6cqh,16px);background:#1F1F1F}
 .opt.full{--ol:rgba(20,20,20,.16);background:var(--yel);color:var(--ink)}
@@ -212,15 +196,20 @@ body[data-tone="light"] .brand img{filter:none}
 .opt .tot span{font:800 12px/1 var(--f);letter-spacing:.16em;text-transform:uppercase}
 .opt .tot b{font:900 clamp(26px,2.6cqw,42px)/1 var(--f);letter-spacing:-.03em}
 
-/* ---------- 06 · próximos passos ---------- */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2cqw,32px);margin-top:auto}
-.steps li{display:flex;flex-direction:column;gap:12px;padding-top:16px;border-top:2px solid rgba(255,255,255,.35)}
-.steps b{font:900 clamp(48px,5cqw,84px)/.85 var(--f);color:var(--yel);letter-spacing:-.04em}
-.steps p{font:700 clamp(16px,1.3cqw,20px)/1.35 var(--f);max-width:22ch}
-.contact{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,3cqw,48px);align-items:center;padding-top:20px;border-top:1px solid var(--line)}
-.contact img{height:30px;width:auto;filter:brightness(0) invert(1)}
-.contact .lb{font:800 11px/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--yel);margin-bottom:6px}
-.contact p{font-size:14.5px;line-height:1.5}
+/* ---------- 05 · quantidade por loja ---------- */
+#s5 .h2{font-size:clamp(30px,3.4cqw,56px);max-width:none}
+#s5{gap:clamp(14px,2.6cqh,26px)}
+.rules5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.1cqw,16px);margin:auto 0}
+.rules5>li{background:var(--white);color:var(--ink);border-radius:14px;padding:clamp(14px,1.4cqw,20px);display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 40px -24px rgba(0,0,0,.45)}
+.rules5 .rn{display:flex;align-items:baseline;gap:6px;font:700 11px/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--gray)}
+.rules5 .rn b{font:900 clamp(34px,3.2cqw,48px)/.85 var(--f);letter-spacing:-.04em;color:var(--red)}
+.rules5 h3{font:800 clamp(16px,1.3cqw,19px)/1.15 var(--f)}
+.rules5 .rd{font-size:13px;line-height:1.45;color:var(--gray)}
+.rules5 .ex{display:flex;flex-direction:column;gap:5px;padding:9px 0;border-top:1px solid rgba(20,20,20,.1);border-bottom:1px solid rgba(20,20,20,.1)}
+.rules5 .ex li{font-size:12.5px;line-height:1.35}
+.rules5 .ex b{font-weight:800}
+.rules5 .all{font-size:11.5px;line-height:1.5;color:var(--gray);margin-top:auto}
+.rules5 .all::before{content:"Peças: ";font-weight:800;color:var(--ink)}
 
 /* ---------- imagem ampliada ---------- */
 button.ph{display:block;width:100%;padding:0;border:0;cursor:zoom-in}
@@ -302,22 +291,14 @@ body[data-tone="light"] .segs button[aria-current="true"] i{background:var(--red
   .cover .copy{max-width:none}
   .hero{position:relative;order:3;align-self:center;height:min(68cqw,420px);margin:0 calc(var(--px) * -1) -8px;width:auto;
     -webkit-mask-image:linear-gradient(180deg,#000 75%,transparent);mask-image:linear-gradient(180deg,#000 75%,transparent)}
-  .nums,.inv{grid-template-columns:minmax(0,1fr)}
+  .nums,.inv,.rules5{grid-template-columns:minmax(0,1fr)}
   .nums li+li{padding-left:0;border-left:0;border-top:1px solid var(--line)}
   .nums li{padding:16px 0}
-  .tl{grid-template-columns:minmax(0,1fr);gap:18px}
-  .tl::before{display:none}
-  .tl li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;align-items:baseline}
-  .tl i{display:none}
-  .tl b{font-size:34px;grid-row:span 2;min-width:4.4ch}
-  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .contact{grid-template-columns:minmax(0,1fr)}
   .card{flex-basis:78cqw}
 }
 @media (max-width:560px){
   :root{--bar:56px}
   .cop{font-size:15px}
-  .steps{grid-template-columns:minmax(0,1fr)}
   .band{font-size:15px;padding-right:44px}
 }
 </style>
@@ -356,23 +337,23 @@ body[data-tone="light"] .segs button[aria-current="true"] i{background:var(--red
   <div class="hero" aria-hidden="true"><img src="assets/images/kv-copafer-black-friday.webp" alt=""></div>
   <div class="copy">
     <p class="kicker" data-r>Proposta de materiais de PDV · 75 LAB</p>
-    <div class="tag" data-r style="--d:.1s"><div class="tag-in"><h1><span>Black</span><span class="y">Friday</span><small>2026</small></h1></div></div>
+    <div class="tag" data-r style="--d:.1s"><div class="tag-in"><h1><span>Black</span><span class="y">Friday</span></h1></div></div>
     <p class="tagline" data-r style="--d:.2s">Tire seus planos do papel.</p>
   </div>
-  <p class="band" data-r style="--d:.3s">Kit de PDV para Santo André e Mauá · <span>entrega até 30/10</span></p>
+  <p class="band" data-r style="--d:.3s">Kit de PDV para as lojas de <span>Santo André e Mauá</span></p>
 </section>
 
 <!-- 02 · DESAFIO -->
 <section class="s t-light mid" id="s2" data-title="O desafio" data-tone="light" aria-label="O desafio">
   <div class="head">
     <p class="eyebrow" data-r>O desafio</p>
-    <h2 class="h2" data-r style="--d:.1s">Duas lojas gigantes. <em>Dez dias úteis.</em></h2>
-    <p class="lead" data-r style="--d:.2s">Comunicar a Black Friday nas lojas de <b>Santo André</b> e <b>Mauá</b>, de forma institucional, com tudo entregue até <b>30/10</b>.</p>
+    <h2 class="h2" data-r style="--d:.1s">Duas lojas gigantes. <em>Um só kit.</em></h2>
+    <p class="lead" data-r style="--d:.2s">Comunicar a Black Friday nas lojas de <b>Santo André</b> e <b>Mauá</b>, de forma institucional, da avenida ao caixa.</p>
   </div>
   <ul class="nums">
     <li data-r style="--d:.2s"><b>42</b><span>peças por loja, o mesmo kit nas duas</span></li>
     <li data-r style="--d:.3s"><b>20</b><span>essenciais, que já cobrem a loja inteira</span></li>
-    <li data-r style="--d:.4s"><b>38</b><span>prontas em até 5 dias úteis</span></li>
+    <li data-r style="--d:.4s"><b>4</b><span>áreas da loja, da avenida ao caixa</span></li>
   </ul>
   <ul class="crit" data-r style="--d:.5s">
     <li>Sem preço nas peças fixas: o preço entra nos cartazes da loja</li>
@@ -398,24 +379,8 @@ body[data-tone="light"] .segs button[aria-current="true"] i{background:var(--red
   </div>
 </section>
 
-<!-- 04 · CRONOGRAMA -->
-<section class="s t-light mid" id="s4" data-title="Cronograma" data-tone="light" aria-label="Cronograma">
-  <div class="head">
-    <p class="eyebrow" data-r>Cronograma</p>
-    <h2 class="h2" data-r style="--d:.1s">Tudo depende da aprovação <em>até 20/10</em></h2>
-  </div>
-  <ol class="tl">
-    <li data-r style="--d:.15s"><b>16/10</b><i></i><h3>Lista enviada</h3><p>Proposta de peças entregue à Copafer</p></li>
-    <li class="hot" data-r style="--d:.25s"><b>20/10</b><i></i><h3>Aprovação<span class="pill r">Prazo</span></h3><p>Lista, verba e medição técnica nas duas lojas</p></li>
-    <li data-r style="--d:.35s"><b>23/10</b><i></i><h3>Artes aprovadas</h3><p>Criação de 20 a 22/10, com uma rodada de ajuste</p></li>
-    <li data-r style="--d:.45s"><b>26–29</b><i></i><h3>Produção</h3><p>Impressão digital na gráfica</p></li>
-    <li class="end" data-r style="--d:.55s"><b>30/10</b><i></i><h3>Entrega<span class="pill k">Lojas</span></h3><p>Peças em Santo André e Mauá</p></li>
-  </ol>
-  <p class="after" data-r style="--d:.6s"><span><b>31/10</b> é sábado e <b>02/11</b> é feriado</span><span>Instalação de <b>03 a 06/11</b> (a confirmar)</span><span>Black Friday em <b>27/11</b></span></p>
-</section>
-
-<!-- 05 · INVESTIMENTO -->
-<section class="s t-dark" id="s5" data-title="Investimento" data-tone="dark" aria-label="Investimento">
+<!-- 04 · INVESTIMENTO -->
+<section class="s t-dark" id="s4" data-title="Investimento" data-tone="dark" aria-label="Investimento">
   <div class="head">
     <p class="eyebrow" data-r>Investimento · projeto e materiais</p>
     <h2 class="h2" data-r style="--d:.1s">Duas opções <em>de escopo</em></h2>
@@ -448,26 +413,53 @@ body[data-tone="light"] .segs button[aria-current="true"] i{background:var(--red
       <p class="tot"><span>Total · 2 lojas</span><b>R$ [a preencher]</b></p>
     </article>
   </div>
-  <p class="note" data-r style="--d:.4s"><b>Pagamento:</b> [a preencher] · <b>Validade:</b> [a preencher] · Prazos de produção confirmados no orçamento da gráfica.</p>
+  <p class="note" data-r style="--d:.4s"><b>Pagamento:</b> [a preencher]</p>
 </section>
 
-<!-- 06 · PRÓXIMOS PASSOS -->
-<section class="s mid" id="s6" data-title="Próximos passos" data-tone="red" aria-label="Próximos passos">
+<!-- 05 · QUANTIDADE POR LOJA -->
+<section class="s" id="s5" data-title="Quantidade por loja" data-tone="red" aria-label="Quantidade por loja">
   <div class="head">
-    <p class="eyebrow" data-r>Próximos passos</p>
-    <h2 class="h2" data-r style="--d:.1s">O que precisamos <em>até 20/10</em></h2>
+    <p class="eyebrow" data-r>Quantidade por loja</p>
+    <h2 class="h2" data-r style="--d:.1s">Cinco regras para <em>chegar ao número</em></h2>
+    <p class="lead" data-r style="--d:.15s">Cada peça segue uma regra. Na medição das duas lojas, a regra vira quantidade.</p>
   </div>
-  <ol class="steps">
-    <li data-r style="--d:.2s"><b>1</b><p>Aprovar a lista de peças, o kit e a verba</p></li>
-    <li data-r style="--d:.3s"><b>2</b><p>Liberar a medição técnica nas duas lojas</p></li>
-    <li data-r style="--d:.4s"><b>3</b><p>Confirmar o KV final da campanha</p></li>
-    <li data-r style="--d:.5s"><b>4</b><p>Definir instalação e recebimento em cada loja</p></li>
+  <ol class="rules5">
+    <li data-r style="--d:.2s">
+      <p class="rn"><b>8</b>peças</p>
+      <h3>Uma por elemento</h3>
+      <p class="rd">Cada fachada, entrada, doca, acesso ou balcão recebe a sua.</p>
+      <ul class="ex"><li><b>Lona de fachada</b> · 1 por fachada</li><li><b>Pórtico</b> · 1 por entrada</li></ul>
+      <p class="all">Lona de fachada, portas e vidros, pórtico, piso de boas-vindas, doca de retirada, cancela e guarita, balcão de retirada, painel de LED.</p>
+    </li>
+    <li data-r style="--d:.25s">
+      <p class="rn"><b>16</b>peças</p>
+      <h3>Por contagem</h3>
+      <p class="rd">Proporcional ao que existe na loja: pontas, caixas, pilares e equipe.</p>
+      <ul class="ex"><li><b>Testeira</b> · 1 por ponta</li><li><b>Adesivo de caixa</b> · 1 por checkout</li></ul>
+      <p class="all">Testeira e lateral de ponta, saia de pallet, display de mesa, banner aéreo, placa de corredor, pilares, carrinhos, adesivo e número de caixa, display de balcão, divisor de esteira, piso da fila, botton, camiseta, frota.</p>
+    </li>
+    <li data-r style="--d:.3s">
+      <p class="rn"><b>7</b>peças</p>
+      <h3>Por metragem</h3>
+      <p class="rd">Distribuídas pela distância de corredores, gôndolas e estacionamento.</p>
+      <ul class="ex"><li><b>Móbile</b> · 1 a cada 15–20 m</li><li><b>Stopper</b> · 1 a cada 3–5 m</li></ul>
+      <p class="all">Faixa de gôndola, stopper, móbile, bandeirolas, piso direcional, lona de gradil, banner de poste.</p>
+    </li>
+    <li data-r style="--d:.35s">
+      <p class="rn"><b>3</b>peças</p>
+      <h3>Pelas ofertas</h3>
+      <p class="rd">Acompanham o número de produtos em oferta definido pela Copafer.</p>
+      <ul class="ex"><li><b>Cartaz</b> · ofertas + 30%</li><li><b>Splash</b> · 2 por oferta</li></ul>
+      <p class="all">Cartaz com preço em branco, wobbler, splash adesivo.</p>
+    </li>
+    <li data-r style="--d:.4s">
+      <p class="rn"><b>8</b>peças</p>
+      <h3>Fixas por loja</h3>
+      <p class="rd">Uma faixa por loja, ajustada ao tamanho de cada uma.</p>
+      <ul class="ex"><li><b>Wind banner</b> · 8 a 12</li><li><b>Roll-up</b> · 4 a 6</li></ul>
+      <p class="all">Wind banner, totem, roll-up, cavalete, inflável, vídeo para TVs, spot de rádio, modelos editáveis de cartaz.</p>
+    </li>
   </ol>
-  <div class="contact" data-r style="--d:.6s">
-    <img src="assets/images/75lab-black.png" alt="75 LAB">
-    <div><p class="lb">75 LAB</p><p><a href="https://75lab.com.br" target="_blank" rel="noopener">75lab.com.br</a> · contato@75lab.com.br · <a href="https://www.instagram.com/setecincolab/" target="_blank" rel="noopener">@setecincolab</a></p></div>
-    <div><p class="lb">Apresentação</p><p><b>Vanessa Morelli</b> · Diretora Comercial<br>vanessa.morelli@75lab.com.br · (11) 98398-2803</p></div>
-  </div>
 </section>
 
 </main>
@@ -485,51 +477,51 @@ var ZONES = [
   { id: 'caixa', name: 'Checkout e telas' }
 ];
 var KIT = [
-  { z: 'fora', pr: 1, f: 'lona-de-fachada', n: 'Lona de fachada', m: 'Lona front-light 440 g com ilhós, ou tela mesh se a fachada pega vento. Ref. 10 × 3 m, na estrutura existente.', q: '1 por fachada visível da avenida', t: '2–3 dias úteis' },
-  { z: 'fora', pr: 1, f: 'adesivo-de-portas-e-vidros', n: 'Adesivo de portas e vidros', m: 'Vinil perfurado one-way vision, que mantém a visão de dentro para fora.', q: 'Todos os vidros da entrada', t: '2–3 dias úteis' },
-  { z: 'fora', pr: 1, f: 'wind-banner', n: 'Wind banner', m: 'Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m.', q: '8 a 12', t: '3–5 dias úteis' },
-  { z: 'fora', pr: 2, f: 'lona-de-gradil', n: 'Lona de gradil ou muro', m: 'Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m.', q: '1 a cada 10–15 m de gradil', t: '2–3 dias úteis' },
-  { z: 'fora', pr: 2, f: 'banner-de-poste', n: 'Banner de poste', m: 'Lona dupla face blackout com bastão e braço metálico. Ref. 0,6 × 1,5 m.', q: '1 a cada 2 postes do estacionamento', t: '4–6 dias úteis' },
-  { z: 'fora', pr: 2, f: 'cavalete-de-calcada', n: 'Cavalete de calçada', m: 'Troca de adesivo ou lona nos cavaletes existentes, dentro do lote. Ref. 60 × 90 cm.', q: '2 a 4', t: '2–3 dias úteis' },
-  { z: 'fora', pr: 2, f: 'lona-da-doca-de-retirada', n: 'Lona da doca de retirada', m: 'Lona 440 g na área de carga e retirada de mercadorias, medida no local.', q: '1 por doca', t: '2–3 dias úteis' },
-  { z: 'fora', pr: 3, f: 'adesivo-de-cancela-e-guarita', n: 'Adesivo de cancela e guarita', m: 'Vinil com laminação UV. Ref. faixa de 3 m × 15 cm na cancela.', q: '1 kit por acesso de veículos', t: '2 dias úteis' },
-  { z: 'fora', pr: 3, f: 'adesivo-de-frota', n: 'Adesivo de frota', m: 'Vinil removível nas laterais e na traseira dos caminhões de entrega.', q: '1 kit por caminhão', t: '2–3 dias úteis + aplicação' },
-  { z: 'fora', pr: 3, f: 'inflavel', n: 'Inflável', m: 'Biruta (sky dancer) de estoque, ou inflável personalizado com o KV.', q: '1 a 2', t: '1–3 dias úteis (estoque) · 10–15 (personalizado)' },
+  { z: 'fora', pr: 1, f: 'lona-de-fachada', n: 'Lona de fachada', m: 'Lona front-light 440 g com ilhós, ou tela mesh se a fachada pega vento. Ref. 10 × 3 m, na estrutura existente.', q: '1 por fachada visível da avenida' },
+  { z: 'fora', pr: 1, f: 'adesivo-de-portas-e-vidros', n: 'Adesivo de portas e vidros', m: 'Vinil perfurado one-way vision, que mantém a visão de dentro para fora.', q: 'Todos os vidros da entrada' },
+  { z: 'fora', pr: 1, f: 'wind-banner', n: 'Wind banner', m: 'Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m.', q: '8 a 12' },
+  { z: 'fora', pr: 2, f: 'lona-de-gradil', n: 'Lona de gradil ou muro', m: 'Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m.', q: '1 a cada 10–15 m de gradil' },
+  { z: 'fora', pr: 2, f: 'banner-de-poste', n: 'Banner de poste', m: 'Lona dupla face blackout com bastão e braço metálico. Ref. 0,6 × 1,5 m.', q: '1 a cada 2 postes do estacionamento' },
+  { z: 'fora', pr: 2, f: 'cavalete-de-calcada', n: 'Cavalete de calçada', m: 'Troca de adesivo ou lona nos cavaletes existentes, dentro do lote. Ref. 60 × 90 cm.', q: '2 a 4' },
+  { z: 'fora', pr: 2, f: 'lona-da-doca-de-retirada', n: 'Lona da doca de retirada', m: 'Lona 440 g na área de carga e retirada de mercadorias, medida no local.', q: '1 por doca' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-cancela-e-guarita', n: 'Adesivo de cancela e guarita', m: 'Vinil com laminação UV. Ref. faixa de 3 m × 15 cm na cancela.', q: '1 kit por acesso de veículos' },
+  { z: 'fora', pr: 3, f: 'adesivo-de-frota', n: 'Adesivo de frota', m: 'Vinil removível nas laterais e na traseira dos caminhões de entrega.', q: '1 kit por caminhão' },
+  { z: 'fora', pr: 3, f: 'inflavel', n: 'Inflável', m: 'Biruta (sky dancer) de estoque, ou inflável personalizado com o KV.', q: '1 a 2' },
 
-  { z: 'teto', pr: 1, f: 'portico-de-entrada', n: 'Pórtico de entrada', m: 'Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m.', q: '1 por entrada de clientes', t: '3–5 dias úteis' },
-  { z: 'teto', pr: 1, f: 'banner-aereo-de-departamento', n: 'Banner aéreo de departamento', m: 'Lona dupla face blackout com bastão e cabo de aço, “Black Friday em [departamento]”. Ref. 3 × 1,5 m.', q: '1 por departamento + corredores centrais', t: '2–3 dias úteis' },
-  { z: 'teto', pr: 1, f: 'mobile', n: 'Móbile', m: 'PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm.', q: '1 a cada 15–20 m de corredor', t: '3–5 dias úteis' },
-  { z: 'teto', pr: 1, f: 'totem-de-chao', n: 'Totem de chão', m: 'Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m.', q: '2 a 4', t: '4–7 dias úteis' },
-  { z: 'teto', pr: 2, f: 'adesivo-de-carrinho', n: 'Adesivo de carrinho', m: 'Vinil na placa frontal ou faixa na grade. Ref. 30 × 20 cm.', q: '1 por carrinho', t: '2–3 dias úteis' },
-  { z: 'teto', pr: 2, f: 'envelopamento-de-pilares', n: 'Envelopamento de pilares', m: 'Lona com velcro ou adesivo removível. Ref. 2,5 m de altura.', q: '1 por pilar da circulação principal', t: '2–4 dias úteis + instalação' },
-  { z: 'teto', pr: 2, f: 'bandeirolas', n: 'Bandeirolas', m: 'Varal em couché 150 g ou PS 0,5 mm. Ref. 20 × 30 cm.', q: 'Metragem dos corredores principais', t: '3–5 dias úteis' },
-  { z: 'teto', pr: 2, f: 'roll-up', n: 'Roll-up', m: 'Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m.', q: '4 a 6', t: '1–3 dias úteis' },
-  { z: 'teto', pr: 2, f: 'capa-de-placa-de-corredor', n: 'Capa de placa de corredor', m: 'Adesivo removível ou testeira em PS sobre a placa atual, mantendo o número.', q: '1 por placa de corredor', t: '2–3 dias úteis' },
-  { z: 'teto', pr: 2, f: 'adesivo-de-piso-de-boas-vindas', n: 'Adesivo de piso de boas-vindas', m: 'Vinil com laminação antiderrapante no hall. Ref. 1,5 × 1,5 m.', q: '1 por entrada de clientes', t: '2–4 dias úteis' },
-  { z: 'teto', pr: 3, f: 'adesivo-de-piso-direcional', n: 'Adesivo de piso direcional', m: 'Vinil antiderrapante, fora da rota de empilhadeira. Ref. 60 cm.', q: '1 a cada 10 m de corredor', t: '2–4 dias úteis' },
+  { z: 'teto', pr: 1, f: 'portico-de-entrada', n: 'Pórtico de entrada', m: 'Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m.', q: '1 por entrada de clientes' },
+  { z: 'teto', pr: 1, f: 'banner-aereo-de-departamento', n: 'Banner aéreo de departamento', m: 'Lona dupla face blackout com bastão e cabo de aço, “Black Friday em [departamento]”. Ref. 3 × 1,5 m.', q: '1 por departamento + corredores centrais' },
+  { z: 'teto', pr: 1, f: 'mobile', n: 'Móbile', m: 'PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm.', q: '1 a cada 15–20 m de corredor' },
+  { z: 'teto', pr: 1, f: 'totem-de-chao', n: 'Totem de chão', m: 'Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m.', q: '2 a 4' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-carrinho', n: 'Adesivo de carrinho', m: 'Vinil na placa frontal ou faixa na grade. Ref. 30 × 20 cm.', q: '1 por carrinho' },
+  { z: 'teto', pr: 2, f: 'envelopamento-de-pilares', n: 'Envelopamento de pilares', m: 'Lona com velcro ou adesivo removível. Ref. 2,5 m de altura.', q: '1 por pilar da circulação principal' },
+  { z: 'teto', pr: 2, f: 'bandeirolas', n: 'Bandeirolas', m: 'Varal em couché 150 g ou PS 0,5 mm. Ref. 20 × 30 cm.', q: 'Metragem dos corredores principais' },
+  { z: 'teto', pr: 2, f: 'roll-up', n: 'Roll-up', m: 'Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m.', q: '4 a 6' },
+  { z: 'teto', pr: 2, f: 'capa-de-placa-de-corredor', n: 'Capa de placa de corredor', m: 'Adesivo removível ou testeira em PS sobre a placa atual, mantendo o número.', q: '1 por placa de corredor' },
+  { z: 'teto', pr: 2, f: 'adesivo-de-piso-de-boas-vindas', n: 'Adesivo de piso de boas-vindas', m: 'Vinil com laminação antiderrapante no hall. Ref. 1,5 × 1,5 m.', q: '1 por entrada de clientes' },
+  { z: 'teto', pr: 3, f: 'adesivo-de-piso-direcional', n: 'Adesivo de piso direcional', m: 'Vinil antiderrapante, fora da rota de empilhadeira. Ref. 60 cm.', q: '1 a cada 10 m de corredor' },
 
-  { z: 'gondola', pr: 1, f: 'modelos-editaveis-de-cartaz', n: 'Modelos editáveis de cartaz', m: 'Arquivos de A6 a A3 para a impressora da loja, com campos de produto, preço e condição.', q: '1 kit (entrega digital)', t: '2 dias úteis, sem gráfica' },
-  { z: 'gondola', pr: 1, f: 'cartaz-com-preco-em-branco', n: 'Cartaz com preço em branco', m: 'Couché 150 g com o KV impresso e campo de preço para preencher. A4, A3 e A2.', q: 'Ofertas + 30% de reposição', t: '2–3 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'testeira-de-ponta-de-gondola', n: 'Testeira de ponta de gôndola', m: 'PS 1–2 mm ou adesivo sobre a testeira existente. Ref. 1 × 0,3 m.', q: '1 por ponta de gôndola', t: '2–4 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'saia-de-pallet', n: 'Saia de pallet', m: 'Polionda ou papelão, 4 faces para pallet PBR. Ref. 30 cm de altura.', q: '1 por pallet ou ilha promocional', t: '3–5 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'faixa-de-gondola', n: 'Faixa de gôndola', m: 'PS 0,3 mm ou couché laminado, encaixado na canaleta de preço.', q: 'Metragem das gôndolas com oferta', t: '2–4 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'stopper', n: 'Stopper', m: 'PS 1 mm perpendicular à prateleira. Ref. 20 × 15 cm.', q: '1 a cada 3–5 m de gôndola', t: '3–5 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'wobbler', n: 'Wobbler', m: 'PS 0,5 mm com haste flexível e adesivo. Ref. 10 cm.', q: '1 por produto em destaque', t: '3–5 dias úteis' },
-  { z: 'gondola', pr: 1, f: 'splash-adesivo', n: 'Splash adesivo', m: 'Adesivo em rolo com o selo Black Friday, para etiquetas e embalagens. Ref. 5 cm.', q: '2 por produto em oferta', t: '2–3 dias úteis' },
-  { z: 'gondola', pr: 2, f: 'lateral-de-ponta-de-gondola', n: 'Lateral de ponta de gôndola', m: 'Adesivo removível nas laterais das pontas. Ref. 0,4 × 1,8 m.', q: '2 por ponta de gôndola', t: '2–3 dias úteis' },
-  { z: 'gondola', pr: 2, f: 'display-de-mesa', n: 'Display de mesa', m: 'PS 2 mm ou acrílico com base, A4, nas áreas de pisos, louças e metais.', q: '1 por ambiente ou mesa de amostras', t: '2–4 dias úteis' },
+  { z: 'gondola', pr: 1, f: 'modelos-editaveis-de-cartaz', n: 'Modelos editáveis de cartaz', m: 'Arquivos de A6 a A3 para a impressora da loja, com campos de produto, preço e condição.', q: '1 kit (entrega digital)' },
+  { z: 'gondola', pr: 1, f: 'cartaz-com-preco-em-branco', n: 'Cartaz com preço em branco', m: 'Couché 150 g com o KV impresso e campo de preço para preencher. A4, A3 e A2.', q: 'Ofertas + 30% de reposição' },
+  { z: 'gondola', pr: 1, f: 'testeira-de-ponta-de-gondola', n: 'Testeira de ponta de gôndola', m: 'PS 1–2 mm ou adesivo sobre a testeira existente. Ref. 1 × 0,3 m.', q: '1 por ponta de gôndola' },
+  { z: 'gondola', pr: 1, f: 'saia-de-pallet', n: 'Saia de pallet', m: 'Polionda ou papelão, 4 faces para pallet PBR. Ref. 30 cm de altura.', q: '1 por pallet ou ilha promocional' },
+  { z: 'gondola', pr: 1, f: 'faixa-de-gondola', n: 'Faixa de gôndola', m: 'PS 0,3 mm ou couché laminado, encaixado na canaleta de preço.', q: 'Metragem das gôndolas com oferta' },
+  { z: 'gondola', pr: 1, f: 'stopper', n: 'Stopper', m: 'PS 1 mm perpendicular à prateleira. Ref. 20 × 15 cm.', q: '1 a cada 3–5 m de gôndola' },
+  { z: 'gondola', pr: 1, f: 'wobbler', n: 'Wobbler', m: 'PS 0,5 mm com haste flexível e adesivo. Ref. 10 cm.', q: '1 por produto em destaque' },
+  { z: 'gondola', pr: 1, f: 'splash-adesivo', n: 'Splash adesivo', m: 'Adesivo em rolo com o selo Black Friday, para etiquetas e embalagens. Ref. 5 cm.', q: '2 por produto em oferta' },
+  { z: 'gondola', pr: 2, f: 'lateral-de-ponta-de-gondola', n: 'Lateral de ponta de gôndola', m: 'Adesivo removível nas laterais das pontas. Ref. 0,4 × 1,8 m.', q: '2 por ponta de gôndola' },
+  { z: 'gondola', pr: 2, f: 'display-de-mesa', n: 'Display de mesa', m: 'PS 2 mm ou acrílico com base, A4, nas áreas de pisos, louças e metais.', q: '1 por ambiente ou mesa de amostras' },
 
-  { z: 'caixa', pr: 1, f: 'adesivo-frontal-do-checkout', n: 'Adesivo frontal do checkout', m: 'Vinil laminado no lado do cliente da bancada. Ref. 1 × 0,8 m.', q: '1 por checkout', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 1, f: 'capa-do-numero-de-caixa', n: 'Capa do número de caixa', m: 'Adesivo ou PS sobre a placa atual, mantendo o número visível.', q: '1 por checkout', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 1, f: 'botton-da-equipe', n: 'Botton da equipe', m: 'Botton de 5,5 cm com alfinete, no uniforme de quem atende.', q: '1 por colaborador + 10%', t: '3–5 dias úteis' },
-  { z: 'caixa', pr: 1, f: 'video-para-tvs', n: 'Vídeo para TVs e monitores', m: 'Loops de 15 e 30 s, em 16:9 e 9:16. Entra no ar antes das peças impressas.', q: '1 conjunto por loja', t: '2–3 dias úteis de edição' },
-  { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão', t: '2–4 dias úteis' },
-  { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão', t: '2–3 dias úteis' },
-  { z: 'caixa', pr: 2, au: 1, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões', t: '3–5 dias úteis' },
-  { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila', t: '2–4 dias úteis' },
-  { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira', t: '3–5 dias úteis' },
-  { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk. Só entra se aprovada até 20/10.', q: '1 por colaborador', t: '5–10 dias úteis' }
+  { z: 'caixa', pr: 1, f: 'adesivo-frontal-do-checkout', n: 'Adesivo frontal do checkout', m: 'Vinil laminado no lado do cliente da bancada. Ref. 1 × 0,8 m.', q: '1 por checkout' },
+  { z: 'caixa', pr: 1, f: 'capa-do-numero-de-caixa', n: 'Capa do número de caixa', m: 'Adesivo ou PS sobre a placa atual, mantendo o número visível.', q: '1 por checkout' },
+  { z: 'caixa', pr: 1, f: 'botton-da-equipe', n: 'Botton da equipe', m: 'Botton de 5,5 cm com alfinete, no uniforme de quem atende.', q: '1 por colaborador + 10%' },
+  { z: 'caixa', pr: 1, f: 'video-para-tvs', n: 'Vídeo para TVs e monitores', m: 'Loops de 15 e 30 s, em 16:9 e 9:16, para as TVs e monitores da loja.', q: '1 conjunto por loja' },
+  { z: 'caixa', pr: 1, f: 'painel-de-led', n: 'Painel de LED da fachada', m: 'Vídeo ou estático na resolução do painel, se a loja tiver um.', q: '1 conjunto por loja' },
+  { z: 'caixa', pr: 2, f: 'display-de-balcao', n: 'Display de balcão', m: 'PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.', q: '1 por checkout e balcão' },
+  { z: 'caixa', pr: 2, f: 'sinalizacao-do-balcao-de-retirada', n: 'Sinalização do balcão de retirada', m: 'Lona ou PS com o KV e a mensagem de retirada, medida no local.', q: '1 kit por balcão' },
+  { z: 'caixa', pr: 2, au: 1, f: 'spot-de-radio-interna', n: 'Spot de rádio interna', m: 'Locução institucional de 30 s, repetida a cada 15 minutos.', q: '1 a 2 versões' },
+  { z: 'caixa', pr: 3, f: 'adesivo-de-piso-da-fila', n: 'Adesivo de piso da fila', m: 'Vinil antiderrapante na fila do checkout. Ref. 40 cm.', q: '1 por fila' },
+  { z: 'caixa', pr: 3, f: 'divisor-de-esteira', n: 'Divisor de esteira', m: 'Adesivo sobre o divisor existente, ou divisor novo em PS impresso.', q: '2 por checkout com esteira' },
+  { z: 'caixa', pr: 3, f: 'camiseta-da-campanha', n: 'Camiseta da campanha', m: 'Malha com estampa DTF ou silk, ou patch sobre o colete atual.', q: '1 por colaborador' }
 ];
 
 (function () {
@@ -714,7 +706,7 @@ var KIT = [
           '<span class="zoom-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4M11 8v6M8 11h6"/></svg></span></button>'
         : '<div class="ph' + (k.au ? ' audio' : '') + '"><span class="pr ' + p[0] + '">' + p[1] + '</span>' + empty + '</div>') +
       '<div class="bd"><p class="zn">' + esc(ZN[k.z]) + '</p><h3>' + esc(k.n) + '</h3><p class="m">' + esc(k.m) + '</p>' +
-      '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd><dt>Prazo</dt><dd>' + esc(k.t) + '</dd></dl></div>';
+      '<dl><dt>Qtd.</dt><dd>' + esc(k.q) + '</dd></dl></div>';
     loadImg(el.querySelector('.ph'), k.file, k.n);
     if (has) el.querySelector('.ph').addEventListener('click', function () { openLb(k); });
     return el;
@@ -754,7 +746,7 @@ var KIT = [
     lbxImg.alt = k.n;
     lbxZn.textContent = ZN[k.z] + ' · ' + PR[k.pr][1];
     lbxNm.textContent = k.n;
-    lbxQt.textContent = k.q + ' · ' + k.t;
+    lbxQt.textContent = 'Quantidade: ' + k.q;
     lbxCount.textContent = (lbI + 1) + ' / ' + lbList.length;
   }
   function openLb(k) {
