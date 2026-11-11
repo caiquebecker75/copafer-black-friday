@@ -39,7 +39,7 @@ footer b{color:#fff}
 <div class="wrap">
  <header>
   <div><h1>RÉGUA DE <span>COMUNICAÇÃO</span></h1>
-   <div class="sub">Da primeira chamada ao pós-evento · ~380 participantes · fornecedores + times Whirlpool</div></div>
+   <div class="sub">Da primeira chamada ao pós-evento · ~380 participantes · evento interno</div></div>
   <img src="logo_2027.png">
  </header>
 </div>
@@ -53,16 +53,16 @@ footer b{color:#fff}
 <div class="cols" id="cols"></div>
 <footer><div><b>Mensagem-guia:</b> Shaping Competitiveness, Evolving To Win</div><div>Datas relativas ao dia do evento (D)</div></footer>
 <script>
-const O=['Gerar expectativa e garantir a data na agenda', 'Apresentar o tema e abrir as inscrições', 'Meta de 100% da base com resposta', 'Zero dúvida sobre deslocamento e hospedagem', 'Chegada tranquila e credenciamento ágil', 'Engajamento e presença confirmada', 'Viver o conceito e gerar conteúdo', 'Medir resultados e manter a conversa'];
+const O=['Gerar expectativa e garantir a data na agenda','Apresentar o tema e abrir as inscrições','Meta de 100% da base com resposta','Zero dúvida sobre deslocamento e hospedagem','Chegada tranquila e credenciamento ágil','Presença confirmada e expectativa alta','Viver o conceito na prática','Prolongar a reflexão e medir a experiência'];
 const M=[
- ['D-60','Save the date',['E-mail com KV e data do evento','Post de anúncio no LinkedIn Whirlpool','Bloqueio de agenda (.ics)'],['E-mail','LinkedIn']],
+ ['D-60','Save the date',['E-mail com KV e data do evento','Bloqueio de agenda (.ics)','Aviso prévio via WhatsApp'],['E-mail','WhatsApp']],
  ['D-45','Convite oficial',['Convite digital personalizado','Abertura do RSVP no hotsite','Agenda preliminar e tema'],['E-mail','Hotsite']],
  ['D-30','Lembrete RSVP',['Lembrete para quem não respondeu','Contato ativo da equipe de RSVP','Encerramento das inscrições'],['E-mail','WhatsApp','Telefone']],
- ['D-15','Confirmação + logística',['Confirmação de presença','Hotel Blue Tree, transfer e voos','Teaser do conceito (vídeo/carrossel)'],['E-mail','WhatsApp','LinkedIn']],
+ ['D-15','Confirmação + logística',['Confirmação de presença','Hotel Blue Tree, transfer e voos','Teaser do conceito via WhatsApp'],['E-mail','WhatsApp']],
  ['D-7','Guia do participante',['Agenda final e palestrantes','Como chegar, dress code e contatos','QR Code individual do credenciamento'],['E-mail','Hotsite']],
- ['D-1','Lembrete final',['"Te esperamos amanhã"','Horário do credenciamento','Contagem regressiva nas redes'],['WhatsApp','LinkedIn']],
- ['DIA D','Experiência no local',['Credenciamento com QR Code','Sinalização, telão e ativação instagramável','Cobertura ao vivo + hashtag oficial'],['Presencial','Redes']],
- ['D+1 / D+7','Pós-evento',['Agradecimento + pesquisa de satisfação','Fotos, aftermovie e apresentações','Próximos passos e compromissos'],['E-mail','LinkedIn']],
+ ['D-1','Lembrete final',['"Te esperamos amanhã"','Horário do credenciamento','Contagem regressiva via WhatsApp'],['WhatsApp']],
+ ['DIA D','Experiência no local',['Credenciamento com QR Code','Sinalização, telão e espaço para fotos','Fotos do dia enviadas via WhatsApp'],['Presencial','WhatsApp']],
+ ['D+1 / D+7','Pós-evento',['Agradecimento + pesquisa de satisfação','Galeria de fotos do evento','Card de reflexão com o insight-chave do dia'],['E-mail','WhatsApp']],
 ];
 document.getElementById('cols').innerHTML=M.map((m,i)=>`<div class="m ${m[0]=='DIA D'?'d':''}"><div class="dot">${m[0].replace(' / ','<br>')}</div><div class="card"><h3>${m[1]}</h3><ul>${m[2].map(x=>`<li>${x}</li>`).join('')}</ul><div class="chips">${m[3].map(c=>`<span class="chip">${c}</span>`).join('')}</div><div class="obj"><b>OBJETIVO</b>${O[i]}</div></div></div>`).join('');
 Promise.all([document.fonts.ready,...[...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r))]).then(()=>document.body.dataset.ready=1);
