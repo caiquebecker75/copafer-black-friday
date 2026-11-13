@@ -1,0 +1,25 @@
+﻿Nº;Área da loja;Prioridade;Nome da peça;Arquivo da imagem;Substrato (resumo);Especificação;Quantidade;É áudio?
+01;Lado de fora;P1 · Essencial;Lona de fachada;01-lona-de-fachada.jpg;Lona front-light 440 g;Lona front-light 440 g com ilhós, ou tela mesh se a fachada pega vento. Ref. 10 × 3 m, na estrutura existente.;1 por fachada visível da avenida;Não
+02;Lado de fora;P1 · Essencial;Adesivo de portas e vidros;02-adesivo-de-portas-e-vidros.jpg;Vinil perfurado one-way;Vinil perfurado one-way vision, que mantém a visão de dentro para fora.;1 por loja;Não
+03;Lado de fora;P1 · Essencial;Wind banner;03-wind-banner.jpg;Tecido sublimado com haste;Tecido sublimado, haste de fibra e base com peso d’água ou espeto de solo. Ref. 3 m.;8 a 12;Não
+04;Lado de fora;P2 · Recomendada;Lona de gradil ou muro;04-lona-de-gradil.jpg;Lona 440 g com ilhós;Lona 440 g com ilhós e abraçadeiras. Ref. 5 × 1 m.;1 por loja;Não
+05;Lado de fora;P2 · Recomendada;Banner de coluna;05-banner-de-coluna.jpg;Lona blackout dupla face;Lona dupla face blackout com bastão, preso à coluna. Ref. 0,6 × 1,5 m.;3 por loja;Não
+06;Entrada e teto;P1 · Essencial;Pórtico de entrada;06-portico-de-entrada.jpg;Treliça Q30 com lona;Treliça Q30 locada com lona ou tecido sublimado. Ref. 4 × 3 m.;1 por entrada de clientes;Não
+07;Entrada e teto;P1 · Essencial;Banner aéreo de departamento;07-banner-aereo-de-departamento.jpg;Lona blackout dupla face;Lona dupla face blackout com bastão e cabo de aço, “Black Friday em [departamento]”. Ref. 3 × 1,5 m.;5 por loja;Não
+08;Entrada e teto;P1 · Essencial;Móbile;08-mobile.jpg;PS 2 mm dupla face;PS 2 mm dupla face com recorte especial. Ref. 60 × 60 cm.;20 por loja;Não
+09;Entrada e teto;P1 · Essencial;Totem de chão;09-totem-de-chao.jpg;Papelão micro-ondulado;Papelão micro-ondulado de 3 faces, ou PS com base. Ref. 0,6 × 1,8 m.;4 por loja;Não
+10;Entrada e teto;P2 · Recomendada;Placa de carrinho;10-placa-de-carrinho.jpg;PS 2 mm;Placa em PS 2 mm na frente do carrinho. Ref. 30 × 20 cm.;30 por loja;Não
+11;Entrada e teto;P2 · Recomendada;Roll-up;11-roll-up.jpg;Lona ou poliéster;Lona ou poliéster nas bases retráteis que a loja já tem. Ref. 0,85 × 2 m.;2 por loja;Não
+12;Entrada e teto;P3 · Opcional;Adesivo de piso direcional;12-adesivo-de-piso-direcional.jpg;Vinil antiderrapante;Vinil antiderrapante, fora da rota de empilhadeira. Ref. 60 cm.;10 por loja;Não
+13;Gôndolas e pallets;P1 · Essencial;Modelos editáveis de cartaz;13-modelos-editaveis-de-cartaz.jpg;Arquivo digital, A6 a A3;Arquivos de A6 a A3 para a impressora da loja, com campos de produto, preço e condição.;1 kit (entrega digital);Não
+14;Gôndolas e pallets;P1 · Essencial;Faixa de gôndola;14-faixa-de-gondola.jpg;PS 0,3 mm;PS 0,3 mm ou couché laminado, encaixado na canaleta de preço.;50 por loja;Não
+15;Gôndolas e pallets;P1 · Essencial;Stopper;15-stopper.jpg;PS 1 mm;PS 1 mm perpendicular à prateleira. Ref. 20 × 15 cm.;50 por loja;Não
+16;Gôndolas e pallets;P1 · Essencial;Wobbler;16-wobbler.jpg;PS 0,5 mm com haste;PS 0,5 mm com haste flexível e adesivo. Ref. 10 cm.;50 por loja;Não
+17;Gôndolas e pallets;P1 · Essencial;Splash adesivo;17-splash-adesivo.jpg;Adesivo em rolo;Adesivo em rolo com o selo Black Friday, para etiquetas e embalagens. Ref. 5 cm.;100 por loja;Não
+18;Checkout e telas;P1 · Essencial;Botton da equipe;18-botton-da-equipe.jpg;Botton 5,5 cm com alfinete;Botton de 5,5 cm com alfinete, no uniforme de quem atende.;15 por loja;Não
+19;Checkout e telas;P1 · Essencial;Vídeo para TVs e monitores;19-video-para-tvs.jpg;Vídeo 16:9 e 9:16;Loops de 15 e 30 s, em 16:9 e 9:16, para as TVs e monitores da loja.;1 conjunto por loja;Não
+20;Checkout e telas;P2 · Recomendada;Display de balcão;20-display-de-balcao.jpg;PS A5 ou A4;PS A5 ou A4 com os serviços da loja e o QR code do grupo VIP de WhatsApp.;3 por loja;Não
+21;Checkout e telas;P2 · Recomendada;Spot de rádio interna;21-spot-de-radio-interna.jpg;Áudio de 30 s;Locução institucional de 30 s, repetida a cada 15 minutos.;1 a 2 versões;Sim
+22;Checkout e telas;P3 · Opcional;Adesivo de piso da fila;22-adesivo-de-piso-da-fila.jpg;Vinil antiderrapante;Vinil antiderrapante na fila do checkout. Ref. 40 cm.;10 por loja;Não
+23;Checkout e telas;P3 · Opcional;Divisor de esteira;23-divisor-de-esteira.jpg;PS impresso ou adesivo;Adesivo sobre o divisor existente, ou divisor novo em PS impresso.;5 por loja;Não
+24;Checkout e telas;P3 · Opcional;Camiseta da campanha;24-camiseta-da-campanha.jpg;Malha com DTF ou silk;Malha com estampa DTF ou silk, ou patch sobre o colete atual.;15 por loja;Não
