@@ -364,7 +364,7 @@
 
   /* ---------- cursor personalizado ---------- */
   const fine = matchMedia('(pointer:fine)').matches;
-  if (fine && !flow) {
+  if (false) { // cursor personalizado desativado: usa o cursor padrão do sistema
     const c = $('.cur'), d = $('.cur-dot'), lab = $('.cur-label');
     let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y;
     addEventListener('mousemove', e => { body.classList.add('has-cursor'); x = e.clientX; y = e.clientY; d.style.transform = `translate(${x}px,${y}px)`; });
