@@ -392,7 +392,7 @@
       if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
       if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
       cx2.beginPath(); cx2.arc(p.x, p.y, p.r, 0, 6.283);
-      cx2.fillStyle = yel ? `rgba(0,74,0,${p.a * .5})` : `rgba(255,210,31,${p.a})`; cx2.fill();
+      cx2.fillStyle = yel ? `rgba(61,31,12,${p.a * .5})` : `rgba(255,210,31,${p.a})`; cx2.fill();
     }
     raf = requestAnimationFrame(drawBG);
   }
