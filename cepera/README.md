@@ -7,7 +7,7 @@ Apresentação HTML do **Planejamento Estratégico 75LAB × Cepêra**: ocasião 
 
 ## Narrativa
 
-Abertura (trailer) → Capa → Agenda → **01 Leitura** (dois desafios, decupagem, públicos, sabemos × não sabemos) → **02 Contexto** (marca, produto, histórico de PDV, mercado, comportamento, concorrência pela escolha e pela contratação, públicos, jornada, perdas, tendências) → **03 Virada** (insights, tensão, oportunidade / como podemos) → **04 Solução** (estratégia, pilares, territórios, reveal do conceito, ecossistema, 3D/AR, clusters, vista explodida, inovações) → **Plano de Rastreamento 75LAB** (fluxo, One Shot × On Timing, ciclo de vida do ativo, demonstração app + painel) → **05 Execução** (benefícios, entregáveis, KPIs e avaliação, riscos, cronograma, oferta, síntese, próximo passo) → Encerramento → Fontes → Institucional.
+Abertura (trailer que termina na capa) → Agenda → **01 Leitura** (dois desafios, decupagem, públicos, sabemos × não sabemos) → **02 Contexto** (marca, produto, histórico de PDV, mercado, comportamento, concorrência pela escolha e pela contratação, públicos, jornada, perdas, tendências) → **03 Virada** (insights, tensão, oportunidade / como podemos) → **04 Solução** (estratégia, pilares, territórios, reveal do conceito, ecossistema, 3D/AR, clusters, vista explodida, inovações) → **Plano de Rastreamento 75LAB** (fluxo, One Shot × On Timing, ciclo de vida do ativo, demonstração app + painel) → **05 Execução** (benefícios, entregáveis, KPIs e avaliação, riscos, cronograma, oferta, síntese, próximo passo) → Encerramento → Fontes → Institucional.
 
 Cada tela tem um título-takeaway (a conclusão, não o assunto).
 

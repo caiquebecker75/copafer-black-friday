@@ -91,7 +91,8 @@
   }
 
   /* ---------- modo: palco (desktop) × rolagem (celular/tablet retrato) ---------- */
-  const isFlow = () => innerWidth < 900 || (innerHeight > innerWidth && innerWidth < 1100);
+  // rolagem só em telas em pé (celular/tablet em retrato) ou muito estreitas; janelas deitadas usam o palco escalado
+  const isFlow = () => innerWidth < 640 || (innerHeight > innerWidth * 1.05 && innerWidth < 1100);
   let flow = isFlow();
   body.classList.toggle('flow', flow);
 
@@ -115,7 +116,7 @@
     $('#hudNum').textContent = ch[0]; $('#hudName').textContent = ch[1];
     $('#cNow').textContent = pad(i + 1);
     $('.progress').style.width = (i / (N - 1) * 100) + '%';
-    body.classList.toggle('on-yellow', s.dataset.tone === 'yellow');
+    body.classList.toggle('on-yellow', s.dataset.tone === 'yellow' || (s.hasAttribute('data-opening') && s.classList.contains('done')));
     const o = (s.dataset.orb || '60,40,1,rgba(255,210,31,.16)').split(/,(?![^(]*\))/);
     glow.style.setProperty('--ox', o[0] + 'vw'); glow.style.setProperty('--oy', o[1] + 'vh');
     glow.style.setProperty('--os', o[2]); glow.style.setProperty('--oc', o[3]);
@@ -151,7 +152,15 @@
     history.replaceState(null, '', '#/' + (n + 1));
     if (Math.abs(n - idx3d) <= 2) loadMV();
   }
-  const next = () => go(cur + 1), prev = () => go(cur - 1);
+  const opening = $('[data-opening]');
+  let introTimer = 0;
+  function finishIntro() {
+    if (!opening) return;
+    clearTimeout(introTimer); opening.classList.add('done');
+    if (slides[cur] === opening) body.classList.add('on-yellow');
+  }
+  const introRunning = () => opening && slides[cur] === opening && !opening.classList.contains('done');
+  const next = () => introRunning() ? finishIntro() : go(cur + 1), prev = () => go(cur - 1);
 
   /* ---------- ganchos por tela (loops que só rodam quando visíveis) ---------- */
   const timers = new Map();
@@ -184,6 +193,11 @@
       }, 900));
     }
     if (s.hasAttribute('data-3d') && on) { loadMV(); setupQR(); }
+    if (s.hasAttribute('data-opening')) {
+      clearTimeout(introTimer);
+      if (on && (RM || flow)) finishIntro();
+      else if (on && !s.classList.contains('done')) introTimer = setTimeout(finishIntro, 8300);
+    }
   }
 
   /* ---------- 3D / AR (carregado sob demanda) ---------- */
@@ -239,6 +253,7 @@
   $('#idxClose').addEventListener('click', closeIdx);
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-go]');
+    if (e.target.closest('[data-skip]')) { e.stopPropagation(); finishIntro(); return; }
     if (g) { e.preventDefault(); closeIdx(); go(+g.dataset.go - 1); return; }
     const gc = e.target.closest('[data-go-ch]');
     if (gc) { const i = slides.findIndex(s => s.dataset.ch === gc.dataset.goCh); if (i >= 0) go(i); }
@@ -296,20 +311,26 @@
   $('#btnFs').addEventListener('click', toggleFS);
 
   /* ---------- clique, roda e toque ---------- */
-  const INTERACTIVE = 'a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
+  const INTERACTIVE = '[data-skip],a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
   $('#deck').addEventListener('click', e => {
     if (flow || e.target.closest(INTERACTIVE)) return;
     if (window.getSelection && String(getSelection()).length) return;
     (e.clientX < innerWidth * 0.28) ? prev() : next();
   });
-  let wheelAcc = 0, wheelLock = 0;
+  // roda do mouse / trackpad: um gesto = uma tela. O gesto termina quando a roda fica parada por 180 ms,
+  // então a inércia do trackpad e o "giro longo" não pulam várias telas nem rolam a página.
+  let wheelAcc = 0, wheelFired = false, wheelIdle = 0;
   addEventListener('wheel', e => {
-    if (flow || lb.classList.contains('open') || idx.classList.contains('open')) return;
+    if (lb.classList.contains('open') || idx.classList.contains('open')) return;
     if (e.target.closest && e.target.closest('model-viewer,.mv-wrap')) return;
+    if (flow) return;
     e.preventDefault();
-    const now = Date.now(); if (now < wheelLock) return;
-    wheelAcc += Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (Math.abs(wheelAcc) > 60) { wheelAcc > 0 ? next() : prev(); wheelAcc = 0; wheelLock = now + 900; }
+    clearTimeout(wheelIdle);
+    wheelIdle = setTimeout(() => { wheelAcc = 0; wheelFired = false; }, 180);
+    if (wheelFired) return;
+    const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    wheelAcc += e.deltaMode === 1 ? d * 30 : d;
+    if (Math.abs(wheelAcc) >= 40) { wheelFired = true; wheelAcc > 0 ? next() : prev(); }
   }, { passive: false });
   let tx = 0, ty = 0, tt = 0;
   addEventListener('touchstart', e => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; tt = Date.now(); }, { passive: true });
@@ -360,13 +381,13 @@
   }
 
   /* ---------- fundo vivo: sementes de mostarda à deriva ---------- */
-  const cv = $('#bg'), cx2 = cv.getContext('2d');
+  const cv = $('#bg') || document.createElement('canvas'), cx2 = cv.getContext('2d');
   let W = 0, H = 0, parts = [], raf = 0;
   function sizeBG() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
     cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
-    const n = RM ? 0 : lite ? 24 : flow ? 28 : 64;
+    const n = 0; // sem partículas no fundo
     parts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: (0.6 + Math.random() * 2.2) * dpr, vx: (Math.random() - .5) * .12 * dpr, vy: (-.05 - Math.random() * .18) * dpr, a: .08 + Math.random() * .3, p: Math.random() * 6.28 }));
   }
   function drawBG(t) {
@@ -377,16 +398,15 @@
       if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
       if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
       cx2.beginPath(); cx2.arc(p.x, p.y, p.r, 0, 6.283);
-      cx2.fillStyle = yel ? `rgba(0,74,0,${p.a * .5})` : `rgba(255,210,31,${p.a})`; cx2.fill();
+      cx2.fillStyle = yel ? `rgba(61,31,12,${p.a * .5})` : `rgba(255,210,31,${p.a})`; cx2.fill();
     }
     raf = requestAnimationFrame(drawBG);
   }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else if (!RM) raf = requestAnimationFrame(drawBG); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf);  });
 
   /* ---------- init ---------- */
   function init() {
     fit(); sizeBG();
-    if (!RM) raf = requestAnimationFrame(drawBG);
     const m = location.hash.match(/#\/(\d+)/);
     const start = m ? Math.max(0, Math.min(N - 1, +m[1] - 1)) : 0;
     if (flow) {

@@ -16,13 +16,13 @@ def font(path, size, w):
     except Exception: pass
     return f
 
-GREEN=(0,74,0); GREEN2=(0,130,0); YEL=(255,210,31); CREAM=(254,245,168); BROWN=(74,40,22); ORANGE=(239,63,15)
+GREEN=(61,31,12); GREEN2=(92,50,20); YEL=(255,210,31); CREAM=(254,245,168); BROWN=(74,40,22); ORANGE=(239,63,15)
 
 # ---------- texturas ----------
 def tex_header():
     W,H=1400,800; im=Image.new('RGB',(W,H),GREEN); d=ImageDraw.Draw(im)
     for i,r in enumerate(range(900,100,-70)):
-        d.ellipse((W-520-r, H/2-r, W-520+r, H/2+r), outline=(0,92,0) if i%2 else (0,84,0), width=26)
+        d.ellipse((W-520-r, H/2-r, W-520+r, H/2+r), outline=(80,42,16) if i%2 else (70,36,14), width=26)
     logo=Image.open(A('assets/brand/cep-logo.png')).convert('RGBA'); logo.thumbnail((300,140)); im.paste(logo,(70,60),logo)
     f1=font(FONT,150,900); f2=font(FTXT,40,500)
     d.text((70,270),'VAI COM O QUE',font=f1,fill=CREAM); d.text((70,430),'VOCÊ LEVA.',font=f1,fill=YEL)
@@ -113,7 +113,7 @@ def bottle(sc, cx, y, cz, s=1.0):
     cyl(sc,'yel',cx,cz,y+0.19*s,y+0.205*s,0.036*s)
 
 MATS={
- 'green':{'c':(0,74,0),'r':.55},'green2':{'c':(0,110,0),'r':.5},'cream':{'c':(254,245,200),'r':.6},
+ 'green':{'c':(61,31,12),'r':.55},'green2':{'c':(92,50,20),'r':.5},'cream':{'c':(254,245,200),'r':.6},
  'yel':{'c':(255,210,31),'r':.35},'cap':{'c':(245,245,240),'r':.4},'grey':{'c':(170,172,168),'r':.5,'m':.4},
  'dark':{'c':(30,34,30),'r':.6},'white':{'c':(250,250,250),'r':.5},'orange':{'c':(239,63,15),'r':.5},
  'header':{'t':'header'},'cartela':{'t':'cartela'},'label':{'t':'label'},'id':{'t':'id'},'stopper':{'t':'stopper'},
