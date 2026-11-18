@@ -22,17 +22,28 @@
 <img class="bg-rings" src="assets/brand/rings.svg" alt="" aria-hidden="true">
 <div class="bg-grain" aria-hidden="true"></div>
 
-<header class="hud">
-  <a class="hud-logo" href="#/1" aria-label="Ir para o início">
-    <img src="assets/brand/cep-logo.png" alt="Cepêra" width="73" height="34">
-    <span class="hud-x">×</span>
-    <img class="lab" src="assets/brand/75lab-lime.png" alt="75 LAB" width="46" height="30"><img class="lab lab-g" src="assets/brand/75lab-green.png" alt="" aria-hidden="true" width="46" height="30">
-  </a>
-  <div class="hud-chapter" aria-live="polite"><b id="hudNum">00</b><span id="hudName">Abertura</span></div>
-</header>
 
 <main class="viewport" id="deck">
 <div class="stage" id="stage">
+<header class="mast">
+  <a class="mast-brand" href="#/1" aria-label="Ir para o início">
+    <img class="cep" src="assets/brand/cep-logo.png" alt="Cepêra" width="86" height="40">
+    <span class="x">×</span>
+    <img class="lab" src="assets/brand/75lab-lime.png" alt="75 LAB" width="34" height="22"><img class="lab lab-g" src="assets/brand/75lab-green.png" alt="" aria-hidden="true" width="34" height="22">
+  </a>
+  <span class="issue">Planejamento estratégico · Cepêra</span>
+  <div class="mr">
+    <span class="chap" aria-live="polite"><b id="hudNum">00</b> · <span id="hudName">Abertura</span></span>
+    <span class="counter" aria-live="polite"><b id="cNow">01</b><span>/<i id="cTot">00</i></span></span>
+    <span class="arrows">
+      <button class="nav-btn" id="btnPrev" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="nav-btn" id="btnNext" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </span>
+    <button class="menu-btn" id="btnIdx" aria-label="Abrir índice de capítulos (M)"><span class="bars"><i></i><i></i><i></i></span>Índice</button>
+    <button class="nav-btn fs" id="btnFs" aria-label="Tela cheia (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+  <div class="pbar" aria-hidden="true"><i class="progress"></i><span class="chap-ticks"></span></div>
+</header>
 
 <!-- =============================== ABERTURA + CAPA =============================== -->
 <section class="slide opening" data-ch="0" data-title="Abertura · Do prato à prova" data-opening data-orb="50,55,1.2,rgba(255,210,31,.16)">
@@ -221,8 +232,8 @@
     <div>
       <p class="lbl a up" style="--d:3">Posicionamento atual · out/2026</p>
       <p class="quote-xl a up mt16" style="--d:4">“Sabor que <span class="strike">vai com tudo</span>”</p>
-      <p class="quote-xl a up mt16" style="--d:6;font-size:44px;color:var(--yellow)">→ vai com a salada que você está comprando.</p>
-      <p class="quote-xl a up mt8" style="--d:7;font-size:44px;color:var(--yellow)">→ vai com o sanduíche que você vai preparar.</p>
+      <p class="quote-xl a up mt16" style="--d:6;font-size:28px;color:var(--yellow)">→ vai com a salada que você está comprando.</p>
+      <p class="quote-xl a up mt8" style="--d:7;font-size:28px;color:var(--yellow)">→ vai com o sanduíche que você vai preparar.</p>
       <p class="p a up mt32" style="--d:9;max-width:620px">Amplitude de portfólio só vira vantagem para o shopper quando ele identifica o que serve para a sua necessidade. Exemplos de desdobramento sujeitos à aprovação da marca.</p>
       <div class="row a up mt16" style="--d:10;gap:10px"><span class="tag ok">Confirmado · site oficial</span><span class="tag ask">Sem pesquisa de percepção disponível</span></div>
     </div>
@@ -601,7 +612,7 @@
 
 <section class="slide" data-ch="4" data-title="Veja no seu espaço · 3D e AR" data-orb="35,50,1.2,rgba(255,210,31,.16)" data-3d>
   <p class="kicker a up">04 · Veja no seu espaço</p>
-  <h2 class="h2 kt" style="font-size:56px">Antes de produzir, <em>a peça entra na loja pelo celular.</em></h2>
+  <h2 class="h2 kt">Antes de produzir, <em>a peça entra na loja pelo celular.</em></h2>
   <div class="ar">
     <div class="mv-wrap a scale" style="--d:2">
       <div class="mv-load">carregando modelo 3D…</div>
@@ -652,7 +663,7 @@
 
 <section class="slide" data-ch="4" data-title="Engenharia e vista explodida" data-orb="30,50,1.1,rgba(255,210,31,.14)">
   <p class="kicker a up">04 · Detalhes técnicos · vista explodida</p>
-  <h2 class="h2 kt" style="font-size:58px">Uma base comum, <em>comunicação que troca sem trocar a estrutura.</em></h2>
+  <h2 class="h2 kt">Uma base comum, <em>comunicação que troca sem trocar a estrutura.</em></h2>
   <div class="expl">
     <div class="expl-vis a scale" style="--d:1">
       <svg viewBox="0 70 720 540" aria-label="Vista explodida conceitual do módulo de ocasião">
@@ -789,7 +800,7 @@
 
 <section class="slide" data-ch="5" data-title="Um desvio, do campo ao painel" data-orb="70,40,1.2,rgba(255,231,176,.14)" data-demo>
   <p class="kicker lime-k a up">Plano de Rastreamento 75LAB · demonstração</p>
-  <h2 class="h2 kt" style="font-size:56px">A melhor prova: <em style="color:var(--lime)">um desvio detectado, corrigido e registrado.</em></h2>
+  <h2 class="h2 kt">A melhor prova: <em style="color:var(--lime)">um desvio detectado, corrigido e registrado.</em></h2>
   <div class="demo">
     <div class="phone a up" style="--d:2" aria-label="Simulação do aplicativo de campo">
       <div class="notch"></div>
@@ -1060,19 +1071,7 @@
 </main>
 
 <div class="wipe" aria-hidden="true"></div>
-<div class="progress" aria-hidden="true"></div>
-<div class="chap-ticks" aria-hidden="true"></div>
 
-<footer class="dock">
-  <div class="dock-l">75LAB × Cepêra · Planejamento estratégico</div>
-  <nav class="dock-r" aria-label="Navegação da apresentação">
-    <button id="btnIdx" aria-label="Abrir índice de capítulos (M)"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
-    <button id="btnPrev" aria-label="Tela anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <span class="counter" aria-live="polite"><b id="cNow">01</b> / <span id="cTot">00</span></span>
-    <button id="btnNext" aria-label="Próxima tela"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-    <button id="btnFs" aria-label="Tela cheia (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-  </nav>
-</footer>
 
 <div class="idx" id="idx" role="dialog" aria-modal="true" aria-label="Índice de capítulos">
   <button class="lb-btn idx-close" id="idxClose" aria-label="Fechar índice"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>

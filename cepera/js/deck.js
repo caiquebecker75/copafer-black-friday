@@ -115,7 +115,7 @@
     const ch = CH[s.dataset.ch] || CH[0];
     $('#hudNum').textContent = ch[0]; $('#hudName').textContent = ch[1];
     $('#cNow').textContent = pad(i + 1);
-    $('.progress').style.width = (i / (N - 1) * 100) + '%';
+    $('.progress').style.transform = 'scaleX(' + (i / (N - 1)) + ')';
     body.classList.toggle('on-yellow', s.dataset.tone === 'yellow' || (s.hasAttribute('data-opening') && s.classList.contains('done')));
     const o = (s.dataset.orb || '60,40,1,rgba(255,210,31,.16)').split(/,(?![^(]*\))/);
     glow.style.setProperty('--ox', o[0] + 'vw'); glow.style.setProperty('--oy', o[1] + 'vh');
@@ -311,7 +311,7 @@
   $('#btnFs').addEventListener('click', toggleFS);
 
   /* ---------- clique, roda e toque ---------- */
-  const INTERACTIVE = '[data-skip],a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
+  const INTERACTIVE = '[data-skip],.mast,a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
   $('#deck').addEventListener('click', e => {
     if (flow || e.target.closest(INTERACTIVE)) return;
     if (window.getSelection && String(getSelection()).length) return;
