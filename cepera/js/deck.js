@@ -381,13 +381,13 @@
   }
 
   /* ---------- fundo vivo: sementes de mostarda à deriva ---------- */
-  const cv = $('#bg'), cx2 = cv.getContext('2d');
+  const cv = $('#bg') || document.createElement('canvas'), cx2 = cv.getContext('2d');
   let W = 0, H = 0, parts = [], raf = 0;
   function sizeBG() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
     cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
-    const n = RM ? 0 : lite ? 24 : flow ? 28 : 64;
+    const n = 0; // sem partículas no fundo
     parts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: (0.6 + Math.random() * 2.2) * dpr, vx: (Math.random() - .5) * .12 * dpr, vy: (-.05 - Math.random() * .18) * dpr, a: .08 + Math.random() * .3, p: Math.random() * 6.28 }));
   }
   function drawBG(t) {
@@ -402,12 +402,11 @@
     }
     raf = requestAnimationFrame(drawBG);
   }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else if (!RM) raf = requestAnimationFrame(drawBG); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf);  });
 
   /* ---------- init ---------- */
   function init() {
     fit(); sizeBG();
-    if (!RM) raf = requestAnimationFrame(drawBG);
     const m = location.hash.match(/#\/(\d+)/);
     const start = m ? Math.max(0, Math.min(N - 1, +m[1] - 1)) : 0;
     if (flow) {
