@@ -317,14 +317,20 @@
     if (window.getSelection && String(getSelection()).length) return;
     (e.clientX < innerWidth * 0.28) ? prev() : next();
   });
-  let wheelAcc = 0, wheelLock = 0;
+  // roda do mouse / trackpad: um gesto = uma tela. O gesto termina quando a roda fica parada por 180 ms,
+  // então a inércia do trackpad e o "giro longo" não pulam várias telas nem rolam a página.
+  let wheelAcc = 0, wheelFired = false, wheelIdle = 0;
   addEventListener('wheel', e => {
-    if (flow || lb.classList.contains('open') || idx.classList.contains('open')) return;
+    if (lb.classList.contains('open') || idx.classList.contains('open')) return;
     if (e.target.closest && e.target.closest('model-viewer,.mv-wrap')) return;
+    if (flow) return;
     e.preventDefault();
-    const now = Date.now(); if (now < wheelLock) return;
-    wheelAcc += Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (Math.abs(wheelAcc) > 60) { wheelAcc > 0 ? next() : prev(); wheelAcc = 0; wheelLock = now + 900; }
+    clearTimeout(wheelIdle);
+    wheelIdle = setTimeout(() => { wheelAcc = 0; wheelFired = false; }, 180);
+    if (wheelFired) return;
+    const d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    wheelAcc += e.deltaMode === 1 ? d * 30 : d;
+    if (Math.abs(wheelAcc) >= 40) { wheelFired = true; wheelAcc > 0 ? next() : prev(); }
   }, { passive: false });
   let tx = 0, ty = 0, tt = 0;
   addEventListener('touchstart', e => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; tt = Date.now(); }, { passive: true });

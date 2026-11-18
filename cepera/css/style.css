@@ -901,7 +901,9 @@ body.flow .hmw-box .hmw{font-size:28px}
 /* =========================================================
    MODO MOBILE / TABLET RETRATO: rolagem vertical, layout reorganizado
    ========================================================= */
+html:has(body.flow){scroll-snap-type:y proximity}
 body.flow{overflow:auto;overflow-x:hidden}
+body.flow .slide{scroll-snap-align:start}
 body.flow .viewport{position:relative;display:block;overflow:visible}
 body.flow .stage{width:100%;height:auto;transform:none!important}
 body.flow .slide{position:relative;visibility:visible;opacity:1;animation:none!important;min-height:100svh;padding:96px 18px 64px;overflow:hidden;border-bottom:1px solid var(--line)}
@@ -1075,3 +1077,31 @@ body.flow .mx-p,body.flow .stk,body.flow .eco-s,body.flow .bn,body.flow .ben-cor
 }
 body.lite .bg-grain,body.lite .bg-rings{display:none}
 body.lite .slide.is-active,body.lite .slide.is-leaving{filter:none!important}
+
+/* telas combinadas */
+.dpa.compact{margin-top:26px}
+.dpa.compact .blk{padding:18px 20px}
+.dpa.compact .blk p{font-size:16px;margin-top:6px}
+.pillars.compact{height:380px;margin-top:24px}
+.pillars.compact .pl{--h:250px}
+.pillars.compact .pl > .n{font-size:64px}
+.pillars.compact .col-b{padding:16px 18px}
+.pillars.compact h5{font-size:24px}
+.pillars.compact p{font-size:13.5px}
+.pillars.compact .dec{font-size:13px;margin-top:10px;padding-top:8px}
+.synnext{display:grid;grid-template-columns:1.45fr 1fr;gap:50px;margin-top:28px}
+.syn.dark{grid-template-columns:1fr 1fr;margin-top:0;border-top:1px solid var(--line)}
+.syn.dark .sy{padding:16px 26px 16px 0;border-bottom:1px solid var(--line)}
+.syn.dark .sy small{color:var(--yellow)}
+.syn.dark .sy p{color:var(--muted);font-size:15px;margin-top:6px}
+.syn.dark .sy.k p{color:var(--ink);font-size:24px}
+.synnext .agenda-q li{font-size:15px;padding:8px 0}
+.synnext .agenda-q li .ic{width:22px;height:22px}
+.synnext .chips span{font-size:12px}
+.refs-mini{margin-top:30px;padding-top:14px;border-top:1px solid var(--line)}
+.refs.mini{columns:3;column-gap:30px;margin-top:8px}
+.refs.mini li{font-size:10.5px;padding:3px 0;line-height:1.3}
+.refs.mini a{font-size:9px}
+.slide .slogan{font-size:84px}
+.inst{margin-top:26px}
+body.flow .synnext{grid-template-columns:1fr} body.flow .syn.dark{grid-template-columns:1fr} body.flow .refs.mini{columns:1}
