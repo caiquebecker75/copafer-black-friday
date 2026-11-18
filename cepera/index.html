@@ -35,34 +35,30 @@
 <main class="viewport" id="deck">
 <div class="stage" id="stage">
 
-<!-- =============================== ABERTURA =============================== -->
-<section class="slide" data-ch="0" data-title="Abertura" data-orb="50,55,1.2,rgba(255,210,31,.16)">
+<!-- =============================== ABERTURA + CAPA =============================== -->
+<section class="slide opening" data-ch="0" data-title="Abertura · Do prato à prova" data-opening data-orb="50,55,1.2,rgba(255,210,31,.16)">
   <p class="open-claim">CEPÊRA · “SABOR QUE VAI COM TUDO”</p>
   <div class="seeds" aria-hidden="true"></div>
-  <div class="open-stage" aria-label="Sabor que vai com tudo. Mas, na gôndola, o shopper tem segundos para entender: vai com o quê?">
+  <div class="open-stage" aria-hidden="true">
     <div class="open-line open-l1">Sabor que<br>vai com tudo.</div>
     <div class="open-line open-l2">Mas, diante da gôndola, o shopper tem segundos<br>para responder uma pergunta simples:</div>
     <div class="open-line open-l3">Vai com<br>o quê?</div>
   </div>
-  <img class="open-bottle" src="assets/images/cep-mostarda-com-mel-400g-sabores-cepera-1-768x1024.webp" alt="" aria-hidden="true">
-  <p class="open-hint">→ ESPAÇO OU SETA PARA CONTINUAR</p>
-  <button class="open-skip" data-go="2">pular abertura</button>
-</section>
-
-<!-- CAPA -->
-<section class="slide t-yellow" data-ch="0" data-title="Do prato à prova" data-tone="yellow" data-orb="80,30,1,rgba(239,63,15,.0)">
-  <img class="cover-rings" src="assets/brand/rings-green.svg" alt="" aria-hidden="true">
-  <div class="zoomwrap cover-bw a right" style="position:absolute;right:70px;top:100px;--d:4;overflow:visible;border-radius:0">
-    <img class="cover-bottle zoom" style="position:relative;right:auto;top:auto;height:700px" src="assets/images/cep-mostarda-com-mel-400g-sabores-cepera-1-768x1024.webp" alt="Embalagem Mostarda com Mel 400 g, Sabores Cepêra" data-caption="Mostarda com Mel 400 g · produto demonstrador proposto (fonte: cepera.com.br)">
+  <div class="oc">
+    <div class="oc-bg" aria-hidden="true"><img class="cover-rings" src="assets/brand/rings-green.svg" alt=""></div>
+    <div class="oc-copy">
+      <p class="kicker oc-i" style="--o:0">Planejamento estratégico · 75LAB × Cepêra</p>
+      <h1 class="cover-title oc-i" style="--o:1">Do prato<br><span class="ol">à prova.</span></h1>
+      <div class="cover-words oc-i" style="--o:3"><span>Ocasião</span><span>Módulo</span><span>Campo</span><span>Dado</span></div>
+      <div class="cover-meta oc-i" style="--o:4">
+        <div>Produto demonstrador<b>Mostarda com Mel 400 g</b></div>
+        <div>Data<b>17 de novembro de 2026</b></div>
+        <div>Status<b>Diagnóstico inicial para validação</b></div>
+      </div>
+    </div>
+    <div class="oc-bottle oc-i" style="--o:2"><img class="zoom cover-bottle" src="assets/images/cep-mostarda-com-mel-400g-sabores-cepera-1-768x1024.webp" alt="Embalagem Mostarda com Mel 400 g, Sabores Cepêra" data-caption="Mostarda com Mel 400 g · produto demonstrador proposto (fonte: cepera.com.br)"></div>
   </div>
-  <p class="kicker a up">Planejamento estratégico · 75LAB × Cepêra</p>
-  <h1 class="cover-title kt">Do prato<br><span class="ol">à prova.</span></h1>
-  <div class="cover-words a up" style="--d:6"><span>Ocasião</span><span>Módulo</span><span>Campo</span><span>Dado</span></div>
-  <div class="cover-meta a up" style="--d:8">
-    <div>Produto demonstrador<b>Mostarda com Mel 400 g</b></div>
-    <div>Data<b>17 de novembro de 2026</b></div>
-    <div>Status<b>Diagnóstico inicial para validação</b></div>
-  </div>
+  <button class="open-skip" data-skip>pular abertura</button>
 </section>
 
 <!-- AGENDA -->
@@ -83,16 +79,7 @@
 </section>
 
 <!-- =============================== 01 LEITURA =============================== -->
-<section class="slide t-green" data-ch="1" data-title="Capítulo 01 · Leitura" data-chapter-open data-orb="70,50,1.3,rgba(255,210,31,.18)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker a up">Capítulo 01</p>
-    <div class="num a blur" style="font-size:300px;color:var(--yellow);--d:1">01</div>
-    <h2 class="h1 kt" style="margin-top:10px">Leitura<br>do desafio</h2>
-    <p class="lead a up mt24" style="--d:8">Antes de propor peças, decupamos o pedido: o que foi dito, o que está por trás e o que ainda precisa ser descoberto.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="1" data-title="Dois desafios" data-orb="50,45,1,rgba(255,210,31,.14)">
+<section class="slide" data-ch="1" data-chapter-open data-title="Dois desafios" data-orb="50,45,1,rgba(255,210,31,.14)">
   <p class="kicker a up">01 · Leitura do desafio</p>
   <h2 class="h2 kt">Existem dois desafios neste projeto — <em>e só um deles está escrito no briefing.</em></h2>
   <div class="duo">
@@ -215,16 +202,7 @@
 </section>
 
 <!-- =============================== 02 CONTEXTO =============================== -->
-<section class="slide t-green" data-ch="2" data-title="Capítulo 02 · Contexto" data-chapter-open data-orb="30,50,1.3,rgba(255,210,31,.18)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker a up">Capítulo 02</p>
-    <div class="num a blur" style="font-size:300px;color:var(--yellow);--d:1">02</div>
-    <h2 class="h1 kt" style="margin-top:10px">Marca, mercado<br>e shopper</h2>
-    <p class="lead a up mt24" style="--d:8">Onde a Cepêra está, onde a categoria acontece e como o shopper decide.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="2" data-title="Contexto de marca" data-orb="25,50,1.1,rgba(0,130,0,.35)">
+<section class="slide" data-ch="2" data-chapter-open data-title="Contexto de marca" data-orb="25,50,1.1,rgba(0,130,0,.35)">
   <p class="kicker a up">02 · Contexto de marca</p>
   <h2 class="h2 kt">A Cepêra já diz que vai com tudo. <em>No PDV, o shopper precisa ver com o quê.</em></h2>
   <div class="brand-wrap">
@@ -501,16 +479,7 @@
 </section>
 
 <!-- =============================== 03 VIRADA =============================== -->
-<section class="slide t-green" data-ch="3" data-title="Capítulo 03 · Virada" data-chapter-open data-orb="70,40,1.3,rgba(255,210,31,.2)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker a up">Capítulo 03</p>
-    <div class="num a blur" style="font-size:300px;color:var(--yellow);--d:1">03</div>
-    <h2 class="h1 kt" style="margin-top:10px">Insight, tensão<br>e oportunidade</h2>
-    <p class="lead a up mt24" style="--d:8">O momento em que o pedido deixa de ser uma lista de peças e passa a ser um problema de negócio.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="3" data-title="Principais insights" data-orb="45,70,1.2,rgba(255,210,31,.18)">
+<section class="slide" data-ch="3" data-chapter-open data-title="Principais insights" data-orb="45,70,1.2,rgba(255,210,31,.18)">
   <p class="kicker a up">03 · Principais insights</p>
   <h2 class="h2 kt">Sete insights. <em>Três deles mudam o projeto.</em></h2>
   <div class="ins">
@@ -525,39 +494,33 @@
   <p class="src nb a up" style="--d:10">Proposições estratégicas derivadas da pesquisa, sujeitas à validação. Insights 2, 3 e 5 conectam a marca à compra e a criação à entrega operacional.</p>
 </section>
 
-<section class="slide" data-ch="3" data-title="Tensão central" data-orb="50,50,1.2,rgba(239,63,15,.16)">
-  <p class="kicker a up">03 · Tensão central</p>
-  <h2 class="h2 kt">Desejo e realidade puxam em direções opostas <em>em três pontos.</em></h2>
-  <div class="tension">
+<section class="slide" data-ch="3" data-title="Tensão e oportunidade" data-orb="50,50,1.2,rgba(239,63,15,.14)">
+  <p class="kicker a up">03 · Tensão central e oportunidade</p>
+  <h2 class="h2 kt">A marca quer estar em mais ocasiões, <em>mas a promessa precisa caber no espaço, na decisão e na rotina de cada loja.</em></h2>
+  <div class="tens-grid">
+    <div class="tension">
     <div class="tn a up" style="--d:2"><h5>Escolha</h5><div class="side want" style="--tx:-6px"><small>Desejo</small>Variar o sabor com facilidade.</div><div class="side real" style="--tx:6px"><small>Realidade a investigar</small>Aplicações podem não ficar claras na exposição.</div></div>
     <div class="tn a up" style="--d:4"><h5>Escala</h5><div class="side want" style="--tx:-6px;--d:1"><small>Desejo</small>Presença consistente em muitas lojas.</div><div class="side real" style="--tx:6px;--d:1"><small>Realidade a investigar</small>Espaços, mix e operações variam.</div></div>
     <div class="tn a up" style="--d:6"><h5>Controle</h5><div class="side want" style="--tx:-6px;--d:2"><small>Desejo</small>Saber se o investimento está funcionando.</div><div class="side real" style="--tx:6px;--d:2"><small>Realidade a investigar</small>Entrega, instalação e uso nem sempre têm evidências conectadas.</div></div>
   </div>
-  <p class="tension-main a up" style="--d:9">A marca quer estar em mais ocasiões, mas essa promessa precisa caber <em>no espaço, na decisão do shopper e na rotina de cada loja.</em></p>
-</section>
-
-<section class="slide t-yellow" data-ch="3" data-title="Oportunidade" data-tone="yellow" data-orb="50,50,1,rgba(0,0,0,0)">
-  <p class="kicker a up">03 · Oportunidade · Como podemos…</p>
-  <p class="hmw kt">Como podemos fazer a Mostarda com Mel entrar <span class="hl">numa refeição que o shopper já pretende preparar</span>, com uma exposição que caiba na loja e uma operação que permita <span class="hl">verificar e melhorar</span> sua execução?</p>
-  <div class="opp-links">
+  
+    <div class="hmw-box a up" style="--d:8">
+      <p class="lbl">Como podemos…</p>
+      <p class="hmw">Como podemos fazer a Mostarda com Mel entrar <span class="hl">numa refeição que o shopper já pretende preparar</span>, com uma exposição que caiba na loja e uma operação que permita <span class="hl">verificar e melhorar</span> sua execução?</p>
+      <div class="opp-links">
     <div class="a up" style="--d:8"><b>Problema</b><span>Versatilidade não necessariamente percebida no momento da escolha.</span></div>
     <div class="a up" style="--d:9"><b>Comportamento</b><span>Necessidade de resolver refeições.</span></div>
     <div class="a up" style="--d:10"><b>Negócio</b><span>Testar vendas e eficiência de execução.</span></div>
     <div class="a up" style="--d:11"><b>Marca</b><span>Aplicação prática de “Vai com Tudo”.</span></div>
   </div>
-</section>
-
-<!-- =============================== 04 SOLUÇÃO =============================== -->
-<section class="slide t-green" data-ch="4" data-title="Capítulo 04 · Solução" data-chapter-open data-orb="30,40,1.3,rgba(255,210,31,.2)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker a up">Capítulo 04</p>
-    <div class="num a blur" style="font-size:300px;color:var(--yellow);--d:1">04</div>
-    <h2 class="h1 kt" style="margin-top:10px">Estratégia<br>e solução</h2>
-    <p class="lead a up mt24" style="--d:8">Do princípio estratégico ao conceito, ao sistema físico e ao dado de campo.</p>
+    </div>
   </div>
 </section>
 
-<section class="slide" data-ch="4" data-title="Estratégia" data-orb="80,30,1.1,rgba(255,210,31,.18)">
+
+
+<!-- =============================== 04 SOLUÇÃO =============================== -->
+<section class="slide" data-ch="4" data-chapter-open data-title="Estratégia" data-orb="80,30,1.1,rgba(255,210,31,.18)">
   <p class="kicker a up">04 · Estratégia</p>
   <h2 class="h2 kt">De vitrine de competências <em>para prova de um ciclo comercial completo.</em></h2>
   <div class="dpa">
@@ -623,7 +586,7 @@
 
 <section class="slide" data-ch="4" data-title="Ecossistema de soluções" data-orb="50,50,1.3,rgba(255,210,31,.2)">
   <p class="kicker a up">04 · Ecossistema de soluções</p>
-  <h2 class="h2 kt">Um herói, sete apoios e três escalas: <em>um sistema, não uma peça.</em></h2>
+  <h2 class="h2 kt">Um herói e sete apoios: <em>um sistema, não uma peça.</em></h2>
   <div class="eco">
     <svg viewBox="0 0 1392 640" aria-hidden="true">
       <ellipse cx="696" cy="330" rx="520" ry="255" fill="none" stroke="rgba(254,245,168,.08)"/>
@@ -640,7 +603,7 @@
     <div class="eco-s a up" style="left:172px;top:360px;--d:9"><i class="ic" data-i="doc"></i><b>Guia de montagem</b><small>e abastecimento: reduzir erros</small></div>
     <div class="eco-s a up" style="left:292px;top:140px;--d:10"><i class="ic" data-i="check"></i><b>Checklist de campo</b><small>verificar e abrir correções</small></div>
     <span class="eco-tag a up" style="left:20px;top:10px;--d:3">Support · decisão e manutenção</span>
-    <span class="eco-tag a up" style="right:20px;bottom:0;--d:11">Scale · A Experiência · B Presença · C Essencial →</span>
+    <span class="eco-tag a up" style="right:20px;top:10px;--d:11">Scale · A Experiência · B Presença · C Essencial →</span>
   </div>
 </section>
 
@@ -756,15 +719,7 @@
 </section>
 
 <!-- =============================== RASTREAMENTO =============================== -->
-<section class="slide t-green" data-ch="5" data-title="Plano de Rastreamento 75LAB" data-chapter-open data-orb="60,50,1.3,rgba(191,238,77,.2)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker lime-k a up">Plano de Rastreamento 75LAB</p>
-    <h2 class="h1 kt" style="font-size:180px">Da peça<br><em style="color:var(--lime)">ao dado.</em></h2>
-    <p class="lead a up mt24" style="--d:8">Uma visão de PDV mensurável e rastreável — sem prometer tecnologia que não esteja disponível.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="5" data-title="Fluxo do rastreamento" data-orb="50,40,1.2,rgba(191,238,77,.14)" data-flow>
+<section class="slide" data-ch="5" data-chapter-open data-title="Fluxo do rastreamento" data-orb="50,40,1.2,rgba(191,238,77,.14)" data-flow>
   <p class="kicker lime-k a up">Plano de Rastreamento 75LAB · fluxo</p>
   <h2 class="h2 kt">Cada ativo de PDV gera um rastro. <em style="color:var(--lime)">O valor está em transformá-lo em decisão.</em></h2>
   <div class="trk">
@@ -886,16 +841,7 @@
 </section>
 
 <!-- =============================== 05 EXECUÇÃO =============================== -->
-<section class="slide t-green" data-ch="6" data-title="Capítulo 05 · Execução" data-chapter-open data-orb="40,50,1.3,rgba(255,210,31,.2)">
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)">
-    <p class="kicker a up">Capítulo 05</p>
-    <div class="num a blur" style="font-size:300px;color:var(--yellow);--d:1">05</div>
-    <h2 class="h1 kt" style="margin-top:10px">Execução<br>e próximos passos</h2>
-    <p class="lead a up mt24" style="--d:8">Benefícios, entregáveis, indicadores, riscos, cronograma e a decisão que pedimos hoje.</p>
-  </div>
-</section>
-
-<section class="slide" data-ch="6" data-title="Benefícios conectados" data-orb="50,50,1.3,rgba(255,210,31,.16)">
+<section class="slide" data-ch="6" data-chapter-open data-title="Benefícios conectados" data-orb="50,50,1.3,rgba(255,210,31,.16)">
   <p class="kicker a up">05 · Benefícios</p>
   <h2 class="h2 kt">Cada benefício alimenta o próximo: <em>do prato do shopper à decisão da Cepêra.</em></h2>
   <div class="ben">

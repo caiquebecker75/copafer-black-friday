@@ -91,7 +91,8 @@
   }
 
   /* ---------- modo: palco (desktop) × rolagem (celular/tablet retrato) ---------- */
-  const isFlow = () => innerWidth < 900 || (innerHeight > innerWidth && innerWidth < 1100);
+  // rolagem só em telas em pé (celular/tablet em retrato) ou muito estreitas; janelas deitadas usam o palco escalado
+  const isFlow = () => innerWidth < 640 || (innerHeight > innerWidth * 1.05 && innerWidth < 1100);
   let flow = isFlow();
   body.classList.toggle('flow', flow);
 
@@ -115,7 +116,7 @@
     $('#hudNum').textContent = ch[0]; $('#hudName').textContent = ch[1];
     $('#cNow').textContent = pad(i + 1);
     $('.progress').style.width = (i / (N - 1) * 100) + '%';
-    body.classList.toggle('on-yellow', s.dataset.tone === 'yellow');
+    body.classList.toggle('on-yellow', s.dataset.tone === 'yellow' || (s.hasAttribute('data-opening') && s.classList.contains('done')));
     const o = (s.dataset.orb || '60,40,1,rgba(255,210,31,.16)').split(/,(?![^(]*\))/);
     glow.style.setProperty('--ox', o[0] + 'vw'); glow.style.setProperty('--oy', o[1] + 'vh');
     glow.style.setProperty('--os', o[2]); glow.style.setProperty('--oc', o[3]);
@@ -151,7 +152,15 @@
     history.replaceState(null, '', '#/' + (n + 1));
     if (Math.abs(n - idx3d) <= 2) loadMV();
   }
-  const next = () => go(cur + 1), prev = () => go(cur - 1);
+  const opening = $('[data-opening]');
+  let introTimer = 0;
+  function finishIntro() {
+    if (!opening) return;
+    clearTimeout(introTimer); opening.classList.add('done');
+    if (slides[cur] === opening) body.classList.add('on-yellow');
+  }
+  const introRunning = () => opening && slides[cur] === opening && !opening.classList.contains('done');
+  const next = () => introRunning() ? finishIntro() : go(cur + 1), prev = () => go(cur - 1);
 
   /* ---------- ganchos por tela (loops que só rodam quando visíveis) ---------- */
   const timers = new Map();
@@ -184,6 +193,11 @@
       }, 900));
     }
     if (s.hasAttribute('data-3d') && on) { loadMV(); setupQR(); }
+    if (s.hasAttribute('data-opening')) {
+      clearTimeout(introTimer);
+      if (on && (RM || flow)) finishIntro();
+      else if (on && !s.classList.contains('done')) introTimer = setTimeout(finishIntro, 8300);
+    }
   }
 
   /* ---------- 3D / AR (carregado sob demanda) ---------- */
@@ -239,6 +253,7 @@
   $('#idxClose').addEventListener('click', closeIdx);
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-go]');
+    if (e.target.closest('[data-skip]')) { e.stopPropagation(); finishIntro(); return; }
     if (g) { e.preventDefault(); closeIdx(); go(+g.dataset.go - 1); return; }
     const gc = e.target.closest('[data-go-ch]');
     if (gc) { const i = slides.findIndex(s => s.dataset.ch === gc.dataset.goCh); if (i >= 0) go(i); }
@@ -296,7 +311,7 @@
   $('#btnFs').addEventListener('click', toggleFS);
 
   /* ---------- clique, roda e toque ---------- */
-  const INTERACTIVE = 'a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
+  const INTERACTIVE = '[data-skip],a,button,input,img.zoom,model-viewer,.mv-wrap,.rk,.ag-step,.orb-n,[data-go],.hud,.dock,.idx,.lb';
   $('#deck').addEventListener('click', e => {
     if (flow || e.target.closest(INTERACTIVE)) return;
     if (window.getSelection && String(getSelection()).length) return;
