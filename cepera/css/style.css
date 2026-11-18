@@ -49,6 +49,9 @@ a{color:inherit}
 .hud-chapter b{color:var(--yellow);font-weight:400}
 .hud-chapter span{transition:opacity .4s}
 body.on-yellow .hud{background:none}
+.hud-logo .lab-g{display:none}
+body.on-yellow:not(.flow) .hud-logo .lab{display:none}
+body.on-yellow:not(.flow) .hud-logo .lab-g{display:block}
 body.on-yellow .hud-chapter{color:rgba(0,74,0,.7)} body.on-yellow .hud-chapter b{color:var(--green)}
 body.on-yellow .hud-x{color:rgba(0,74,0,.55)}
 
@@ -281,7 +284,7 @@ body.on-yellow .cur{border-color:var(--green)} body.on-yellow .cur-dot{backgroun
 @keyframes seed{0%{opacity:0;transform:scale(0)}20%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}}
 
 /* S02 capa */
-.cover-title{font-family:var(--f-disp);font-weight:900;font-size:212px;line-height:.8;text-transform:uppercase;color:var(--green);position:relative;z-index:2}
+.cover-title{font-family:var(--f-disp);font-weight:900;font-size:200px;line-height:.92;text-transform:uppercase;color:var(--green);position:relative;z-index:2}
 .cover-title .ol{-webkit-text-stroke:3px var(--green);color:transparent}
 .cover-bottle{position:absolute;right:120px;top:90px;height:760px;z-index:1;filter:drop-shadow(0 50px 50px rgba(74,40,22,.35));animation:float 6s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(-2deg)}}
