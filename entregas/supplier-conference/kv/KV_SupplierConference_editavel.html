@@ -1,0 +1,136 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:transparent}
+#c{position:relative;overflow:hidden}
+svg{position:absolute;inset:0}
+</style></head><body>
+<div id="c"></div>
+<script>
+const P=new URLSearchParams(location.search);
+const W=+P.get('w')||3840,H=+P.get('h')||2160,YEAR=P.get('year')||'2026';
+const NOLOGO=P.get('nologo')==='1';
+const c=document.getElementById('c');c.style.width=W+'px';c.style.height=H+'px';
+const ns='http://www.w3.org/2000/svg';
+const LO=P.get('logoonly')==='1';
+let s=`<svg xmlns="${ns}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#16395f"/><stop offset=".5" stop-color="#1a4370"/><stop offset="1" stop-color="#173d66"/>
+ </linearGradient>
+ <radialGradient id="glow" cx=".5" cy=".38" r=".55">
+  <stop offset="0" stop-color="#245488" stop-opacity=".55"/><stop offset="1" stop-color="#245488" stop-opacity="0"/>
+ </radialGradient>
+ <linearGradient id="fadeTop" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="1"/>
+ </linearGradient>
+ <mask id="archMask"><rect width="${W}" height="${H}" fill="url(#fadeTop)"/></mask>
+ <linearGradient id="waveFade" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".35" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity=".5"/>
+ </linearGradient>
+ <mask id="waveMask"><rect width="${W}" height="${H}" fill="url(#waveFade)"/></mask>
+</defs>
+${LO?"":`<rect width="${W}" height="${H}" fill="url(#bg)"/><rect width="${W}" height="${H}" fill="url(#glow)"/>`}`;
+
+// --- wave mesh (top) ---
+let waves='';
+const u=Math.min(W,H)/1000;
+for(let i=0;i<46;i++){
+  let d='';
+  for(let x=-50;x<=W+50;x+=W/120){
+    const t=x/W;
+    const y=H*(0.02+i*0.0085)+Math.sin(t*5.2+i*0.11)*H*0.05*(0.5+t)+Math.sin(t*11+i*0.07)*H*0.012;
+    d+=(d?'L':'M')+x.toFixed(1)+','+y.toFixed(1);
+  }
+  waves+=`<path d="${d}" fill="none" stroke="#7fb4e6" stroke-opacity="${(0.10+0.06*Math.sin(i*0.4)).toFixed(3)}" stroke-width="${(1.3*u).toFixed(2)}"/>`;
+}
+for(let j=0;j<70;j++){
+  let d='';const x0=W*(j/70);
+  for(let y=0;y<=H*0.55;y+=H/80){
+    const x=x0+Math.sin(y/H*6+j*0.2)*W*0.02+ (y/H)*W*0.08;
+    d+=(d?'L':'M')+x.toFixed(1)+','+y.toFixed(1);
+  }
+  waves+=`<path d="${d}" fill="none" stroke="#7fb4e6" stroke-opacity=".06" stroke-width="${(1.1*u).toFixed(2)}"/>`;
+}
+if(!LO) s+=`<g mask="url(#waveMask)">${waves}</g>`;
+
+// --- architecture (glass facade, low angle) bottom ---
+let arch='';
+// vanishing point above right
+const vx=W*0.72,vy=-H*0.9;
+// facade panels: perspective grid on a tilted plane
+const cols=16,rows=9;
+function pt(a,b){ // a: 0..1 across, b: 0..1 up from bottom
+  const bx=W*(-0.05+a*1.0), by=H*1.05;
+  const k=0.42+b*0.0; // fraction toward vanishing point
+  const f=b*0.55;
+  return [bx+(vx-bx)*f, by+(vy-by)*f*0.62];
+}
+for(let i=0;i<cols;i++)for(let j=0;j<rows;j++){
+  const p1=pt(i/cols,j/rows),p2=pt((i+1)/cols,j/rows),p3=pt((i+1)/cols,(j+1)/rows),p4=pt(i/cols,(j+1)/rows);
+  const r=Math.abs(Math.sin(i*12.9898+j*78.233)*43758.5453)%1;
+  const op=(0.02+r*0.08).toFixed(3);
+  const col=r>0.55?'#3b6fa3':'#0f2f52';
+  arch+=`<polygon points="${p1} ${p2} ${p3} ${p4}" fill="${col}" fill-opacity="${op}" stroke="#5f93c7" stroke-opacity=".16" stroke-width="${(2*u).toFixed(2)}"/>`;
+}
+// strong mullions
+for(let i=0;i<=cols;i+=2){const a=pt(i/cols,0),b=pt(i/cols,1);arch+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#0c2948" stroke-opacity=".35" stroke-width="${(6*u).toFixed(1)}"/>`}
+// right side structure: horizontal slats
+for(let k=0;k<7;k++){
+  const y=H*(0.72+k*0.045);
+  arch+=`<line x1="${W*0.80}" y1="${y+H*0.03}" x2="${W*1.02}" y2="${y-H*0.02}" stroke="#8fb9e2" stroke-opacity=".14" stroke-width="${(5*u).toFixed(1)}"/>`;
+}
+// diagonal beam
+arch+=`<polygon points="${W*0.50},${H*0.86} ${W*1.02},${H*0.60} ${W*1.02},${H*0.635} ${W*0.50},${H*0.875}" fill="#9cc3ea" fill-opacity=".10"/>`;
+// big angled triangles (reflections)
+arch+=`<polygon points="${W*0.02},${H*0.62} ${W*0.30},${H*0.55} ${W*0.12},${H*0.95}" fill="#4b7fb3" fill-opacity=".07"/>`;
+arch+=`<polygon points="${W*0.42},${H*0.70} ${W*0.62},${H*0.66} ${W*0.48},${H*0.98}" fill="#4b7fb3" fill-opacity=".06"/>`;
+if(!LO) s+=`<filter id="soft"><feGaussianBlur stdDeviation="${2*u}"/></filter><g mask="url(#archMask)" filter="url(#soft)" opacity=".75">${arch}</g>`;
+// vignette
+if(!LO) s+=`<radialGradient id="vig" cx=".5" cy=".45" r=".8"><stop offset=".6" stop-color="#0d2a4a" stop-opacity="0"/><stop offset="1" stop-color="#0d2a4a" stop-opacity=".45"/></radialGradient><rect width="${W}" height="${H}" fill="url(#vig)"/>`;
+
+// --- logo lockup (designed in a 1040x720 space) ---
+if(!NOLOGO){
+const SC=+P.get('sc')||1;
+const L=H*0.62/720*SC; // lockup scale
+const lx=W*0.5-520*L+ (+P.get('dx')||0)*W, ly=H*0.5-370*L;
+s+=`<g transform="translate(${lx},${ly}) scale(${L})">
+ <g id="sym">
+  <defs>
+   <mask id="cres" maskUnits="userSpaceOnUse" x="0" y="0" width="1040" height="720"><rect width="1040" height="720" fill="#000"/>
+     <ellipse cx="420" cy="258" rx="105" ry="118" fill="#fff"/>
+     <ellipse cx="380" cy="228" rx="84" ry="88" fill="#000"/></mask>
+   <mask id="cyr" maskUnits="userSpaceOnUse" x="0" y="0" width="1040" height="720"><rect width="1040" height="720" fill="#000"/>
+     <ellipse cx="380" cy="228" rx="84" ry="88" fill="#fff"/>
+     <ellipse cx="410" cy="250" rx="60" ry="58" fill="#000"/>
+     <polygon points="300,340 500,140 700,700 0,700" fill="#000"/></mask>
+  </defs>
+  <circle cx="150" cy="128" r="36" fill="#fff"/>
+  <circle cx="406" cy="74" r="35" fill="#fff"/>
+  <rect width="1040" height="720" fill="#27a2df" mask="url(#cyr)"/>
+  <path d="M118,302 C168,325 228,302 268,262 C290,238 305,224 324,212"
+        fill="none" stroke="#27a2df" stroke-width="44" stroke-linecap="round"/>
+  <rect width="1040" height="720" fill="#fff" mask="url(#cres)"/>
+  <path d="M116,306 C70,272 86,192 160,196 C228,200 268,262 312,300 C335,322 362,338 396,342"
+        fill="none" stroke="#fff" stroke-width="56" stroke-linecap="round"/>
+ </g>
+ <g font-family="Nunito, sans-serif">
+  <text x="25" y="440" font-size="45" font-weight="600" fill="#fff" textLength="310" lengthAdjust="spacingAndGlyphs">Whirlpool LAR</text>
+  <text x="28" y="535" font-size="94" font-weight="900" fill="#fff" textLength="527" lengthAdjust="spacingAndGlyphs">SUPPLIER</text>
+  <text x="38" y="615" font-size="79" font-weight="300" fill="#27a2df" textLength="517" lengthAdjust="spacingAndGlyphs">CONFERENCE</text>
+  <text x="555" y="675" font-size="64" font-weight="800" fill="#fff" text-anchor="end">${YEAR}</text>
+  <rect x="583" y="404" width="3.5" height="276" fill="#27a2df"/>
+  <g font-size="50" font-weight="300" fill="#27a2df">
+   <text x="614" y="495">Shaping</text>
+   <text x="614" y="555" textLength="386" lengthAdjust="spacingAndGlyphs">Competitiveness,</text>
+   <text x="614" y="615">Evolving</text>
+   <text x="614" y="675">To Win</text>
+  </g>
+ </g>
+</g>`;
+}
+s+='</svg>';
+c.innerHTML=s;
+document.fonts.ready.then(()=>{document.body.dataset.ready=1;});
+</script></body></html>
